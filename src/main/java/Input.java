@@ -18,10 +18,13 @@ import java.util.Date;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_NUMERIC;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_STRING;
 
-public class Input extends Main {
-    public boolean readFromExcel(String file, String sheetName) throws IOException {
+public class Input extends SheetSelector {
+    String baseCuboid[][];
+    int r, c;
+    String dimensions[];
+    public boolean readFromExcel(String file, int sheetNum) throws IOException {
         XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(file));
-        XSSFSheet sheet = workbook.getSheet(sheetName);
+        XSSFSheet sheet = workbook.getSheetAt(sheetNum);
         r = sheet.getPhysicalNumberOfRows();
         c = sheet.getRow(0).getPhysicalNumberOfCells();
 
