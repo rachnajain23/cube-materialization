@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="https://www.example.org/starSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns2="https://www.example.org/dimension" xmlns:ns1="https://www.example.org/dimensionalAttribute" xmlns:ns3="https://www.example.org/fact">
+
+  <xs:import namespace="https://www.example.org/dimensionalAttribute" schemaLocation="dimensionalAttribute.xsd"/>
+
+  <xs:import namespace="https://www.example.org/dimension" schemaLocation="dimension.xsd"/>
+
+  <xs:import namespace="https://www.example.org/fact" schemaLocation="fact.xsd"/>
+
+  <xs:complexType name="starSchema">
+    <xs:sequence>
+      <xs:element name="dimension" type="ns2:dimension" minOccurs="0"/>
+      <xs:element name="fact" type="ns3:fact" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:long" use="required"/>
+  </xs:complexType>
+</xs:schema>
+

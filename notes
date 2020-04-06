@@ -3,3 +3,9 @@ lattice of cuboid reference :
 
 xml file creation:
     https://examples.javacodegeeks.com/core-java/xml/parsers/documentbuilderfactory/create-xml-file-in-java-using-dom-parser-example/
+    https://www.baeldung.com/jaxb
+
+xsd file creation:
+    https://www.journaldev.com/1316/generate-xsd-from-java-class
+    https://memorynotfound.com/generate-xsd-from-java-classes/
+
