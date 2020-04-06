@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<xs:schema version="1.0" targetNamespace="https://www.example.org/fact" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema version="1.0" targetNamespace="https://www.example.org/fact" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="https://www.example.org/type">
+
+  <xs:import namespace="https://www.example.org/type" schemaLocation="type.xsd"/>
 
   <xs:complexType name="fact">
-    <xs:sequence>
-      <xs:element name="value" type="xs:string" minOccurs="0"/>
-    </xs:sequence>
+    <xs:sequence/>
     <xs:attribute name="name" type="xs:string"/>
+    <xs:attribute name="type" type="ns1:type"/>
   </xs:complexType>
 </xs:schema>
 

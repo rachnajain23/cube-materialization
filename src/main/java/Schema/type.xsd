@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="https://www.example.org/type" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:simpleType name="type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NUMERIC"/>
+      <xs:enumeration value="STRING"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+

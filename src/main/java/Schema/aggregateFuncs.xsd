@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="https://www.example.org/aggregateFunc" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:simpleType name="aggregateFunc">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="SUM"/>
+      <xs:enumeration value="COUNT"/>
+      <xs:enumeration value="AVG"/>
+      <xs:enumeration value="MEAN"/>
+      <xs:enumeration value="MEDIAN"/>
+      <xs:enumeration value="MODE"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+

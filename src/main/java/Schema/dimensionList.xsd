@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="https://www.example.org/dimensionList" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns2="https://www.example.org/dimension" xmlns:ns1="https://www.example.org/attribute">
+
+  <xs:import namespace="https://www.example.org/attribute" schemaLocation="attribute.xsd"/>
+
+  <xs:import namespace="https://www.example.org/dimension" schemaLocation="dimension.xsd"/>
+
+  <xs:complexType name="dimensionList">
+    <xs:sequence>
+      <xs:element name="dimension" type="ns2:dimension" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+

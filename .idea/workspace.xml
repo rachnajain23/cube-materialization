@@ -1,22 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="de15beec-b4f7-49ee-b028-4b490da4101f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Pojo/Dimension.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Pojo/DimensionalAttribute.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Pojo/Fact.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Pojo/StarSchema.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Schema/dimension.xsd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Schema/dimensionalAttribute.xsd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Schema/fact.xsd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Schema/schema5.xsd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Schema/starSchema.xsd" afterDir="false" />
+    <list default="true" id="de15beec-b4f7-49ee-b028-4b490da4101f" name="Default Changelist" comment="" />
+    <list id="63c2d9d0-e8a2-4685-8a70-ab43aea97e3d" name="schema redone" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pojo/Attribute.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pojo/DimensionList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Schema/aggregateFuncs.xsd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Schema/attribute.xsd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Schema/dimensionList.xsd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Schema/type.xsd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/utils/AggregateFunc.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/utils/Type.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/FileChooser.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/Pojo/Attribute.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/Pojo/Dimension.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/Pojo/DimensionList.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/Pojo/Fact.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/Pojo/StarSchema.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/ProcessExcel.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/SheetSelector.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/utils/AggregateFunc.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/utils/Type.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notes" beforeDir="false" afterPath="$PROJECT_DIR$/notes" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Input.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Input.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/cubematerialization.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pojo/Dimension.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pojo/Dimension.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pojo/DimensionalAttribute.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pojo/Fact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pojo/Fact.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pojo/StarSchema.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pojo/StarSchema.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Schema/dimension.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Schema/dimension.xsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Schema/dimensionalAttribute.xsd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Schema/fact.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Schema/fact.xsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Schema/schema5.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Schema/StarSchemaRoot.xsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Schema/starSchema.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Schema/starSchema.xsd" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -27,8 +42,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Tag Library Descriptor" />
+        <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -59,7 +75,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../IdeaProjects/neuroLab" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Problems" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
@@ -105,6 +121,7 @@
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="de15beec-b4f7-49ee-b028-4b490da4101f" name="Default Changelist" comment="" />
+      <changelist id="63c2d9d0-e8a2-4685-8a70-ab43aea97e3d" name="schema redone" comment="" />
       <created>1585055019621</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -119,6 +136,9 @@
       <workItem from="1585998110845" duration="6752000" />
       <workItem from="1586023170334" duration="5600000" />
       <workItem from="1586082330066" duration="10443000" />
+      <workItem from="1586148468318" duration="352000" />
+      <workItem from="1586181906163" duration="3543000" />
+      <workItem from="1586190164232" duration="2141000" />
     </task>
     <task id="LOCAL-00001" summary="packages created">
       <created>1585929619038</created>
@@ -134,7 +154,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585935035565</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="schemas created">
+      <created>1586148528969</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1586148528969</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -156,7 +183,8 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="packages created" />
-    <option name="LAST_COMMIT_MESSAGE" value="packages created" />
+    <MESSAGE value="schemas created" />
+    <option name="LAST_COMMIT_MESSAGE" value="schemas created" />
   </component>
   <component name="XPathView.XPathProjectComponent">
     <history />

@@ -62,9 +62,9 @@
 <!--                            <toFile>dimension.xsd</toFile>-->
 <!--                        </transformSchema>-->
 <!--                        <transformSchema>-->
-<!--                            <uri>https://www.example.org/dimensionalAttribute</uri>-->
-<!--                            <toPrefix>dimensionalAttribute</toPrefix>-->
-<!--                            <toFile>dimensionalAttribute.xsd</toFile>-->
+<!--                            <uri>https://www.example.org/attribute</uri>-->
+<!--                            <toPrefix>attribute</toPrefix>-->
+<!--                            <toFile>attribute.xsd</toFile>-->
 <!--                        </transformSchema>-->
 <!--                    </transformSchemas>-->
 <!--                    <verbose>true</verbose>-->

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<xs:schema version="1.0" targetNamespace="https://www.example.org/dimension" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="https://www.example.org/dimensionalAttribute">
+<xs:schema version="1.0" targetNamespace="https://www.example.org/dimension" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="https://www.example.org/attribute">
 
-  <xs:import namespace="https://www.example.org/dimensionalAttribute" schemaLocation="dimensionalAttribute.xsd"/>
+  <xs:import namespace="https://www.example.org/attribute" schemaLocation="attribute.xsd"/>
 
   <xs:complexType name="dimension">
     <xs:sequence>
-      <xs:element name="dimensionalAttribute" type="ns1:dimensionalAttribute" minOccurs="0"/>
+      <xs:element name="attribute" type="ns1:attribute" minOccurs="0"/>
     </xs:sequence>
     <xs:attribute name="name" type="xs:string"/>
   </xs:complexType>

@@ -1,11 +1,6 @@
 package Pojo;
 
-
-//import jakarta.xml.bind.annotationtation.XmlAttribute;
-//import jakarta.xml.bind.annotation.XmlRootElement;
-//import jakarta.xml.bind.annotation.XmlType;
-//import jakarta.xml.bind.annotation.XmlAccessType;
-//import jakarta.xml.bind.annotation.XmlAccessorType;
+import utils.AggregateFunc;
 
 import javax.xml.bind.annotation.*;
 
@@ -15,7 +10,8 @@ import javax.xml.bind.annotation.*;
 public class StarSchema {
     private long id;
     private Fact fact;
-    private Dimension dimension;
+    private DimensionList dimensionList;
+    private AggregateFunc aggregateFunc;
 
     @XmlAttribute
     public long getId() {
@@ -26,6 +22,14 @@ public class StarSchema {
         this.id = id;
     }
 
+    public AggregateFunc getAggregateFunc() {
+        return aggregateFunc;
+    }
+
+    public void setAggregateFunc(AggregateFunc aggregateFunc) {
+        this.aggregateFunc = aggregateFunc;
+    }
+
     public Fact getFact() {
         return fact;
     }
@@ -34,11 +38,11 @@ public class StarSchema {
         this.fact = fact;
     }
 
-    public Dimension getDimension() {
-        return dimension;
+    public DimensionList getDimensionList() {
+        return dimensionList;
     }
 
-    public void setDimension(Dimension dimension) {
-        this.dimension = dimension;
+    public void setDimensionList(DimensionList dimensionList) {
+        this.dimensionList = dimensionList;
     }
 }
