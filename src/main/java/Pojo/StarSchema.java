@@ -8,18 +8,18 @@ import javax.xml.bind.annotation.*;
 @XmlType(namespace = "https://www.example.org/starSchema")
 
 public class StarSchema {
-    private long id;
+    private String name;
     private Fact fact;
     private DimensionList dimensionList;
     private AggregateFunc aggregateFunc;
 
     @XmlAttribute
-    public long getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public AggregateFunc getAggregateFunc() {
