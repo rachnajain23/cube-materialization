@@ -2,16 +2,15 @@ package Pojo;
 
 import utils.Type;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlType;
-
+import javax.xml.bind.annotation.*;
 
 @XmlType(namespace = "https://www.example.org/fact")
 public class Fact {
+    @XmlValue
     private String name;
+    @XmlAttribute
     private Type type;
 
-    @XmlAttribute
     public String getName() {
         return name;
     }
@@ -20,12 +19,14 @@ public class Fact {
         this.name = Name;
     }
 
-    @XmlAttribute
     public Type getType() {
         return type;
     }
 
     public void setType(Type type) {
         this.type = type;
+    }
+
+    public Fact() {
     }
 }

@@ -1,0 +1,26 @@
+<starSchema name="string">
+  <!--Optional:-->
+  <aggregateFuncList>
+    <!--Zero or more repetitions:-->
+    <aggregateFunc>MEAN</aggregateFunc>
+    <aggregateFunc>MEAN</aggregateFunc>
+    <aggregateFunc>MEAN</aggregateFunc>
+  </aggregateFuncList>
+  <!--Optional:-->
+  <dimensionList>
+    <dimension name ="person">
+      <attribute name ="name"/>
+      <attribute name ="age"/>
+      <attribute name ="sex"/>
+    </dimension>
+    <dimension name ="item">
+      <attribute name ="code"/>
+      <attribute name ="type"/>
+    </dimension>
+  </dimensionList>
+  <factList>
+    <!--Zero or more repetitions:-->
+    <facts name="cost" type="NUMERIC"/>
+    <facts name="profit" type="NUMERIC"/>
+  </factList>
+</starSchema>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="starSchema" type="starSchemaType"/>
+  <xs:complexType name="aggregateFuncListType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="aggregateFunc" maxOccurs="unbounded" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Zero or more repetitions:</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="attributeType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="name" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="dimensionType">
+    <xs:sequence>
+      <xs:element type="attributeType" name="attribute" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="name" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="dimensionListType">
+    <xs:sequence>
+      <xs:element type="dimensionType" name="dimension" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="factsType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="name" use="optional"/>
+        <xs:attribute type="xs:string" name="type" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="factListType">
+    <xs:sequence>
+      <xs:element type="factsType" name="facts" maxOccurs="unbounded" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Zero or more repetitions:</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="starSchemaType">
+    <xs:sequence>
+      <xs:element type="aggregateFuncListType" name="aggregateFuncList">
+        <xs:annotation>
+          <xs:documentation>Optional:</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element type="dimensionListType" name="dimensionList">
+        <xs:annotation>
+          <xs:documentation>Optional:</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element type="factListType" name="factList"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="name"/>
+  </xs:complexType>
+</xs:schema>

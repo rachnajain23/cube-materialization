@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="https://www.example.org/factList" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns2="https://www.example.org/fact" xmlns:ns1="https://www.example.org/type">
+
+  <xs:import namespace="https://www.example.org/type" schemaLocation="type.xsd"/>
+
+  <xs:import namespace="https://www.example.org/fact" schemaLocation="fact.xsd"/>
+
+  <xs:complexType name="factList">
+    <xs:sequence>
+      <xs:element name="facts" type="ns2:fact" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+

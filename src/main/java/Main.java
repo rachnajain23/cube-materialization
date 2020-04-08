@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.io.IOException;
 
-
 public class Main {
 
     static JLabel l;

@@ -6,12 +6,11 @@ import javax.xml.bind.annotation.*;
 
 @XmlRootElement(name="starSchema")
 @XmlType(namespace = "https://www.example.org/starSchema")
-
 public class StarSchema {
     private String name;
-    private Fact fact;
+    private FactList factList;
     private DimensionList dimensionList;
-    private AggregateFunc aggregateFunc;
+    private AggregateFuncList aggregateFuncList;
 
     @XmlAttribute
     public String getName() {
@@ -22,27 +21,33 @@ public class StarSchema {
         this.name = name;
     }
 
-    public AggregateFunc getAggregateFunc() {
-        return aggregateFunc;
-    }
-
-    public void setAggregateFunc(AggregateFunc aggregateFunc) {
-        this.aggregateFunc = aggregateFunc;
-    }
-
-    public Fact getFact() {
-        return fact;
-    }
-
-    public void setFact(Fact fact) {
-        this.fact = fact;
-    }
-
     public DimensionList getDimensionList() {
         return dimensionList;
     }
 
     public void setDimensionList(DimensionList dimensionList) {
         this.dimensionList = dimensionList;
+    }
+
+    public FactList getFactList() {
+        return factList;
+    }
+
+    public void setFactList(FactList factList) {
+        this.factList = factList;
+    }
+
+    public AggregateFuncList getAggregateFuncList() {
+        return aggregateFuncList;
+    }
+
+    public void setAggregateFuncList(AggregateFuncList aggregateFuncList) {
+        this.aggregateFuncList = aggregateFuncList;
+    }
+
+    public StarSchema() {
+        dimensionList= new DimensionList();
+        factList = new FactList();
+        aggregateFuncList= new AggregateFuncList();
     }
 }
