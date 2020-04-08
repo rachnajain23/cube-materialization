@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(namespace = "https://www.example.org/fact")
 public class Fact {
     private String name;
-    private String value;
+    private Type type;
 
     @XmlAttribute
     public String getName() {
@@ -23,11 +23,11 @@ public class Fact {
         this.name = Name;
     }
 
-    public String getValue() {
-        return value;
+    public Type getType() {
+        return type;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setType(Type type) {
+        this.type = type;
     }
 }
