@@ -1,9 +1,9 @@
-package PreProcessing;
+package PreProcessingOLD;
 
-import Pojo.Attribute;
-import Pojo.Dimension;
-import Pojo.Fact;
-import Pojo.StarSchema;
+import pojoOLD.Attribute;
+import pojoOLD.Dimension;
+import pojoOLD.Fact;
+import pojoOLD.StarSchema;
 import utils.AggregateFunc;
 import utils.Type;
 
@@ -11,8 +11,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

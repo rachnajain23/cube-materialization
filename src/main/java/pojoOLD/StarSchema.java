@@ -1,6 +1,4 @@
-package Pojo;
-
-import utils.AggregateFunc;
+package pojoOLD;
 
 import javax.xml.bind.annotation.*;
 
