@@ -1,8 +1,4 @@
-package UI;/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+package UI;
 
 /**
  *
@@ -216,7 +212,7 @@ public class DimensionTables extends javax.swing.JFrame {
         else {
 //            this.dispose();
 
-            FactVariables f = new FactVariables();
+            FactVariables f = new FactVariables(globalSchema, numberFactsVar);
             f.setVisible(true);
             f.pack();
             this.dispose();
