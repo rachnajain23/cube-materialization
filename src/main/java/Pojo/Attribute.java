@@ -9,7 +9,17 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlType(namespace = "https://www.example.org/dimensionalAttribute")
 public class Attribute {
+
+
     private String name;
+
+    public Attribute() {
+
+    }
+
+    public Attribute(String name) {
+        this.name = name;
+    }
 
     @XmlAttribute
     public String getName() {

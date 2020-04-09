@@ -22,7 +22,8 @@ public class WriteXmlFile {
     }
 
     public String schemaExist() {
-        String fName = schemaName + ".xml";
+        String currentDirectory = System.getProperty("user.dir");
+        String fName = currentDirectory + "/storage/" +schemaName + ".xml";
         File f = new File(fName);
         if(f.exists())
             return "Schema exists. Please use different name.";
@@ -34,23 +35,25 @@ public class WriteXmlFile {
             }
 
         }
-        return "XML created successfully.";
+        return "XML created successfully";
     }
 
     public boolean writeSchema() throws JAXBException, FileNotFoundException {
-        String fName = schemaName + ".xml";
+        String currentDirectory = System.getProperty("user.dir");
+        System.out.println(currentDirectory);
+        String fName = currentDirectory + "/storage/" + s.getName() + ".xml";
         File f = new File(fName);
-
-//        if(f.exists())
-//        {
+        System.out.println(f.exists());
+        if(f.exists())
+        {
             JAXBContext contextObj = JAXBContext.newInstance(StarSchema.class);
 
             Marshaller marshallerObj = contextObj.createMarshaller();
             marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            marshallerObj.marshal(s, new FileOutputStream("test1.xml"));
-//        }
-//        else
-//            System.out.println("file not found");
+            marshallerObj.marshal(s, new FileOutputStream(fName));
+        }
+        else
+            System.out.println("file not found");
         return true;
     }
 
@@ -63,10 +66,10 @@ public class WriteXmlFile {
         Attribute a = new Attribute();
         a.setName("Prod_id");
         Attribute a1 = new Attribute();
-        a1.setName("Prod_category");
+        a1.setName("sub_category");
         attr_list.add(a);
         attr_list.add(a1);
-        d.setAttribute(attr_list);
+        d.setAttributes(attr_list);
         Fact f = new Fact();
         f.setName("Sales");
         f.setType(Type.NUMERIC);
