@@ -1,11 +1,10 @@
-package CreateSchema;
+package PreProcessing;
 
 import Pojo.*;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import javax.xml.bind.PropertyException;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -74,8 +73,8 @@ public class WriteXmlFile {
         f.setName("Sales");
         f.setType(Type.NUMERIC);
 
-        s.addAggregateFn(AggregateFunc.AVG);
-        s.addAggregateFn((AggregateFunc.MEAN));
+//        s.addAggregateFn(AggregateFunc.AVG);
+//        s.addAggregateFn((AggregateFunc.MEAN));
         s.addSingleFact(f);
         s.addSingleDimension(d);
 

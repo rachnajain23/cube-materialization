@@ -1,4 +1,4 @@
-package CreateSchema;
+package PreProcessing;
 
 import Pojo.*;
 import javax.xml.bind.JAXBContext;
@@ -50,7 +50,7 @@ public class SchemaCreation {
         dimension.setAttributes((ArrayList<Attribute>) attributeList);
         starSchema.getDimension().add(dimension);
     }
-    
+
     public boolean saveSchema(StarSchema starSchema) throws JAXBException, IOException {
         String currentDirectory = System.getProperty("user.dir");
         String fName = currentDirectory + "/storage/" + starSchema.getName() + ".xml";

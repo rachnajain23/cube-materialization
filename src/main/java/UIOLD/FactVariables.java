@@ -2,11 +2,9 @@ package UI;
 
 import Pojo.Fact;
 import Pojo.StarSchema;
-import Pojo.Type;
+import UIOLD.AggregateFunctions;
 
 import javax.swing.*;
-import java.awt.*;
-import java.util.ArrayList;
 
 /**
  *

@@ -4,7 +4,7 @@ package UIOLD;/*
  * and open the template in the editor.
  */
 
-import CreateSchema.WriteXmlFile;
+import PreProcessing.WriteXmlFile;
 import Pojo.StarSchema;
 
 import javax.swing.*;

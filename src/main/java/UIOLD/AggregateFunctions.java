@@ -1,9 +1,8 @@
-package UI;
-import CreateSchema.WriteXmlFile;
+package UIOLD;
+import PreProcessing.WriteXmlFile;
 import Pojo.AggregateFunc;
 import Pojo.StarSchema;
 
-import javax.swing.JOptionPane;
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;

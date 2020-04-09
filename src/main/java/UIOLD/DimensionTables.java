@@ -7,6 +7,7 @@ package UI;
 import Pojo.Attribute;
 import Pojo.Dimension;
 import Pojo.StarSchema;
+import UIOLD.NewCube;
 
 import javax.swing.JTextField;
 
@@ -212,7 +213,7 @@ public class DimensionTables extends javax.swing.JFrame {
         else {
 //            this.dispose();
 
-            FactVariables f = new FactVariables(globalSchema, numberFactsVar);
+            UI.FactVariables f = new UI.FactVariables(globalSchema, numberFactsVar);
             f.setVisible(true);
             f.pack();
             this.dispose();
