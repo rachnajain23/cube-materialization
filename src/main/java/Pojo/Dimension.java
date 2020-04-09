@@ -7,11 +7,12 @@ package Pojo;
 //import jakarta.xml.bind.annotation.XmlType;
 
 import javax.xml.bind.annotation.*;
+import java.util.ArrayList;
 
 @XmlType(namespace = "https://www.example.org/dimension")
 public class Dimension {
     private String name;
-    private DimensionalAttribute dimensionalAttribute;
+    private ArrayList<Attribute> attribute;
 
     @XmlAttribute
     public String getName() {
@@ -22,11 +23,16 @@ public class Dimension {
         this.name = Name;
     }
 
-    public DimensionalAttribute getDimensionalAttribute() {
-        return dimensionalAttribute;
+
+    public ArrayList<Attribute> getAttribute() {
+        return attribute;
     }
 
-    public void setDimensionalAttribute(DimensionalAttribute dimensionalAttribute) {
-        this.dimensionalAttribute = dimensionalAttribute;
+    public void setAttribute(ArrayList<Attribute> attribute) {
+        this.attribute = attribute;
+    }
+
+    public void addAttribute(Attribute a) {
+        attribute.add(a);
     }
 }

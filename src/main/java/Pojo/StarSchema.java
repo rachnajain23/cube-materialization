@@ -1,44 +1,69 @@
 package Pojo;
 
 
-//import jakarta.xml.bind.annotationtation.XmlAttribute;
-//import jakarta.xml.bind.annotation.XmlRootElement;
-//import jakarta.xml.bind.annotation.XmlType;
-//import jakarta.xml.bind.annotation.XmlAccessType;
-//import jakarta.xml.bind.annotation.XmlAccessorType;
-
 import javax.xml.bind.annotation.*;
+import java.util.ArrayList;
 
 @XmlRootElement(name="starSchema")
 @XmlType(namespace = "https://www.example.org/starSchema")
-
 public class StarSchema {
-    private long id;
-    private Fact fact;
-    private Dimension dimension;
+    private String name;
+    private ArrayList<Fact> facts;
+    private ArrayList<Dimension> dimensions;
+    private ArrayList<AggregateFunc> func;
+
+    public StarSchema() {
+        facts = new ArrayList<Fact>();
+        dimensions = new ArrayList<Dimension>();
+        func = new ArrayList<AggregateFunc>();
+    }
 
     @XmlAttribute
-    public long getId() {
-        return id;
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    @XmlElementWrapper(name = "factList")
+    @XmlElement
+    public ArrayList<Fact> getFact() {
+        return facts;
+    }
+    public void setFact(ArrayList<Fact> facts) {
+        this.facts = facts;
     }
 
-    public Fact getFact() {
-        return fact;
+    @XmlElementWrapper(name = "dimensionList")
+    @XmlElement
+    public ArrayList<Dimension> getDimension() {
+        return dimensions;
+    }
+    public void setDimension(ArrayList<Dimension> dimensions) {
+        this.dimensions = dimensions;
     }
 
-    public void setFact(Fact fact) {
-        this.fact = fact;
+
+    @XmlElementWrapper(name = "AggregateFuncList")
+    @XmlElement
+    public ArrayList<AggregateFunc> getFunc() {
+        return func;
+    }
+    public void setFunc(ArrayList<AggregateFunc> func) {
+        this.func = func;
     }
 
-    public Dimension getDimension() {
-        return dimension;
+
+    public void addSingleDimension(Dimension d) {
+        this.dimensions.add(d);
     }
 
-    public void setDimension(Dimension dimension) {
-        this.dimension = dimension;
+    public void addSingleFact(Fact f) {
+        this.facts.add(f);
+    }
+
+    public void addAggregateFn(AggregateFunc f) {
+        this.func.add(f);
     }
 }
