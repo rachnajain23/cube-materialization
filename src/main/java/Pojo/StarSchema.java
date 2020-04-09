@@ -11,12 +11,10 @@ StarSchema {
     private String name;
     private ArrayList<Fact> facts;
     private ArrayList<Dimension> dimensions;
-    private ArrayList<AggregateFunc> func;
 
     public StarSchema() {
         facts = new ArrayList<Fact>();
         dimensions = new ArrayList<Dimension>();
-        func = new ArrayList<AggregateFunc>();
     }
 
     @XmlAttribute
@@ -45,17 +43,6 @@ StarSchema {
         this.dimensions = dimensions;
     }
 
-
-    @XmlElementWrapper(name = "AggregateFuncList")
-    @XmlElement
-    public ArrayList<AggregateFunc> getFunc() {
-        return func;
-    }
-    public void setFunc(ArrayList<AggregateFunc> func) {
-        this.func = func;
-    }
-
-
     public void addSingleDimension(Dimension d) {
         this.dimensions.add(d);
     }
@@ -64,7 +51,4 @@ StarSchema {
         this.facts.add(f);
     }
 
-    public void addAggregateFn(AggregateFunc f) {
-        this.func.add(f);
-    }
 }

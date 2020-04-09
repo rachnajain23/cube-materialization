@@ -32,7 +32,7 @@ public class SchemaCreation {
         Fact fact = new Fact();
         fact.setName(name);
         fact.setType(type);
-        fact.setAggregateFunc(aggregateFunc);
+        fact.setAggregateFuncs(aggregateFunc);
         starSchema.getFact().add(fact);
     }
 
@@ -50,11 +50,7 @@ public class SchemaCreation {
         dimension.setAttributes((ArrayList<Attribute>) attributeList);
         starSchema.getDimension().add(dimension);
     }
-
-    public  void  insertAggregateFunc(StarSchema starSchema,AggregateFunc aggregateFunc){
-        starSchema.getAggregateFuncList().getAggregateFunc().add(aggregateFunc);
-    }
-
+    
     public boolean saveSchema(StarSchema starSchema) throws JAXBException, IOException {
         String currentDirectory = System.getProperty("user.dir");
         String fName = currentDirectory + "/storage/" + starSchema.getName() + ".xml";

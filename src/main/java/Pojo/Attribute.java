@@ -10,7 +10,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(namespace = "https://www.example.org/dimensionalAttribute")
 public class Attribute {
 
-
     private String name;
 
     public Attribute() {
