@@ -6,7 +6,8 @@ import java.util.ArrayList;
 
 @XmlRootElement(name="starSchema")
 @XmlType(namespace = "https://www.example.org/starSchema")
-public class StarSchema {
+public class
+StarSchema {
     private String name;
     private ArrayList<Fact> facts;
     private ArrayList<Dimension> dimensions;
