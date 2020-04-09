@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.io.IOException;
 
 
-public class Main {
+public class Main2 {
 
     static JLabel l;
     public static void main(String[] args) throws IOException {
