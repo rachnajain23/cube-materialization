@@ -2,15 +2,50 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="de15beec-b4f7-49ee-b028-4b490da4101f" name="Default Changelist" comment="schemas created">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/CreateSchema/AddDimension.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/CreateSchema/AddFact.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/CreateSchema/WriteXmlFile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pojo/AggregateFunc.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Pojo/Type.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Schema/StarSchemaRoot.xsd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Schema/StarSchemaRoot.xsd.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Schema/aggregateFunc.xsd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Schema/attribute.xsd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Schema/dimension.xsd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Schema/fact.xsd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Schema/starSchema.xsd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Schema/type.xsd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pojo/AggregateFuncList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pojoOLD/AggregateFuncList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pojo/Attribute.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pojoOLD/Attribute.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pojo/Dimension.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pojoOLD/Dimension.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pojo/DimensionList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pojoOLD/DimensionList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pojo/Fact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pojoOLD/Fact.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pojo/FactList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pojoOLD/FactList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Pojo/StarSchema.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pojoOLD/StarSchema.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PreProcessing/SchemaCreation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PreProcessingOLD/SchemaCreation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/FileChooser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pojo/Attribute.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pojo/Attribute.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pojo/Dimension.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pojo/Dimension.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pojo/Fact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pojo/Fact.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pojo/StarSchema.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pojo/StarSchema.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/PreProcessingOLD/SchemaCreation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ProcessExcel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SchemaOLD/StarSchema.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SchemaOLD/StarSchema.xsd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SchemaOLD/aggregateFunc.xsd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SchemaOLD/aggregateFuncList.xsd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SchemaOLD/dimensionList.xsd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SchemaOLD/fact.xsd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SchemaOLD/factList.xsd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SchemaOLD/starSchema.xsd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SchemaOLD/starSchemaRoot.xsd.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SchemaOLD/type.xsd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/UIOLD/DimensionTables.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/UIOLD/DimensionTables.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/UIOLD/FactVariables.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/UIOLD/FactVariables.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/UIOLD/Input.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/UIOLD/Input.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/UIOLD/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/UIOLD/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/UIOLD/NewCube.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/UIOLD/NewCube.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pojoOLD/AggregateFuncList.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pojoOLD/Attribute.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pojoOLD/Dimension.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pojoOLD/DimensionList.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pojoOLD/FactList.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pojoOLD/StarSchema.java" beforeDir="false" />
     </list>
     <list id="63c2d9d0-e8a2-4685-8a70-ab43aea97e3d" name="schema redone" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -62,12 +97,12 @@
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/resources" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java/Schema" />
       <recent name="$PROJECT_DIR$/src/main/java" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -135,7 +170,7 @@
       <workItem from="1586181906163" duration="3543000" />
       <workItem from="1586190164232" duration="4767000" />
       <workItem from="1586364730848" duration="13985000" />
-      <workItem from="1586414902036" duration="556000" />
+      <workItem from="1586414902036" duration="3121000" />
     </task>
     <task id="LOCAL-00001" summary="packages created">
       <created>1585929619038</created>

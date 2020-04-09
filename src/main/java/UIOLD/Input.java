@@ -10,9 +10,6 @@ package UIOLD;/*
  */
 public class Input extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Input
-     */
     public Input() {
         initComponents();
     }

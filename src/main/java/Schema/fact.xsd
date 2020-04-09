@@ -4,9 +4,10 @@
   <xs:import namespace="https://www.example.org/type" schemaLocation="type.xsd"/>
 
   <xs:complexType name="fact">
-    <xs:sequence/>
+    <xs:sequence>
+      <xs:element name="type" type="ns1:type" minOccurs="0"/>
+    </xs:sequence>
     <xs:attribute name="name" type="xs:string"/>
-    <xs:attribute name="type" type="ns1:type"/>
   </xs:complexType>
 </xs:schema>
 
