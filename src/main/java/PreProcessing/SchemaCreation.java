@@ -5,6 +5,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,16 +52,37 @@ public class SchemaCreation {
         starSchema.getDimension().add(dimension);
     }
 
-    public boolean saveSchema(StarSchema starSchema) throws JAXBException, IOException {
+    public boolean writeSchema(StarSchema starSchema) throws JAXBException, FileNotFoundException {
         String currentDirectory = System.getProperty("user.dir");
+        System.out.println(currentDirectory);
         String fName = currentDirectory + "/storage/" + starSchema.getName() + ".xml";
         File f = new File(fName);
-        if(!f.exists())
-            return false;
-        JAXBContext contextObj = JAXBContext.newInstance(StarSchema.class);
-        Marshaller marshallerObj = contextObj.createMarshaller();
-        marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        marshallerObj.marshal(starSchema, new FileOutputStream(fName));
-            return true;
+        System.out.println(f.exists());
+        if(f.exists())
+        {
+            JAXBContext contextObj = JAXBContext.newInstance(StarSchema.class);
+
+            Marshaller marshallerObj = contextObj.createMarshaller();
+            marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            marshallerObj.marshal(starSchema, new FileOutputStream(fName));
+        }
+        else
+            System.out.println("file not found");
+        return true;
     }
+
+//    public boolean saveSchema(StarSchema starSchema) throws JAXBException, IOException {
+//        String currentDirectory = System.getProperty("user.dir");
+//        String fName = currentDirectory + "/storage/" + starSchema.getName() + ".xml";
+//        File f = new File(fName);
+//        if(!f.exists())
+//            return false;
+//        JAXBContext contextObj = JAXBContext.newInstance(StarSchema.class);
+//        Marshaller marshallerObj = contextObj.createMarshaller();
+//        marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+//        marshallerObj.marshal(starSchema, new FileOutputStream(fName));
+//            return true;
+//    }
+
+
 }
