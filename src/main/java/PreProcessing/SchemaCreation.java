@@ -33,7 +33,7 @@ public class SchemaCreation {
         Fact fact = new Fact();
         fact.setName(name);
         fact.setType(type);
-        fact.setAggregateFuncs(aggregateFunc);
+        fact.setAggregateFuncs((ArrayList<AggregateFunc>) aggregateFunc);
         starSchema.getFact().add(fact);
     }
 

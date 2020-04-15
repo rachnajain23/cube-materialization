@@ -23,6 +23,11 @@
             <artifactId>jaxb-api</artifactId>
             <version>2.3.0</version>
         </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.19</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -32,45 +37,6 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
             </plugin>
-<!--            <plugin>-->
-<!--                <groupId>org.codehaus.mojo</groupId>-->
-<!--                <artifactId>jaxb2-maven-plugin</artifactId>-->
-<!--                <version>2.3.1</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>schemagen</id>-->
-<!--                        <goals>-->
-<!--                            <goal>schemagen</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--                <configuration>-->
-<!--                    <transformSchemas>-->
-<!--                        <transformSchema>-->
-<!--                            <uri>https://www.example.org/starSchema</uri>-->
-<!--                            <toPrefix>starSchema</toPrefix>-->
-<!--                            <toFile>starSchema.xsd</toFile>-->
-<!--                        </transformSchema>-->
-<!--                        <transformSchema>-->
-<!--                            <uri>https://www.example.org/fact</uri>-->
-<!--                            <toPrefix>fact</toPrefix>-->
-<!--                            <toFile>fact.xsd</toFile>-->
-<!--                        </transformSchema>-->
-<!--                        <transformSchema>-->
-<!--                            <uri>https://www.example.org/dimension</uri>-->
-<!--                            <toPrefix>dimension</toPrefix>-->
-<!--                            <toFile>dimension.xsd</toFile>-->
-<!--                        </transformSchema>-->
-<!--                        <transformSchema>-->
-<!--                            <uri>https://www.example.org/attribute</uri>-->
-<!--                            <toPrefix>attribute</toPrefix>-->
-<!--                            <toFile>attribute.xsd</toFile>-->
-<!--                        </transformSchema>-->
-<!--                    </transformSchemas>-->
-<!--                    <verbose>true</verbose>-->
-
-<!--                </configuration>-->
-<!--            </plugin>-->
         </plugins>
     </build>
 
