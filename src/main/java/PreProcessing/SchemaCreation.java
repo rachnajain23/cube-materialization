@@ -67,7 +67,8 @@ public class SchemaCreation {
             marshallerObj.marshal(starSchema, new FileOutputStream(fName));
         }
         else
-            System.out.println("file not found");
+            return false;
+        System.out.println("file not found");
         return true;
     }
 

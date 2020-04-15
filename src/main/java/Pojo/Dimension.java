@@ -38,4 +38,12 @@ public class Dimension {
     public void addAttribute(Attribute a) {
         attributes.add(a);
     }
+
+    @Override
+    public String toString() {
+        return "Dimension{" +
+                "name='" + name + '\'' +
+                ", attributes=" + attributes +
+                '}';
+    }
 }

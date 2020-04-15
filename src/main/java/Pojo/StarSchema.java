@@ -51,4 +51,12 @@ StarSchema {
         this.facts.add(f);
     }
 
+    @Override
+    public String toString() {
+        return "StarSchema{" +
+                "name='" + name + '\'' +
+                ", facts=" + facts +
+                ", dimensions=" + dimensions +
+                '}';
+    }
 }
