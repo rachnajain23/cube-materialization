@@ -68,7 +68,6 @@ public class SchemaCreation {
         }
         else
             return false;
-        System.out.println("file not found");
         return true;
     }
 

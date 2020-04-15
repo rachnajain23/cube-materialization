@@ -51,13 +51,4 @@ public class Fact {
     public void addAggregateFn(AggregateFunc f) {
         this.aggregateFuncs.add(f);
     }
-
-    @Override
-    public String toString() {
-        return "Fact{" +
-                "name='" + name + '\'' +
-                ", type=" + type +
-                ", aggregateFuncs=" + aggregateFuncs +
-                '}';
-    }
 }
