@@ -29,7 +29,7 @@ public class SchemaCreation {
         return starSchema;
     }
 
-    public void insertFact(StarSchema starSchema, String name, Type type,List<AggregateFunc> aggregateFunc ){
+    public void insertFact(StarSchema starSchema, String name, Type type,ArrayList<AggregateFunc> aggregateFunc ){
         Fact fact = new Fact();
         fact.setName(name);
         fact.setType(type);

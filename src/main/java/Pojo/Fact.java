@@ -41,7 +41,7 @@ public class Fact {
 
     @XmlElementWrapper(name = "aggregateFuncList")
     @XmlElement
-    public List<AggregateFunc> getAggregateFuncs() {
+    public ArrayList<AggregateFunc> getAggregateFuncs() {
         return aggregateFuncs;
     }
     public void setAggregateFuncs(ArrayList<AggregateFunc> aggregateFuncs) {
@@ -50,5 +50,14 @@ public class Fact {
 
     public void addAggregateFn(AggregateFunc f) {
         this.aggregateFuncs.add(f);
+    }
+
+    @Override
+    public String toString() {
+        return "Fact{" +
+                "name='" + name + '\'' +
+                ", type=" + type +
+                ", aggregateFuncs=" + aggregateFuncs +
+                '}';
     }
 }

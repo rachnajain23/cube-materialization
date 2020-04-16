@@ -95,7 +95,7 @@ public class DatabaseSetup {
                 String sql= "CREATE TABLE "+ dimension.getName() + "("+ dimension.getName()+"_id VARCHAR(20)," + attributeList.get(0).getName() +" VARCHAR(100)";
                 for(int i=1; i< attributeList.size(); ++i)
                     sql = sql + "," + attributeList.get(i).getName() + " VARCHAR(100)";
-                sql+=");";
+                sql+=", PRIMARY KEY("+dimension.getName() + "_id));";
                 System.out.println(sql);//-----------------------------------
                 statement.executeUpdate(sql);
                 populateTables(filePath,dimension.getName());
