@@ -88,7 +88,7 @@ public class DatabaseSetup {
 
     public void insertIntoDB(StarSchema starSchema,String filePath){
         try{
-            String sqlFacts= "CREATE TABLE fact(";
+            String sqlFacts= "CREATE TABLE facts(";
             for(Dimension dimension: starSchema.getDimension()){
                 sqlFacts+= dimension.getName() + "_id VARCHAR(100)"+ ",";
                 List<Attribute> attributeList= dimension.getAttributes();
@@ -107,7 +107,7 @@ public class DatabaseSetup {
             sqlFacts+= ");";
             System.out.println(sqlFacts);//-----------------------------------
             statement.executeUpdate(sqlFacts);
-            populateTables(filePath,"fact");
+            populateTables(filePath,"facts");
         }catch (SQLException se) {
             se.printStackTrace();
         }catch (IOException ex) {
@@ -156,20 +156,22 @@ public class DatabaseSetup {
 
 
     public void createBaseCuboid(StarSchema starSchema){
-        String dimensionalAttributes="";
+        String sqlAttributes="";
         String sql="";
         int flag=0;
         for (Dimension dimension: starSchema.getDimension()){
             String name= dimension.getName();
-            sql+="JOIN "+name+" ON fact."+name+"_id="+name+"."+name+"_id ";
+            sql+="JOIN "+name+" ON facts."+name+"_id="+name+"."+name+"_id ";
             for (Attribute attribute: dimension.getAttributes()){
                 if(flag++==0)
-                    dimensionalAttributes += name+"."+attribute.getName()+" "+name+"_"+attribute.getName()+" ";
+                    sqlAttributes += name+"."+attribute.getName()+" "+name+"_"+attribute.getName()+" ";
                 else
-                    dimensionalAttributes+= ","+ name+"."+attribute.getName()+" "+name+"_"+attribute.getName()+" ";
+                    sqlAttributes+= ","+ name+"."+attribute.getName()+" "+name+"_"+attribute.getName()+" ";
             }
         }
-        sql="CREATE TABLE base( SELECT "+dimensionalAttributes+"FROM fact "+sql+");";
+        for (Fact fact: starSchema.getFact())
+            sqlAttributes+=",facts."+fact.getName()+" ";
+        sql="CREATE TABLE base( SELECT "+sqlAttributes+"FROM facts "+sql+");";
         System.out.println(sql);//-------------------------------------------------------------------------
         try {
             statement.executeUpdate(sql);
