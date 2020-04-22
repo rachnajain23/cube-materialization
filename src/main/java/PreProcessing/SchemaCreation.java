@@ -29,11 +29,11 @@ public class SchemaCreation {
         return starSchema;
     }
 
-    public void insertFact(StarSchema starSchema, String name, Type type,List<AggregateFunc> aggregateFunc ){
+    public void insertFact(StarSchema starSchema, String name, Type type,ArrayList<AggregateFunc> aggregateFunc ){
         Fact fact = new Fact();
         fact.setName(name);
         fact.setType(type);
-        fact.setAggregateFuncs(aggregateFunc);
+        fact.setAggregateFuncs((ArrayList<AggregateFunc>) aggregateFunc);
         starSchema.getFact().add(fact);
     }
 
@@ -67,7 +67,7 @@ public class SchemaCreation {
             marshallerObj.marshal(starSchema, new FileOutputStream(fName));
         }
         else
-            System.out.println("file not found");
+            return false;
         return true;
     }
 

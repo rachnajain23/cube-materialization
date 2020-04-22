@@ -27,4 +27,11 @@ public class Attribute {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "Attribute{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }
