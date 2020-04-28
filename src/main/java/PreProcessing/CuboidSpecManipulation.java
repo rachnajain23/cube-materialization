@@ -72,7 +72,7 @@ public class CuboidSpecManipulation {
 
 
     public String checkConfigExist(HashMap<Attribute, String> attributes, String name) {
-        CuboidSpecManipulation cm = new CuboidSpecManipulation();
+        CuboidCreation cc = new CuboidCreation();
         CuboidSpecList c = createSpecFile();
         if (c == null)
             return "Error creating spec file. Please try again!";
@@ -101,10 +101,24 @@ public class CuboidSpecManipulation {
             if (s.getName().equalsIgnoreCase(specName))
                 return "Config Exists!";
         }
-//        Spec s = new Spec();
-//        s.setName(specName);
-//        s.setCustomName(name);
-//        for
+
+        // Write in xml and make tables in db.
+        Spec s = new Spec();
+        s.setName(specName);
+        s.setCustomName(name);
+        ArrayList<String> attr_list = new ArrayList<String>();
+        for (Map.Entry<Attribute,String> entry : attributes.entrySet()) {
+            attr_list.add(entry.getValue() + "_" + entry.getKey().getName());
+        }
+        c.addSpec(s);
+        ArrayList<ArrayList<String>> queriesAndTables = cc.generateQueryFromAttr(attributes, schema);
+        try {
+            boolean r = cc.createCuboids(queriesAndTables.get(0));
+            c.addTables(queriesAndTables.get(1));
+            boolean t = writeSpecInXml(c);
+        } catch (Exception  e) {
+            return "Error creating spec. Please try again.";
+        }
         return "Config file created successfully.";
     }
 
