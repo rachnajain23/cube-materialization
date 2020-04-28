@@ -11,13 +11,22 @@ import javax.xml.bind.annotation.XmlType;
 public class Attribute {
 
     private String name;
+    private Integer code;
 
     public Attribute() {
-
     }
 
     public Attribute(String name) {
         this.name = name;
+    }
+
+    @XmlAttribute
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
     }
 
     @XmlAttribute
