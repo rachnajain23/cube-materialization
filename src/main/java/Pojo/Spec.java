@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class Spec {
 
     private String name;
+    private String customName;
     private ArrayList<String> attribute;
 
     public Spec() {
@@ -23,6 +24,10 @@ public class Spec {
     public void setName(String name) {
         this.name = name;
     }
+
+    @XmlAttribute
+    public String getCustomName() { return customName; }
+    public void setCustomName(String customName) { this.customName = customName; }
 
     @XmlElementWrapper(name = "dimensionList")
     @XmlElement
