@@ -3,7 +3,9 @@ import Pojo.Attribute;
 import Pojo.StarSchema;
 import Pojo.Dimension;
 import Pojo.Fact;
-import javax.swing.*; 
+import PreProcessing.DatabaseSetup;
+
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,6 +26,7 @@ class AddFile
     String sname;
     ArrayList<Dimension> dim ;
     ArrayList<Fact> facts;
+    String path;
 
      public AddFile(StarSchema s) 
     {   
@@ -140,8 +143,8 @@ class AddFile
   
             { 
                 // set the label to the path of the selected file 
-                String filepath = j.getSelectedFile().getAbsolutePath();
-                System.out.println(filepath);
+                path = j.getSelectedFile().getAbsolutePath();
+                System.out.println(path);
                 //give this path to backend
                 
                 //l.setText(j.getSelectedFile().getAbsolutePath()); 
@@ -154,6 +157,8 @@ class AddFile
             System.exit(0);
         }
         if (com.equals("Upload")){
+            DatabaseSetup setup= new DatabaseSetup();
+            setup.control(globalSchema,path);
             //call the datacreation function
             l.setText("Successfully uploaded file.");
         }
@@ -178,4 +183,3 @@ class AddFile
 //        A my = new A(); 
 //    } 
 //}
-   

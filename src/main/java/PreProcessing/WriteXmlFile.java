@@ -32,7 +32,6 @@ public class WriteXmlFile {
             } catch (IOException e) {
                 return "Error creating schema. Please try again.";
             }
-
         }
         return "XML created successfully";
     }

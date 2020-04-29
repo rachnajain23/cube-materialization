@@ -53,11 +53,8 @@ class MyFirst
         exit.setLocation(750, 510);
         exit.addActionListener(this);
         c.add(exit);
-        
-        
+
         this.setVisible(true);
-        
-        
     }
      
      public void actionPerformed(ActionEvent e) 
@@ -70,19 +67,17 @@ class MyFirst
                obj.setVisible(true);
 //               obj.pack();
 //               repaint();
-               
-                        
-                        }
+        }
         if(e.getSource() == manipulate){
                 System.out.println("inside manipulate");
                 
         }
-        
         if(e.getSource() == exit){
             System.exit(0);
         }
     }
 }
+
 class FirstPage { 
   
     public static void main(String[] args) throws Exception 
@@ -90,4 +85,3 @@ class FirstPage {
         MyFirst my = new MyFirst(); 
     } 
 }
-   

@@ -1,6 +1,7 @@
 package UI;
-import PreProcessing.WriteXmlFile;
 import Pojo.StarSchema;
+import PreProcessing.SchemaCreation;
+import PreProcessing.WriteXmlFile;
 
 import javax.swing.*; 
 import java.awt.*;
@@ -18,8 +19,8 @@ class NewCube
     private JLabel s_name; 
     private JTextField tname; 
     private JLabel dno; 
-    private JTextField tdno; 
-//    private JLabel fno; 
+    private JTextField tdno;
+//    private JLabel fno;
 //    private JTextField tfno;
     private JButton sub; 
     private JButton reset; 
@@ -33,7 +34,7 @@ class NewCube
 
     public NewCube() 
     {   
-        globalSchema = new StarSchema();
+//        globalSchema = new StarSchema();
 
         setTitle("Data-Cube Management"); 
         setBounds(300, 90, 900, 600); 
@@ -119,11 +120,11 @@ class NewCube
         res.setSize(500, 25); 
         res.setLocation(100, 500); 
         c.add(res);
-  
-        
-  
-        
-  
+
+
+
+
+
         //setVisible(true);
         //pack();
     }
@@ -146,15 +147,17 @@ class NewCube
                 nameSchema = new String();
                 nameSchema = tname.getText();
                 int dnum = Integer.parseInt(tdno.getText());
-             
-                globalSchema.setName(nameSchema);
+
+            SchemaCreation schemaCreation= new SchemaCreation();
+            globalSchema=schemaCreation.newSchema(nameSchema);
              //   System.out.println("after entering name then submit");
-                WriteXmlFile w = new WriteXmlFile(nameSchema);
+                WriteXmlFile w = new WriteXmlFile(globalSchema.getName());
                 String checkSchemaFile = w.schemaExist();
                 System.out.println(checkSchemaFile);
                 if (checkSchemaFile.equalsIgnoreCase("XML created successfully")) 
                 {
-                globalSchema.setName(nameSchema);
+                    //commenting lower part since name has already been set. This is a repeat thing.
+//                globalSchema.setName(nameSchema);// also xml name is diffenent from UI name.
                 number_Dimension = Integer.parseInt(tdno.getText());
                 }
                 else
@@ -165,7 +168,7 @@ class NewCube
         }
         if(e.getSource() == next)
         {
-           
+
                 //DimensionTables d = new DimensionTables(globalSchema,number_Dimension,nameSchema,dnum);
                 DimensionTables d = new DimensionTables(globalSchema,number_Dimension);
                 System.out.println("in new cube" + number_Dimension);
@@ -173,9 +176,9 @@ class NewCube
                 d.setVisible(true);
                 //d.pack();
                 this.dispose();
-                
-                
-        } 
+
+
+        }
   
         else if (e.getSource() == reset) { 
           String def = ""; 
@@ -184,8 +187,8 @@ class NewCube
             //tfno.setText(def); 
             res.setText(def); 
             tout.setText(def);
-            
-        } 
+
+        }
     } 
 }
 //class NewCube { 

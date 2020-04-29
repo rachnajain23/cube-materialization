@@ -16,7 +16,7 @@ class DimensionTables
 
     	StarSchema globalSchema;
         Dimension d;
-        java.util.List<String> list = new java.util.ArrayList<>();
+        java.util.List<String> list = new java.util.ArrayList<String>();
         String name;
         
         public int number_attri, numberDimension;

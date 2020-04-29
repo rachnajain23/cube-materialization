@@ -14,6 +14,7 @@ import java.awt.event.*;
 
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.logging.Level;
@@ -186,7 +187,7 @@ public class FactVariables extends JFrame implements ActionListener {
         }
         if (avg.isSelected()){
             fns.add(AggregateFunc.AVG);
-            System.out.println("avg is selectedd");
+            System.out.println("avg is selected");
         }
         if (mean.isSelected()){
             fns.add(AggregateFunc.MEAN);
@@ -207,20 +208,19 @@ public class FactVariables extends JFrame implements ActionListener {
         
         
         sc.insertFact(globalSchema, name, type, fnList);
-        boolean ans= true;
+        String ans= "";
             try {
-                ans =sc.writeSchema(globalSchema);
+                ans =sc.writeSchemaOuter(globalSchema);
             } catch (JAXBException ex) {
-                ans= false;
+//                ans= false;
                 Logger.getLogger(FactVariables.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (FileNotFoundException ex) {
-                ans= false;
+            } catch (IOException ex) {
+//                ans= false;
                 Logger.getLogger(FactVariables.class.getName()).log(Level.SEVERE, null, ex);
             }
-        if(ans)
-            System.out.println("Schema Creation successful");
-        else
-            System.out.println("Unknown error occured while schema creation");
+        System.out.println(ans);
+//        else
+//            System.out.println("Unknown error occured while schema creation");
         
         
     }

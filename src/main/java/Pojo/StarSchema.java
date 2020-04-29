@@ -53,10 +53,21 @@ StarSchema {
 
     @Override
     public String toString() {
-        return "StarSchema{" +
-                "name='" + name + '\'' +
-                ", facts=" + facts +
-                ", dimensions=" + dimensions +
-                '}';
+        String s= "Name: "+ this.name+"\n";
+        s+="Dimensions:\n";
+        for (Dimension dimension: this.dimensions){
+            s+= dimension.getName()+": ";
+            for(Attribute attribute: dimension.getAttributes())
+                s+= attribute.getName()+" ";
+            s+="\n";
+        }
+        s+="Facts:\n";
+        for (Fact fact: this.facts){
+            s+= fact.getName()+": ";
+            for (AggregateFunc aggregateFunc: fact.getAggregateFuncs())
+                s+= aggregateFunc.toString().toLowerCase()+" ";
+            s+="\n";
+        }
+        return s;
     }
 }

@@ -15,11 +15,11 @@ import java.util.List;
 
 public class DatabaseSetup {
     // JDBC driver name and database URL
-    static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/";
+    private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
+    private static final String DB_URL = "jdbc:mysql://localhost/";
 
     //  Database credentials
-    static final String USER = "root";
+    private static final String USER = "root";
     static final String PASS = "root";
 
     //variables
@@ -92,7 +92,7 @@ public class DatabaseSetup {
             for(Dimension dimension: starSchema.getDimension()){
                 sqlFacts+= dimension.getName() + "_id VARCHAR(100)"+ ",";
                 List<Attribute> attributeList= dimension.getAttributes();
-                String sql= "CREATE TABLE "+ dimension.getName() + "("+ dimension.getName()+"_id VARCHAR(20)," + attributeList.get(0).getName() +" VARCHAR(100)";
+                String sql= "CREATE TABLE "+ dimension.getName() + "("+ /*dimension.getName()+"_id VARCHAR(20)," +*/ attributeList.get(0).getName() +" VARCHAR(100)";
                 for(int i=1; i< attributeList.size(); ++i)
                     sql = sql + "," + attributeList.get(i).getName() + " VARCHAR(100)";
                 sql+=", PRIMARY KEY("+dimension.getName() + "_id));";
@@ -125,9 +125,15 @@ public class DatabaseSetup {
         for (int i = 1; i < r; ++i) {
             Cell cell = sheet.getRow(i).getCell(0);
             String sql = "INSERT INTO " + tableName + " VALUES(";
+//            sql+="'"+ cell.get
             switch (cell.getCellType()) {
                 case Cell.CELL_TYPE_NUMERIC:
-                    sql += cell.getNumericCellValue();
+                    double temp=cell.getNumericCellValue();
+                    if(temp==(int)temp)
+                        sql+=(int)temp;
+                    else
+                        sql+=temp;
+//                    sql += cell.getNumericCellValue();
                     break;
                 case Cell.CELL_TYPE_STRING:
                     sql += "'"+ cell.getStringCellValue()+"'";
@@ -135,9 +141,15 @@ public class DatabaseSetup {
             }
             for (int j = 1; j < c; ++j) {
                 cell = sheet.getRow(i).getCell(j);
+//                sql+="'"+ cell.getStringCellValue()+"'";
                 switch (cell.getCellType()) {
                     case Cell.CELL_TYPE_NUMERIC:
-                        sql += "," + cell.getNumericCellValue();
+                        double temp=cell.getNumericCellValue();
+                        if(temp==(int)temp)
+                            sql+= "," + (int)temp;
+                        else
+                            sql+="," + temp;
+//                        sql += "," + cell.getNumericCellValue();
                         break;
                     case Cell.CELL_TYPE_STRING:
                         sql += ",'" + cell.getStringCellValue()+"'";
@@ -161,7 +173,8 @@ public class DatabaseSetup {
         int flag=0;
         for (Dimension dimension: starSchema.getDimension()){
             String name= dimension.getName();
-            sql+="JOIN "+name+" ON facts."+name+"_id="+name+"."+name+"_id ";
+            String primaryKey= dimension.getAttributes().get(0).getName();
+            sql+="JOIN "+name+" ON facts."+primaryKey+"="+name+"."+primaryKey+" ";
             for (Attribute attribute: dimension.getAttributes()){
                 if(flag++==0)
                     sqlAttributes += name+"."+attribute.getName()+" "+name+"_"+attribute.getName()+" ";
@@ -187,6 +200,7 @@ public class DatabaseSetup {
         databaseSetup.control(starSchema, "/home/gauri/Desktop/IIITB/DM/Project/cubematerialization/store.xlsx");
     }
 
+
     public StarSchema TESTING_GenerateSampleSchema(){
 
         StarSchema starSchema= new StarSchema();
@@ -197,7 +211,8 @@ public class DatabaseSetup {
         
 
         dimension.setName("customer");
-        Attribute attribute= new Attribute(); attribute.setName("name");attributeList.add(attribute);
+        Attribute attribute= new Attribute(); attribute.setName("customer_id");attributeList.add(attribute);
+        attribute = new Attribute(); attribute.setName("name");attributeList.add(attribute);
         attribute = new Attribute(); attribute.setName("age");attributeList.add(attribute);
         attribute = new Attribute(); attribute.setName("sex");attributeList.add(attribute);
         dimension.setAttributes((ArrayList<Attribute>) attributeList);
@@ -206,6 +221,7 @@ public class DatabaseSetup {
         dimension= new Dimension();
         dimension.setName("item");
         attributeList = new ArrayList<Attribute>();
+        attribute = new Attribute(); attribute.setName("item_id");attributeList.add(attribute);
         attribute = new Attribute(); attribute.setName("category");attributeList.add(attribute);
         attribute = new Attribute(); attribute.setName("subcategory");attributeList.add(attribute);
         dimension.setAttributes((ArrayList<Attribute>) attributeList);
@@ -240,4 +256,5 @@ public class DatabaseSetup {
         System.out.println(starSchema.toString());
         return starSchema;
     }
+
 }
