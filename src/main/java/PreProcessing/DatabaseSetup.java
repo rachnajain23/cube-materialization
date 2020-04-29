@@ -34,7 +34,6 @@ public class DatabaseSetup {
         dbSetup.endConnection();
     }
 
-
     public void establishConnection(){
         try{
             //STEP 2: Register JDBC driver

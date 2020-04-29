@@ -1,0 +1,27 @@
+<cuboidSpec>
+  <!--Zero or more repetitions:-->
+  <spec customName="spec1" name="2_3_6_7">
+    <!--Optional:-->
+    <attributeList>
+      <!--Zero or more repetitions:-->
+      <attribute code="2" name="name"/>
+      <attribute code="3" name="age"/>
+      <attribute code="6" name="category"/>
+      <attribute code="7" name="subcategory"/>
+    </attributeList>
+  </spec>
+  <spec customName="spec2" name="2_4_5">
+    <!--Optional:-->
+    <attributeList>
+      <!--Zero or more repetitions:-->
+      <attributes code="5" name="item_id"/>
+      <attributes code="4" name="sex"/>
+      <attributes code="2" name="name"/>
+    </attributeList>
+  </spec>
+  <!--Optional:-->
+  <cuboidList>
+    <!--Zero or more repetitions:-->
+    <table>string</table>
+  </cuboidList>
+</cuboidSpec>

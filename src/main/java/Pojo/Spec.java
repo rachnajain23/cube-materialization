@@ -11,10 +11,10 @@ public class Spec {
 
     private String name;
     private String customName;
-    private ArrayList<String> attribute;
+    private ArrayList<Attribute> attribute;
 
     public Spec() {
-        attribute = new ArrayList<String>();
+        attribute = new ArrayList<Attribute>();
     }
 
     @XmlAttribute
@@ -29,17 +29,26 @@ public class Spec {
     public String getCustomName() { return customName; }
     public void setCustomName(String customName) { this.customName = customName; }
 
-    @XmlElementWrapper(name = "dimensionList")
+    @XmlElementWrapper(name = "attributeList")
     @XmlElement
-    public ArrayList<String> getAttribute() {
+    public ArrayList<Attribute> getAttribute() {
         return attribute;
     }
-    public void setAttribute(ArrayList<String> attribute) {
+    public void setAttribute(ArrayList<Attribute> attribute) {
         this.attribute = attribute;
     }
 
-    public void addAttribute(String att)
+    public void addAttribute(Attribute attribute)
     {
-        this.attribute.add((att));
+        this.attribute.add((attribute));
+    }
+
+    @Override
+    public String toString() {
+        return "Spec{" +
+                "name='" + name + '\'' +
+                ", customName='" + customName + '\'' +
+                ", attribute=" + attribute +
+                '}';
     }
 }

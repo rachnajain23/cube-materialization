@@ -11,12 +11,14 @@ public class JdbcConnection {
     TODO Also needs to replace DB name with schema name when a user selects some schema to manipulate
     * */
     static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/store";
+    static  String DB_URL = "jdbc:mysql://localhost/";
     static final String USER = "root";
     static final String PASS = "root";
 
-    public static Connection getConnection()
+
+    public static Connection getConnection(String name)
     {
+        DB_URL+=name;
         Connection conn = null;
 
         try {

@@ -41,5 +41,11 @@ public class CuboidSpecList {
         this.getTables().addAll(tables);
     }
 
-
+    @Override
+    public String toString() {
+        return "CuboidSpecList{" +
+                "speclist=" + speclist +
+                ", tables=" + tables +
+                '}';
+    }
 }

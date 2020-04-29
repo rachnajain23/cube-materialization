@@ -135,8 +135,8 @@ public class CuboidCreation {
     }
 
     // This takes queries generated and creates cuboids in DB except apex cuboid
-    boolean createCuboids(ArrayList<String> queries) throws SQLException {
-        Connection con = JdbcConnection.getConnection();
+    boolean createCuboids(ArrayList<String> queries, String schemaName) throws SQLException {
+        Connection con = JdbcConnection.getConnection(schemaName);
         Statement stmt;
         try {
             if(con != null)
@@ -174,7 +174,7 @@ public class CuboidCreation {
         String currentDirectory = System.getProperty("user.dir");
         System.out.println(currentDirectory);
         //TODO replace Test1 with schemaName
-        String fName = currentDirectory + "/storage/" + "Test1" + ".xml";
+        String fName = currentDirectory + "/storage/" + SchemaName + ".xml";
         try {
             File file = new File(fName);
             JAXBContext jaxbContext = JAXBContext.newInstance(StarSchema.class);
@@ -193,18 +193,30 @@ public class CuboidCreation {
     public static void main(String[] args) {
         CuboidCreation c = new CuboidCreation();
         //TODO Take User Input for schema name and pass it here
-//        StarSchema s = c.readFromXml("some schema");
-        DatabaseSetup db = new DatabaseSetup();
-        StarSchema s = db.TESTING_GenerateSampleSchema();
+        StarSchema s = c.readFromXml("store");
+//        DatabaseSetup db = new DatabaseSetup();
+//        StarSchema s = db.TESTING_GenerateSampleSchema();
         try {
             ArrayList<String> queries = c.generateQueries(s);
             System.out.println(queries);
-            boolean b = c.createCuboids(queries);
+            boolean b = c.createCuboids(queries, s.getName());
             System.out.println(b);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    public String generateDimensionalLattice(StarSchema starSchema){
+        CuboidCreation cc = new CuboidCreation();
+        ArrayList<String> queries =cc.generateQueries(starSchema);
+        try {
+            boolean b = cc.createCuboids(queries, starSchema.getName());
+        } catch (SQLException e) {
+            return "Error in creating dimensional cuboid";
+        }
+        return "true";
+    }
+
 }
 
 //StarSchema{name='store',

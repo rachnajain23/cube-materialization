@@ -27,14 +27,14 @@ public class CuboidSpecManipulation {
 
     public CuboidSpecManipulation(){}
 
-    public static  void main(String[] args) throws JAXBException, FileNotFoundException {
+    public static void main(String[] args) throws JAXBException, FileNotFoundException {
         CuboidSpecManipulation cc = new CuboidSpecManipulation();
         CuboidSpecList c = cc.showAvailableSpec("hello");
         for(Spec s: c.getSpeclist())
             System.out.println("name: " + s.getName() + "\n" + s.getAttribute() + "\n");
     }
 
-    private void setStarSchema() {
+    public void setStarSchema() {
         CuboidCreation cr = new CuboidCreation();
         schema = cr.readFromXml(schemaName);
     }
@@ -113,7 +113,7 @@ public class CuboidSpecManipulation {
         c.addSpec(s);
         ArrayList<ArrayList<String>> queriesAndTables = cc.generateQueryFromAttr(attributes, schema);
         try {
-            boolean r = cc.createCuboids(queriesAndTables.get(0));
+            boolean r = cc.createCuboids(queriesAndTables.get(0), "store");
             c.addTables(queriesAndTables.get(1));
             boolean t = writeSpecInXml(c);
         } catch (Exception  e) {
