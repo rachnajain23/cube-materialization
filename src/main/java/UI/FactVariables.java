@@ -268,10 +268,10 @@ public class FactVariables extends JFrame implements ActionListener {
         file.setVisible(true);
     }
     }
-    
-    }
+
+}
 
 //    public static void main(String[] args) {
 //          FactVariables acojfar = new FactVariables();
 //    }
-}
+
