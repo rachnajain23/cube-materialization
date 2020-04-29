@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<starSchema name="store">
+    <dimensionList>
+        <dimension name="customer">
+            <attributes code="1" name="customer_id"/>
+            <attributes code="2" name="name"/>
+            <attributes code="3" name="age"/>
+            <attributes code="4" name="sex"/>
+        </dimension>
+        <dimension name="item">
+            <attributes code="5" name="item_id"/>
+            <attributes code="6" name="category"/>
+            <attributes code="7" name="subcategory"/>
+        </dimension>
+    </dimensionList>
+    <factList>
+        <fact name="sellingPrice">
+            <aggregateFuncList>
+                <aggregateFuncs>SUM</aggregateFuncs>
+                <aggregateFuncs>COUNT</aggregateFuncs>
+            </aggregateFuncList>
+            <type>NUMERIC</type>
+        </fact>
+        <fact name="profit">
+            <aggregateFuncList>
+                <aggregateFuncs>SUM</aggregateFuncs>
+                <aggregateFuncs>AVG</aggregateFuncs>
+            </aggregateFuncList>
+            <type>NUMERIC</type>
+        </fact>
+    </factList>
+</starSchema>
