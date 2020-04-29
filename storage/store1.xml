@@ -1,0 +1,41 @@
+<starSchema name="store">
+  <!--Optional:-->
+  <dimensionList>
+    <dimension name="customer">
+      <attributes name="customer_id"/>
+      <attributes name="name"/>
+      <attributes name="age"/>
+      <attributes name="sex"/>
+    </dimension>
+    <dimension name="item">
+      <attributes name="item_id"/>
+      <attributes name="category"/>
+      <attributes name="subcategory"/>
+    </dimension>
+  </dimensionList>
+  <factList>
+    <fact name="sellingPrice">
+      <aggregateFuncList>
+        <aggregateFuncs>SUM</aggregateFuncs>
+        <aggregateFuncs>AVG</aggregateFuncs>
+        <aggregateFuncs>COUNT</aggregateFuncs>
+      </aggregateFuncList>
+      <type>NUMERIC</type>
+    </fact>
+    <fact name="profit">
+      <aggregateFuncList>
+        <aggregateFuncs>SUM</aggregateFuncs>
+        <aggregateFuncs>AVG</aggregateFuncs>
+      </aggregateFuncList>
+      <type>NUMERIC</type>
+    </fact>
+  </factList>
+</starSchema>
+
+
+<!--        //StarSchema{name='store',-->
+<!--        //        facts=[Fact{name='sellingPrice', type=NUMERIC, aggregateFuncs=[SUM, AVG, COUNT]},-->
+<!--        //        Fact{name='profit', type=NUMERIC, aggregateFuncs=[SUM, AVG]}],-->
+<!--        //        dimensions=[-->
+<!--        //                Dimension{name='customer', attributes=[Attribute{name='name'}, Attribute{name='age'}, Attribute{name='sex'}]},-->
+<!--        //        Dimension{name='item', attributes=[Attribute{name='category'}, Attribute{name='subcategory'}]}]}-->
