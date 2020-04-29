@@ -40,12 +40,15 @@ public class FactVariables extends JFrame implements ActionListener {
     JCheckBox mode;
     JButton adding;
     JButton proceed;
+    SchemaCreation sc = new SchemaCreation();
+    ArrayList<AggregateFunc> fnList = new ArrayList<AggregateFunc>();
 
     public FactVariables(StarSchema s) {
         
         super("Fact Variable and Aggregate functions Details");
         setLayout(new BorderLayout());
         globalSchema = s;
+        System.out.println(s.getFact());
         this.panel = new JPanel();
         this.panel.setLayout(new FlowLayout());
         add(panel, BorderLayout.CENTER);
@@ -57,7 +60,7 @@ public class FactVariables extends JFrame implements ActionListener {
         
         
     JPanel subPanel = new JPanel();
-    adding = new JButton("Click here to Add Fact Variables");
+    adding = new JButton("Click here to Add more Fact Variables");
     proceed = new JButton("Proceed to Create Schema");
     subPanel.add(adding);
     subPanel.add(proceed);
@@ -70,6 +73,58 @@ public class FactVariables extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(300, 90, 900, 600);
         setVisible(true);
+
+        factname = new JTextField(17);
+        factname.setFont(new Font("Arial", Font.PLAIN, 15));
+        this.panel.add(factname);
+
+        numeric = new JRadioButton("Numeric");
+        numeric.setFont(new Font("Arial", Font.PLAIN, 17));
+        numeric.setSelected(false);
+        this.panel.add(numeric);
+        numeric.addActionListener(this);
+
+        str = new JRadioButton("String");
+        str.setFont(new Font("Arial", Font.PLAIN, 17));
+        str.setSelected(false);
+        this.panel.add(str);
+        str.addActionListener(this);
+
+        gengp = new ButtonGroup();
+        gengp.add(numeric);
+        gengp.add(str);
+
+        sum = new JCheckBox("Sum");
+        sum.setFont(new Font("Arial", Font.PLAIN, 15));
+        this.panel.add(sum);
+        sum.addActionListener(this);
+
+        count = new JCheckBox("Count");
+        count.setFont(new Font("Arial", Font.PLAIN, 15));
+        this.panel.add(count);
+        count.addActionListener(this);
+
+        avg = new JCheckBox("Average");
+        avg.setFont(new Font("Arial", Font.PLAIN, 15));
+        this.panel.add(avg);
+        avg.addActionListener(this);
+
+        mean = new JCheckBox("Mean");
+        mean.setFont(new Font("Arial", Font.PLAIN, 15));
+        this.panel.add(mean);
+        mean.addActionListener(this);
+
+        median = new JCheckBox("Median");
+        median.setFont(new Font("Arial", Font.PLAIN, 15));
+        this.panel.add(median);
+        median.addActionListener(this);
+
+        mode = new JCheckBox("Mode");
+        mode.setFont(new Font("Arial", Font.PLAIN, 15));
+        this.panel.add(mode);
+        mode.addActionListener(this);
+
+        fnList = new ArrayList<AggregateFunc>(fns);
     }
 
     public void actionPerformed(ActionEvent evt) {
@@ -78,7 +133,8 @@ public class FactVariables extends JFrame implements ActionListener {
         // if the user presses the open dialog show the open dialog 
         if (evt.getSource() == adding)
         {
-        
+
+            fnList = new ArrayList<AggregateFunc>(fns);
         factname = new JTextField(17);
         factname.setFont(new Font("Arial", Font.PLAIN, 15));  
         this.panel.add(factname);
@@ -147,31 +203,20 @@ public class FactVariables extends JFrame implements ActionListener {
         mode.addActionListener(this);
 //        c.add(mode);
 
+
+            sc.insertFact(globalSchema, name, type, fnList);
+
         this.panel.revalidate();
         validate();
         }
         
         if(evt.getSource() == numeric || evt.getSource() == str)
-            
         {
-            
-//        Fact f = new Fact();
-        
-        
-//        f.setName(factname.getText());
         name= factname.getText();
-        System.out.println(factname.getText());
-        if (numeric.isSelected()){
-//            f.setType(Pojo.Type.NUMERIC);
+        if (numeric.isSelected())
               type= Pojo.Type.NUMERIC;
-            
-           // t = Type.NUMERIC;
-            System.out.println("yes numeric selected");
-        }
         else
-            type = Pojo.Type.STRING;
-//        
-        
+              type= Pojo.Type.STRING;
         }
         
         if(evt.getSource() == sum || evt.getSource() == count || evt.getSource() == avg 
@@ -187,7 +232,7 @@ public class FactVariables extends JFrame implements ActionListener {
         }
         if (avg.isSelected()){
             fns.add(AggregateFunc.AVG);
-            System.out.println("avg is selected");
+            System.out.println("avg is selectedd");
         }
         if (mean.isSelected()){
             fns.add(AggregateFunc.MEAN);
@@ -198,38 +243,30 @@ public class FactVariables extends JFrame implements ActionListener {
         if (mode.isSelected()){
             fns.add(AggregateFunc.MODE);
         }
-        
-        ArrayList<AggregateFunc> fnList = new ArrayList<AggregateFunc>(fns);
-        //globalSchema.setFact(fnList);
-        
-        System.out.println(fnList);
-//        WriteXmlFile w = new WriteXmlFile(globalSchema);
-        SchemaCreation sc = new SchemaCreation();
-        
-        
+
+    }
+    if(evt.getSource() == proceed){
+
         sc.insertFact(globalSchema, name, type, fnList);
         String ans= "";
-            try {
-                ans =sc.writeSchemaOuter(globalSchema);
-            } catch (JAXBException ex) {
+        try {
+            ans =sc.writeSchemaOuter(globalSchema);
+        } catch (JAXBException ex) {
 //                ans= false;
-                Logger.getLogger(FactVariables.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
+            Logger.getLogger(FactVariables.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
 //                ans= false;
-                Logger.getLogger(FactVariables.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            Logger.getLogger(FactVariables.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println(ans);
 //        else
 //            System.out.println("Unknown error occured while schema creation");
-        
-        
-    }
-    if(evt.getSource() == proceed){
-        
-        System.out.println("inside proceed schema create");
-        //createschema
+
+
+        this.setVisible(false);
         AddFile file =  new AddFile(globalSchema);
         file.setVisible(true);
+    }
     }
     
     }

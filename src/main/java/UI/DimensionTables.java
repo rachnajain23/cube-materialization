@@ -36,8 +36,7 @@ class DimensionTables
 	    private JTextArea tout; 
 	    private JLabel res;
             String named;
-            int numd;
-            JLabel enteredValue;
+             JLabel enteredValue;
 
 
 
@@ -45,11 +44,8 @@ class DimensionTables
 
 
     	globalSchema = s;
-//        named = name;
-//        numd = dnum;
-        
+
         this.numberDimension = numberDimension;
-        //this.numberFactsVar = numberFactsVar;
         d = new Dimension();
         x = 100;
         y = 300;
@@ -105,14 +101,6 @@ class DimensionTables
         sub.addActionListener(this); 
         c.add(sub);  
 
-//        tout = new JTextArea(); 
-//        tout.setFont(new Font("Arial", Font.PLAIN, 15)); 
-//        tout.setSize(500, 30); 
-//        tout.setLocation(100, 250); 
-//        tout.setLineWrap(true); 
-//        tout.setEditable(false); 
-//        c.add(tout);
-      
         next = new JButton("Next"); 
         next.setFont(new Font("Arial", Font.PLAIN, 15)); 
         next.setSize(150, 20); 
@@ -120,8 +108,6 @@ class DimensionTables
         next.addActionListener(this); 
         c.add(next);
         
-
-
     }
         public void insert(int number) {
         for (int i = 0; i < number; i++) {
@@ -150,14 +136,7 @@ class DimensionTables
         enteredValue.setSize(700, 20); 
         enteredValue.setLocation(100, 250); 
         c.add(enteredValue);
-//        String data 
-//                    = "Dimension name : "
-//                      + tdname.getText() 
-//                    
-//                + "   Number of Attributes : "
-//                      + tfno.getText() + "\n"; 
-//            tout.setText(data); 
-//            tout.setEditable(false);
+
             number_attri = Integer.parseInt(tfno.getText());
             insert(number_attri);
 
@@ -169,21 +148,17 @@ class DimensionTables
               }
              SchemaCreation sc= new SchemaCreation();
              sc.insertDimension(globalSchema, name, list);
-             
-            
-//        globalSchema.addSingleDimension(d);
+
         this.dispose();
         System.out.println(numberDimension);
         if(numberDimension != 1) {
-            //DimensionTables obj = new DimensionTables(this.globalSchema, this.numberDimension-1,named,numd);
+
             DimensionTables obj = new DimensionTables(this.globalSchema, this.numberDimension-1);
             System.out.println("inside dimension table new ...");
             obj.setVisible(true);
             //obj.pack();
         }
         else {
-//            this.dispose();
-
              FactVariables f = new FactVariables(globalSchema);
              f.setVisible(true);
             //f.pack();
