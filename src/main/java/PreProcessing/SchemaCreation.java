@@ -122,10 +122,10 @@ public class SchemaCreation {
             }
     }
 
-    //Three things are being done in createSchema function.
+    //Three things are being done in writeSchemaOuter function.
     // 1. Adding file name the Schema_list file(which contains names of all files)
     // 2. generation of attribute codes
-    // 3. Creating an star schema file.
+    // 3. Creating a star schema file.
     public String writeSchemaOuter(StarSchema starSchema) throws IOException, JAXBException {
         String s= addNameToFile(starSchema.getName());
         if(s!="true")

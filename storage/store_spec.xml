@@ -14,14 +14,26 @@
     <!--Optional:-->
     <attributeList>
       <!--Zero or more repetitions:-->
-      <attributes code="5" name="item_id"/>
-      <attributes code="4" name="sex"/>
-      <attributes code="2" name="name"/>
+      <attribute code="5" name="item_id"/>
+      <attribute code="4" name="sex"/>
+      <attribute code="2" name="name"/>
     </attributeList>
   </spec>
   <!--Optional:-->
   <cuboidList>
     <!--Zero or more repetitions:-->
-    <table>string</table>
+
+    <table>1_2</table>
+    <table>1_6</table>
+    <table>1_7</table>
+    <table>2_6</table>
+    <table>2_7</table>
+    <table>6_7</table>
+    <table>1_2_6</table>
+    <table>1_2_7</table>
+    <table>1_6_7</table>
+    <table>2_6_7</table>
+    <table>1_2_6_7</table>
+
   </cuboidList>
 </cuboidSpec>
