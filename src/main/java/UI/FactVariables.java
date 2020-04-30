@@ -1,19 +1,15 @@
 package UI;
 
 import javax.swing.*;
-import Pojo.Fact;
-import Pojo.StarSchema;
-import Pojo.Type;
 
-import PreProcessing.WriteXmlFile;
-import Pojo.AggregateFunc;
 import Pojo.StarSchema;
+
+import Pojo.AggregateFunc;
 import PreProcessing.SchemaCreation;
 import java.awt.*;
 import java.awt.event.*;
 
 import javax.xml.bind.JAXBException;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;

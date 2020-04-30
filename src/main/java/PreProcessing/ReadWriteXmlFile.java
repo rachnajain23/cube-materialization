@@ -8,15 +8,15 @@ import javax.xml.bind.Marshaller;
 import java.io.*;
 import java.util.ArrayList;
 
-public class WriteXmlFile {
+public class ReadWriteXmlFile {
     private StarSchema s;
     private String schemaName;
 
-    public WriteXmlFile(StarSchema s) {
+    public ReadWriteXmlFile(StarSchema s) {
         this.s = s;
     }
 
-    public WriteXmlFile(String schemaName) {
+    public ReadWriteXmlFile(String schemaName) {
         this.schemaName = schemaName;
     }
 
@@ -36,7 +36,7 @@ public class WriteXmlFile {
         return "XML created successfully";
     }
 
-    public boolean writeSchema() throws JAXBException, FileNotFoundException {
+    public boolean writeStarSchema() throws JAXBException, FileNotFoundException {
         String currentDirectory = System.getProperty("user.dir");
         System.out.println(currentDirectory);
         String fName = currentDirectory + "/storage/" + s.getName() + ".xml";
@@ -55,29 +55,5 @@ public class WriteXmlFile {
         return true;
     }
 
-    public static void main(String[] args) throws JAXBException, FileNotFoundException {
-        StarSchema s = new StarSchema();
-        s.setName("test1");
-        Dimension d = new Dimension();
-        d.setName("Product");
-        ArrayList<Attribute> attr_list = new ArrayList<Attribute>();
-        Attribute a = new Attribute();
-        a.setName("Prod_id");
-        Attribute a1 = new Attribute();
-        a1.setName("sub_category");
-        attr_list.add(a);
-        attr_list.add(a1);
-        d.setAttributes(attr_list);
-        Fact f = new Fact();
-        f.setName("Sales");
-        f.setType(Type.NUMERIC);
 
-//        s.addAggregateFn(AggregateFunc.AVG);
-//        s.addAggregateFn((AggregateFunc.MEAN));
-        s.addSingleFact(f);
-        s.addSingleDimension(d);
-
-        WriteXmlFile w = new WriteXmlFile(s);
-        boolean test  = w.writeSchema();
-    }
 }

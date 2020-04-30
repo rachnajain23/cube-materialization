@@ -1,7 +1,7 @@
 package UI;
 import Pojo.StarSchema;
 import PreProcessing.SchemaCreation;
-import PreProcessing.WriteXmlFile;
+import PreProcessing.ReadWriteXmlFile;
 
 import javax.swing.*; 
 import java.awt.*;
@@ -151,7 +151,7 @@ class NewCube
             SchemaCreation schemaCreation= new SchemaCreation();
             globalSchema=schemaCreation.newSchema(nameSchema);
              //   System.out.println("after entering name then submit");
-                WriteXmlFile w = new WriteXmlFile(globalSchema.getName());
+                ReadWriteXmlFile w = new ReadWriteXmlFile(globalSchema.getName());
                 String checkSchemaFile = w.schemaExist();
                 System.out.println(checkSchemaFile);
                 if (checkSchemaFile.equalsIgnoreCase("XML created successfully")) 
