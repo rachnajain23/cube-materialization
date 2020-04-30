@@ -17,7 +17,7 @@ public class ExistingManipulation {
         this.schemaName = schemaName;
         this.cuboidSpecList = cuboidSpecList;
         connection=JdbcConnection.getConnection(schemaName);
-        starSchema= (new CuboidCreation()).readFromXml(schemaName);
+        starSchema= (new CuboidCreation()).readStarSchemaFromXml(schemaName);
     }
 
 
@@ -161,19 +161,19 @@ public class ExistingManipulation {
                 sql= "SELECT "+ attributes+ facts+ " FROM base WHERE "+ condition+ " GROUP BY "+ attributes+ ";";
             }
         }
-            try {
-                ResultSet resultSet = executeQuery(sql,schemaName);
-                return getResult(resultSet);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            //return table elements;
+        try {
+            ResultSet resultSet = executeQuery(sql,schemaName);
+            return getResult(resultSet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        //return table elements;
         return null;
     }
 
 
     public static void main(String[] args) {
-        StarSchema starSchema = (new CuboidCreation()).readFromXml("store");
+        StarSchema starSchema = (new CuboidCreation()).readStarSchemaFromXml("store");
         CuboidSpecManipulation obj = new CuboidSpecManipulation("store");
         CuboidSpecList cuboidSpecList = obj.showAvailableSpec("store");
         ExistingManipulation qp = new ExistingManipulation(cuboidSpecList, "store");

@@ -1,11 +1,8 @@
 package PreProcessing;
 
 import Pojo.*;
-import org.w3c.dom.Attr;
 
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -133,8 +130,8 @@ public class SchemaCreation {
         else
         {
             generateAttributeCode(starSchema);
-            WriteXmlFile writeXmlFile= new WriteXmlFile(starSchema);
-            if(writeXmlFile.writeSchema())
+            ReadWriteXmlFile writeXmlFile= new ReadWriteXmlFile(starSchema);
+            if(writeXmlFile.writeStarSchema())
                 return "Schema created successfully";
             else
                 return "Error occurred in schema creation";

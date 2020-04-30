@@ -77,6 +77,8 @@ public class CuboidCreation {
 
     ArrayList<ArrayList<String>> generateQueryFromAttr(HashMap<Attribute, String> map, StarSchema schema) {
         ArrayList<ArrayList<String>> queries = new ArrayList<ArrayList<String>>();
+        queries.add(new ArrayList<String>());
+        queries.add(new ArrayList<String>());
         int size = map.size();
         int two_n =(int)Math.pow(2, size);
         StringBuilder cuboidName = new StringBuilder();
@@ -90,9 +92,10 @@ public class CuboidCreation {
             query = new String();
             HashMap<String, ArrayList<Integer>> dimensionMap = new HashMap<String, ArrayList<Integer>>();
             for (int j = 0; j < size; j++) {
-                if(((i >> j) & 1) == 1) {
+                if (((i >> j) & 1) == 1) {
                     Attribute a = attr_list.get(j);
-                    if(dimensionMap.containsKey(map.get(a))) {
+                    System.out.println("+++" + a);
+                    if (dimensionMap.containsKey(map.get(a))) {
                         ArrayList<Integer> list = dimensionMap.get(map.get(a));
                         list.add(a.getCode());
                     } else {
@@ -101,13 +104,6 @@ public class CuboidCreation {
                     selectCols.append(map.get(a) + "_" + a.getName() + ",");
                 }
             }
-            for (Map.Entry<String,ArrayList<Integer>> entry : dimensionMap.entrySet()) {
-                 Collections.sort(entry.getValue());
-                 cuboidName.append(entry.getKey() + "_");
-                 for(Integer k : entry.getValue()) {
-                     cuboidName.append(k + "_");
-                 }
-             }
             for (Fact f : schema.getFact()){
                 ArrayList<AggregateFunc> agf_list = f.getAggregateFuncs();
                 for (AggregateFunc fn : agf_list)
@@ -117,7 +113,7 @@ public class CuboidCreation {
             selectCols.deleteCharAt(selectCols.length() - 1);
             if (i == two_n-1)
                 apexName = cuboidName.toString() + "_apex";
-                query = "CREATE TABLE" + cuboidName.toString() + " SELECT " +
+                query = "CREATE TABLE " +  " SELECT " +
                     selectCols + " FROM base group by " + selectCols;
             queries.get(0).add(query); // query list
             queries.get(1).add(cuboidName.toString()); // cuboid Name list
@@ -170,7 +166,7 @@ public class CuboidCreation {
     }
 
     // This reads schema in xml file and creates StarSchema Object
-    StarSchema readFromXml(String SchemaName) {
+    StarSchema readStarSchemaFromXml(String SchemaName) {
         String currentDirectory = System.getProperty("user.dir");
         System.out.println(currentDirectory);
         //TODO replace Test1 with schemaName
@@ -188,22 +184,6 @@ public class CuboidCreation {
             e.printStackTrace();
         }
         return null;
-    }
-
-    public static void main(String[] args) {
-        CuboidCreation c = new CuboidCreation();
-        //TODO Take User Input for schema name and pass it here
-        StarSchema s = c.readFromXml("store");
-//        DatabaseSetup db = new DatabaseSetup();
-//        StarSchema s = db.TESTING_GenerateSampleSchema();
-        try {
-            ArrayList<String> queries = c.generateQueries(s);
-            System.out.println(queries);
-            boolean b = c.createCuboids(queries, s.getName());
-            System.out.println(b);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public String generateDimensionalLattice(StarSchema starSchema){
