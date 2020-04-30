@@ -1,4 +1,4 @@
-package Pojo;
+package Pojo.Schema;
 
 
 
@@ -29,7 +29,6 @@ public class Attribute {
         this.code = code;
     }
 
-    @XmlAttribute
     public String getName() {
         return name;
     }

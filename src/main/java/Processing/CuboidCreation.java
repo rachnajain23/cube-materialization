@@ -1,20 +1,17 @@
-package PreProcessing;
+package Processing;
 
-import Pojo.*;
-import Pojo.Dimension;
+import Pojo.Enums.AggregateFunc;
+import Pojo.Schema.*;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import java.awt.*;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
 
 public class CuboidCreation {
 
@@ -165,27 +162,6 @@ public class CuboidCreation {
         return query.toString();
     }
 
-    // This reads schema in xml file and creates StarSchema Object
-    StarSchema readStarSchemaFromXml(String SchemaName) {
-        String currentDirectory = System.getProperty("user.dir");
-        System.out.println(currentDirectory);
-        //TODO replace Test1 with schemaName
-        String fName = currentDirectory + "/storage/" + SchemaName + ".xml";
-        try {
-            File file = new File(fName);
-            JAXBContext jaxbContext = JAXBContext.newInstance(StarSchema.class);
-
-            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            StarSchema starSchema = (StarSchema) jaxbUnmarshaller.unmarshal(file);
-
-            System.out.println(starSchema.getName());
-            return starSchema;
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     public String generateDimensionalLattice(StarSchema starSchema){
         CuboidCreation cc = new CuboidCreation();
         ArrayList<String> queries =cc.generateQueries(starSchema);
@@ -198,16 +174,3 @@ public class CuboidCreation {
     }
 
 }
-
-//StarSchema{name='store',
-//        facts=[Fact{name='sellingPrice', type=NUMERIC, aggregateFuncs=[SUM, AVG, COUNT]},
-//        Fact{name='profit', type=NUMERIC, aggregateFuncs=[SUM, AVG]}],
-//        dimensions=[
-//                Dimension{name='customer', attributes=[Attribute{name='name'}, Attribute{name='age'}, Attribute{name='sex'}]},
-//        Dimension{name='item', attributes=[Attribute{name='category'}, Attribute{name='subcategory'}]}]}
-
-
-
-//    CREATE TABLE cuboid_customer SELECT customer.name,customer.age,customer.sex,SUM(sellingPrice) as SUM_sellingPrice ,AVG(sellingPrice) as
-//        AVG_sellingPrice ,COUNT(sellingPrice) as COUNT_sellingPrice ,SUM(profit) as SUM_profit ,AVG(profit) as AVG_profit
-//        FROM customer,facts WHERE customer.name=facts.name  GROUP BY customer.name

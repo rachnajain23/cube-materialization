@@ -1,23 +1,27 @@
-package PreProcessing;
+package Processing;
 
-import Pojo.*;
-import com.mysql.cj.protocol.Resultset;
+import Pojo.Enums.AggregateFunc;
+import Pojo.Enums.OLAPOperation;
+import Pojo.Schema.Attribute;
+import Pojo.Schema.Fact;
+import Pojo.Schema.StarSchema;
+import Pojo.Specs.CuboidSpecList;
 
 import java.sql.*;
 import java.util.*;
 
-public class ExistingManipulation {
+public class OLAPQueries {
     private String schemaName;
     private CuboidSpecList cuboidSpecList;
     private static Connection connection;
     private StarSchema starSchema;
     private Comparator<Attribute> attributeComparator= Comparator.comparing(Attribute::getCode);
 
-    public ExistingManipulation(CuboidSpecList cuboidSpecList, String schemaName) {
+    public OLAPQueries(CuboidSpecList cuboidSpecList, String schemaName) {
         this.schemaName = schemaName;
         this.cuboidSpecList = cuboidSpecList;
         connection=JdbcConnection.getConnection(schemaName);
-        starSchema= (new CuboidCreation()).readStarSchemaFromXml(schemaName);
+        starSchema= (new ReadWriteXmlFile()).readStarSchema(schemaName);
     }
 
 
@@ -173,16 +177,16 @@ public class ExistingManipulation {
 
 
     public static void main(String[] args) {
-        StarSchema starSchema = (new CuboidCreation()).readStarSchemaFromXml("store");
+        StarSchema starSchema = (new ReadWriteXmlFile()).readStarSchema("store");
         CuboidSpecManipulation obj = new CuboidSpecManipulation("store");
         CuboidSpecList cuboidSpecList = obj.showAvailableSpec("store");
-        ExistingManipulation qp = new ExistingManipulation(cuboidSpecList, "store");
+        OLAPQueries qp = new OLAPQueries(cuboidSpecList, "store");
         HashMap<Attribute, String> map = new HashMap<>();
         map.put(starSchema.getDimension().get(0).getAttributes().get(0), "customer");
-//        map.put(starSchema.getDimension().get(0).getAttributes().get(1), "name");
-//        map.put(starSchema.getDimension().get(1).getAttributes().get(1), "item");
+//        map.put(starSchema.getDimension().get(0).getAttributes().get(1), "customer");
+        map.put(starSchema.getDimension().get(1).getAttributes().get(1), "item");
         map.put(starSchema.getDimension().get(1).getAttributes().get(2), "item");
-        map.put(starSchema.getDimension().get(0).getAttributes().get(3), "customer");
+//        map.put(starSchema.getDimension().get(0).getAttributes().get(3), "customer");
         System.out.println(map.toString());
 //        obj.checkConfigExist(map, "store");
         qp.rollup(map);

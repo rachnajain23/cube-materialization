@@ -1,4 +1,4 @@
-package Pojo;
+package Pojo.Enums;
 
 
 import javax.xml.bind.annotation.XmlType;

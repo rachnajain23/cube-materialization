@@ -1,8 +1,11 @@
 package UI;
-import java.awt.event.*;
-import java.awt.*;
-import java.util.ArrayList;
+
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.ArrayList;
+
 class solve11 extends JFrame implements ItemListener {
 
     // frame
@@ -15,8 +18,7 @@ class solve11 extends JFrame implements ItemListener {
     static JComboBox c1;
 
     // main class
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         // create a new frame
         f = new JFrame("Data Cube Management");
 
@@ -27,7 +29,7 @@ class solve11 extends JFrame implements ItemListener {
         f.setLayout(new FlowLayout());
 
         // array of string contating cities
-        String s1[] = { "Jalpaiguri", "Mumbai", "Noida", "Kolkata", "New Delhi" };
+        String s1[] = {"Jalpaiguri", "Mumbai", "Noida", "Kolkata", "New Delhi"};
 
         ArrayList<String> a1 = new ArrayList<String>();
         //a1 = getListofschema from backend
@@ -76,8 +78,8 @@ class solve11 extends JFrame implements ItemListener {
 
         f.show();
     }
-    public void itemStateChanged(ItemEvent e)
-    {
+
+    public void itemStateChanged(ItemEvent e) {
         // if the state combobox is changed
         if (e.getSource() == c1) {
 

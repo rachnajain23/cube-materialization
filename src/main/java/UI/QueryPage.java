@@ -9,6 +9,17 @@ public class QueryPage extends JFrame {
     JPanel container = new JPanel();
     JPanel buttonPanel = new JPanel();
 
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                QueryPage q = new QueryPage();
+                q.addToTextPanel();
+                q.addToButtonPanel();
+                q.showFrame();
+            }
+        });
+    }
+
     public void showFrame() {
         textPanel.setLayout(null);
         textPanel.setPreferredSize(new Dimension(500, 300));
@@ -32,7 +43,6 @@ public class QueryPage extends JFrame {
         textPanel.add(t);
     }
 
-
     // add stuff to button panel
     public void addToButtonPanel() {
         JButton clear = new JButton("clear");
@@ -41,17 +51,6 @@ public class QueryPage extends JFrame {
         execute.setSize(50, 20);
         buttonPanel.add(clear);
         buttonPanel.add(execute);
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                QueryPage q = new QueryPage();
-                q.addToTextPanel();
-                q.addToButtonPanel();
-                q.showFrame();
-            }
-        });
     }
 
 }

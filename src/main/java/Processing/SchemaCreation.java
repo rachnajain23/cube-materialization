@@ -1,6 +1,8 @@
-package PreProcessing;
+package Processing;
 
-import Pojo.*;
+import Pojo.Enums.AggregateFunc;
+import Pojo.Enums.Type;
+import Pojo.Schema.*;
 
 import javax.xml.bind.JAXBException;
 import java.io.*;
@@ -10,23 +12,22 @@ import java.util.List;
 
 public class SchemaCreation {
 
-//    public boolean doesSchemaExist(String name){
-//        String currentDirectory = System.getProperty("user.dir");
-//        String fName = currentDirectory + "/storage/" +name + ".xml";
-//        File f = new File(fName);
-//        if(f.exists())
-//            return true;
-//        else
-//            return false;
-//    }
-//
+    public boolean doesSchemaExist(String name) throws IOException {
+        name=generateName(name);
+        String arr[]= getSchemaList();
+        for(String s: arr)
+            if(s.equals(name))
+                return true;
+        return false;
+    }
+
     public StarSchema newSchema(String name){
         StarSchema starSchema = new StarSchema();
         starSchema.setName(generateName(name));
         return starSchema;
     }
 
-    public void insertFact(StarSchema starSchema, String name, Type type,ArrayList<AggregateFunc> aggregateFunc ){
+    public void insertFact(StarSchema starSchema, String name, Type type, ArrayList<AggregateFunc> aggregateFunc ){
         Fact fact = new Fact();
         fact.setName(generateName(name));
         fact.setType(type);
@@ -89,13 +90,6 @@ public class SchemaCreation {
         return "true";
     }
 
-    public static void main(String[] args) throws IOException {
-        SchemaCreation sc = new SchemaCreation();
-        sc.addNameToFile("Departmental_Store");
-        (new DatabaseSetup()).TESTING_GenerateSampleSchema().toString();
-        sc.getSchemaList();
-    }
-
     public String[] getSchemaList() throws IOException {
         String currentDirectory = System.getProperty("user.dir");
         System.out.println(currentDirectory);
@@ -124,24 +118,35 @@ public class SchemaCreation {
     // 2. generation of attribute codes
     // 3. Creating a star schema file.
     public String writeSchemaOuter(StarSchema starSchema) throws IOException, JAXBException {
+        String returnString;
         String s= addNameToFile(starSchema.getName());
         if(s!="true")
             return s;
         else
         {
             generateAttributeCode(starSchema);
-            ReadWriteXmlFile writeXmlFile= new ReadWriteXmlFile(starSchema);
-            if(writeXmlFile.writeStarSchema())
-                return "Schema created successfully";
+            ReadWriteXmlFile writeXmlFile= new ReadWriteXmlFile();
+            s= writeXmlFile.createSchemaIfNotExist(starSchema.getName())+ " ";
+            if(writeXmlFile.writeStarSchema(starSchema))
+                return s+ "Schema created successfully";
             else
-                return "Error occurred in schema creation";
+                return s+ "Error occurred in schema creation";
         }
     }
 
     public String generateName(String s){
+        s.toLowerCase();
         s=s.trim();
         if(s.contains(" "))
             s= s.replaceAll(" ", "_");
         return s;
+    }
+
+
+    public static void main(String[] args) throws IOException {
+        SchemaCreation sc = new SchemaCreation();
+        sc.addNameToFile("Dept  ");
+//        (new DatabaseSetup()).TESTING_GenerateSampleSchema().toString();
+        sc.getSchemaList();
     }
 }

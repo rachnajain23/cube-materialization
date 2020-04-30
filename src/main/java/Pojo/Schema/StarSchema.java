@@ -1,5 +1,7 @@
-package Pojo;
+package Pojo.Schema;
 
+
+import Pojo.Enums.AggregateFunc;
 
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;

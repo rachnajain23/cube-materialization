@@ -1,4 +1,4 @@
-package PreProcessing;
+package Pojo.Enums;
 
 public enum OLAPOperation {
     ROLL_UP,

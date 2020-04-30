@@ -1,6 +1,8 @@
-package PreProcessing;
+package Processing;
 
-import Pojo.*;
+import Pojo.Enums.Type;
+import Pojo.Schema.*;
+import Pojo.Specs.CuboidSpecList;
 
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
@@ -34,15 +36,15 @@ public class Driver {
         s.addSingleFact(f);
         s.addSingleDimension(d);
 
-        ReadWriteXmlFile w = new ReadWriteXmlFile(s);
-        boolean test  = w.writeStarSchema();
+        ReadWriteXmlFile w = new ReadWriteXmlFile();
+        boolean test  = w.writeStarSchema(s);
     }
 
     // CuboidCreation PSVM
     public static void main2(String[] args) {
         CuboidCreation c = new CuboidCreation();
         //TODO Take User Input for schema name and pass it here
-        StarSchema s = c.readStarSchemaFromXml("store");
+        StarSchema s = (new ReadWriteXmlFile()).readStarSchema("store");
 //        DatabaseSetup db = new DatabaseSetup();
 //        StarSchema s = db.TESTING_GenerateSampleSchema();
         try {
@@ -57,25 +59,27 @@ public class Driver {
 
     //ExistingManipulation PSVM
     public static void main3(String[] args) {
-        StarSchema starSchema= (new CuboidCreation()).readStarSchemaFromXml("store");
+        StarSchema starSchema = (new ReadWriteXmlFile()).readStarSchema("store");
         CuboidSpecManipulation obj = new CuboidSpecManipulation("store");
-        CuboidSpecList cuboidSpecList= obj.showAvailableSpec("store");
-        ExistingManipulation qp= new ExistingManipulation(cuboidSpecList, "store");
-
-
-        obj.setStarSchema();
-        HashMap<Attribute, String> map = obj.getAttributes();
-//        HashMap<Attribute, String> map1= map;
+        CuboidSpecList cuboidSpecList = obj.showAvailableSpec("store");
+        OLAPQueries qp = new OLAPQueries(cuboidSpecList, "store");
+        HashMap<Attribute, String> map = new HashMap<>();
+        map.put(starSchema.getDimension().get(0).getAttributes().get(0), "customer");
+//        map.put(starSchema.getDimension().get(0).getAttributes().get(1), "name");
+//        map.put(starSchema.getDimension().get(1).getAttributes().get(1), "item");
+        map.put(starSchema.getDimension().get(1).getAttributes().get(2), "item");
+        map.put(starSchema.getDimension().get(0).getAttributes().get(3), "customer");
         System.out.println(map.toString());
-        obj.checkConfigExist(map);
-//        qp.slice(map, "store");
+//        obj.checkConfigExist(map, "store");
+        qp.rollup(map);
+        qp.sliceOrDice(map, "customer_customer_id>2");
     }
 
     //CuboidSpecManipulation PSVM
     public static void main(String[] args) throws JAXBException, IOException {
         CuboidSpecManipulation cc = new CuboidSpecManipulation("test");
         CuboidCreation creation = new CuboidCreation();
-        CuboidSpecList c = cc.readSpecFile();
+        CuboidSpecList c = cc.readSpec("test");
 //        System.out.println(c);
         HashMap<Attribute, String> a = cc.getAttributes();
         HashMap<Attribute, String> test = new HashMap<Attribute, String>();

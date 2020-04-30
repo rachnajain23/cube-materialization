@@ -1,20 +1,22 @@
-package  UI;
+package UI;
+
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class GenLattice {
     JFrame f;
-    GenLattice(){
-        f=new JFrame("Data Cube Management");
+
+    GenLattice() {
+        f = new JFrame("Data Cube Management");
         final JLabel label = new JLabel();
         label.setHorizontalAlignment(JLabel.CENTER);
-        label.setSize(350,100);
-        JButton b=new JButton("Select");
-        b.setBounds(250,100,100,20);
+        label.setSize(350, 100);
+        JButton b = new JButton("Select");
+        b.setBounds(250, 100, 100, 20);
 
-                ArrayList<String> a1 = new ArrayList<String>();
+        ArrayList<String> a1 = new ArrayList<String>();
         //a1 = getListofschema from backend
         a1.add("Market");
         a1.add("Store");
@@ -26,16 +28,16 @@ public class GenLattice {
         for (int j = 0; j < a1.size(); j++) {
             str[j] = a1.get(j);
         }
-        final JComboBox cb=new JComboBox(str);
+        final JComboBox cb = new JComboBox(str);
 
-        cb.setBounds(50, 100,150,20);
+        cb.setBounds(50, 100, 150, 20);
         String head = "Select the Schema from below!";
         label.setText(head);
         f.add(cb);
         f.add(label);
         f.add(b);
         f.setLayout(null);
-        f.setBounds(300,90,900,600);
+        f.setBounds(300, 90, 900, 600);
         f.setVisible(true);
 
         b.addActionListener(new ActionListener() {
@@ -50,6 +52,7 @@ public class GenLattice {
             }
         });
     }
+
     public static void main(String[] args) {
         new GenLattice();
     }

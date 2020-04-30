@@ -1,13 +1,16 @@
-package PreProcessing;
+package Processing;
 
-import Pojo.*;
+import Pojo.Schema.Attribute;
+import Pojo.Schema.Dimension;
+import Pojo.Schema.StarSchema;
+import Pojo.Specs.CuboidSpecList;
+import Pojo.Specs.Spec;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,8 +31,8 @@ public class CuboidSpecManipulation {
     public CuboidSpecManipulation(){}
 
     public void setStarSchema() {
-        CuboidCreation cr = new CuboidCreation();
-        schema = cr.readStarSchemaFromXml(schemaName);
+        ReadWriteXmlFile readWriteXmlFile= new ReadWriteXmlFile();
+        schema = readWriteXmlFile.readStarSchema(schemaName);
     }
 
     public HashMap<Attribute, String> getAttributes() {
@@ -42,31 +45,13 @@ public class CuboidSpecManipulation {
         return attributes;
     }
 
-    public CuboidSpecList readSpecFile() {
-        String currentDirectory = System.getProperty("user.dir");
-        System.out.println(currentDirectory);
-        String fName = currentDirectory + "/storage/" + schemaName + "_spec.xml";
-        File f = new File(fName);
-        try {
-            if (f.exists()) {
-                JAXBContext jaxbContext = JAXBContext.newInstance(CuboidSpecList.class);
-                Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-                CuboidSpecList specList = (CuboidSpecList) jaxbUnmarshaller.unmarshal(f);
-                globalSpec = specList;
-                return specList;
-            } else {
-                f.createNewFile();
-                return new CuboidSpecList();
-            }
-        } catch (Exception e) {
-            return null;
-        }
-    }
+
 
 
     public String checkConfigExist(HashMap<Attribute, String> attributes) {
         CuboidCreation cc = new CuboidCreation();
-        CuboidSpecList c = readSpecFile();
+        CuboidSpecList c = readSpec(schemaName);
+        globalSpec= c;
         if (c == null)
             return "Error creating spec file. Please try again!";
         HashMap<String, ArrayList<Integer>> map = new HashMap<String, ArrayList<Integer>>();
@@ -116,6 +101,27 @@ public class CuboidSpecManipulation {
         return "Ready to create the config!";
     }
 
+
+    public CuboidSpecList readSpec(String schemaName) {
+        String currentDirectory = System.getProperty("user.dir");
+        System.out.println(currentDirectory);
+        String fName = currentDirectory + "/storage/" + schemaName + "_spec.xml";
+        File f = new File(fName);
+        try {
+            if (f.exists()) {
+                JAXBContext jaxbContext = JAXBContext.newInstance(CuboidSpecList.class);
+                Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+                CuboidSpecList specList = (CuboidSpecList) jaxbUnmarshaller.unmarshal(f);
+                globalSpec= specList;
+                return specList;
+            } else {
+                f.createNewFile();
+                return new CuboidSpecList();
+            }
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
     public boolean writeSpecInXml(HashMap<Attribute, String> attributes, String name)
             throws JAXBException, IOException {

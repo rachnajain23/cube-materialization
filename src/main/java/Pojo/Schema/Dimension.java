@@ -1,10 +1,12 @@
-package Pojo;
+package Pojo.Schema;
 
 
 //import jakarta.xml.bind.annotation.XmlAccessType;
 //import jakarta.xml.bind.annotation.XmlAccessorType;
 //import jakarta.xml.bind.annotation.XmlAttribute;
 //import jakarta.xml.bind.annotation.XmlType;
+
+import Pojo.Schema.Attribute;
 
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
