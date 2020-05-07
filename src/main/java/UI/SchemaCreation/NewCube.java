@@ -50,57 +50,45 @@ public class NewCube extends JFrame implements ActionListener {
 
         s_name = new JLabel("Schema Name");
         s_name.setFont(new Font("Arial", Font.PLAIN, 15));
-        s_name.setSize(200, 20);
+        s_name.setSize(200, 25);
         s_name.setLocation(100, 100);
         c.add(s_name);
 
         tname = new JTextField();
         tname.setFont(new Font("Arial", Font.PLAIN, 15));
-        tname.setSize(190, 20);
+        tname.setSize(190, 25);
         tname.setLocation(320, 100);
         c.add(tname);
 
         dno = new JLabel("Number of Dimension Table");
         dno.setFont(new Font("Arial", Font.PLAIN, 15));
-        dno.setSize(290, 20);
+        dno.setSize(290, 25);
         dno.setLocation(100, 150);
         c.add(dno);
 
         tdno = new JTextField();
         tdno.setFont(new Font("Arial", Font.PLAIN, 15));
-        tdno.setSize(190, 20);
+        tdno.setSize(190, 25);
         tdno.setLocation(320, 150);
         c.add(tdno);
 
-//        fno = new JLabel("Number of Fact Variables"); 
-//        fno.setFont(new Font("Arial", Font.PLAIN, 15)); 
-//        fno.setSize(290, 20); 
-//        fno.setLocation(100, 200); 
-//        c.add(fno);
-//
-//        tfno = new JTextField(); 
-//        tfno.setFont(new Font("Arial", Font.PLAIN, 15)); 
-//        tfno.setSize(190, 20); 
-//        tfno.setLocation(320, 200); 
-//        c.add(tfno);
-
         sub = new JButton("Submit");
         sub.setFont(new Font("Arial", Font.PLAIN, 15));
-        sub.setSize(100, 20);
+        sub.setSize(100, 25);
         sub.setLocation(150, 450);
         sub.addActionListener(this);
         c.add(sub);
 
         reset = new JButton("Reset");
         reset.setFont(new Font("Arial", Font.PLAIN, 15));
-        reset.setSize(100, 20);
+        reset.setSize(100, 25);
         reset.setLocation(270, 450);
         reset.addActionListener(this);
         c.add(reset);
 
         next = new JButton("Next");
         next.setFont(new Font("Arial", Font.PLAIN, 15));
-        next.setSize(100, 20);
+        next.setSize(100, 25);
         next.setLocation(700, 520);
         next.addActionListener(this);
         c.add(next);

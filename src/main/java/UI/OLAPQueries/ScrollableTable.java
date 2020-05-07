@@ -1,4 +1,4 @@
-package UI;
+package UI.OLAPQueries;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +10,7 @@ public class ScrollableTable extends JPanel {
 
     private void initializeUI() {
         setLayout(new BorderLayout());
-        setPreferredSize(new Dimension(500, 200));
+        setPreferredSize(new Dimension(900, 200));
 
         JTable table = new JTable(30, 50);
 

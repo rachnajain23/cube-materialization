@@ -70,38 +70,38 @@ public class DimensionTables
 
         dname = new JLabel("Name of Dimension Table");
         dname.setFont(new Font("Arial", Font.PLAIN, 15));
-        dname.setSize(290, 20);
+        dname.setSize(290, 25);
         dname.setLocation(100, 150);
         c.add(dname);
 
         tdname = new JTextField();
         tdname.setFont(new Font("Arial", Font.PLAIN, 15));
-        tdname.setSize(190, 20);
+        tdname.setSize(190, 25);
         tdname.setLocation(320, 150);
         c.add(tdname);
 
         fno = new JLabel("Number of Attributes");
         fno.setFont(new Font("Arial", Font.PLAIN, 15));
-        fno.setSize(290, 20);
+        fno.setSize(290, 25);
         fno.setLocation(100, 200);
         c.add(fno);
 
         tfno = new JTextField();
         tfno.setFont(new Font("Arial", Font.PLAIN, 15));
-        tfno.setSize(190, 20);
+        tfno.setSize(190, 25);
         tfno.setLocation(320, 200);
         c.add(tfno);
 
         sub = new JButton("Add Attributes");
         sub.setFont(new Font("Arial", Font.PLAIN, 15));
-        sub.setSize(150, 20);
+        sub.setSize(150, 25);
         sub.setLocation(700, 200);
         sub.addActionListener(this);
         c.add(sub);
 
         next = new JButton("Next");
         next.setFont(new Font("Arial", Font.PLAIN, 15));
-        next.setSize(150, 20);
+        next.setSize(150, 25);
         next.setLocation(700, 500);
         next.addActionListener(this);
         c.add(next);

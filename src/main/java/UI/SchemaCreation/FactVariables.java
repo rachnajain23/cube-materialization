@@ -3,7 +3,6 @@ package UI.SchemaCreation;
 import Pojo.Enums.AggregateFunc;
 import Pojo.Schema.StarSchema;
 import Services.SchemaCreationService;
-import UI.AddFile;
 
 import javax.swing.*;
 import javax.xml.bind.JAXBException;
@@ -37,31 +36,32 @@ public class FactVariables extends JFrame implements ActionListener {
     JButton adding;
     JButton proceed;
     SchemaCreationService sc = new SchemaCreationService();
-    ArrayList<AggregateFunc> fnList = new ArrayList<AggregateFunc>();
+    ArrayList<AggregateFunc> fnList;
 
     public FactVariables(StarSchema s) {
 
         super("Fact Variable and Aggregate functions Details");
         setLayout(new BorderLayout());
         globalSchema = s;
-        System.out.println(s.getFact());
+       // System.out.println(s.getFact());
         this.panel = new JPanel();
         this.panel.setLayout(new FlowLayout());
         add(panel, BorderLayout.CENTER);
 
-        JLabel title = new JLabel("Fact Variable Name             Type                       Aggregate Function");
+        JLabel title = new JLabel("Fact Variable Name                 Type                     Aggregate Function");
         title.setFont(new Font("Arial", Font.PLAIN, 20));
         add(title, BorderLayout.NORTH);
 
 
         JPanel subPanel = new JPanel();
         adding = new JButton("Click here to Add more Fact Variables");
+        adding.setFont(new Font("Arial", Font.PLAIN,17));
         proceed = new JButton("Proceed to Create Schema");
+        proceed.setFont(new Font("Arial", Font.PLAIN,17));
         subPanel.add(adding);
         subPanel.add(proceed);
         adding.addActionListener(this);
         proceed.addActionListener(this);
-        //adding.addActionListener(this);
 
         add(subPanel, BorderLayout.SOUTH);
 
@@ -69,18 +69,18 @@ public class FactVariables extends JFrame implements ActionListener {
         setBounds(300, 90, 900, 600);
         setVisible(true);
 
-        factname = new JTextField(17);
+        factname = new JTextField(19);
         factname.setFont(new Font("Arial", Font.PLAIN, 15));
         this.panel.add(factname);
 
         numeric = new JRadioButton("Numeric");
-        numeric.setFont(new Font("Arial", Font.PLAIN, 17));
+        numeric.setFont(new Font("Arial", Font.PLAIN, 16));
         numeric.setSelected(false);
         this.panel.add(numeric);
         numeric.addActionListener(this);
 
         str = new JRadioButton("String");
-        str.setFont(new Font("Arial", Font.PLAIN, 17));
+        str.setFont(new Font("Arial", Font.PLAIN, 16));
         str.setSelected(false);
         this.panel.add(str);
         str.addActionListener(this);
@@ -119,7 +119,7 @@ public class FactVariables extends JFrame implements ActionListener {
         this.panel.add(mode);
         mode.addActionListener(this);
 
-        fnList = new ArrayList<AggregateFunc>(fns);
+       // fnList = new ArrayList<AggregateFunc>(fns);
     }
 
     public void actionPerformed(ActionEvent evt) {
@@ -128,19 +128,23 @@ public class FactVariables extends JFrame implements ActionListener {
         // if the user presses the open dialog show the open dialog 
         if (evt.getSource() == adding) {
 
-            fnList = new ArrayList<AggregateFunc>(fns);
-            factname = new JTextField(17);
+            sc.insertFactService(globalSchema, name, type, fnList);
+            System.out.println("insert from adding button");
+            fns.clear();
+            fnList = new ArrayList<AggregateFunc>();
+
+            factname = new JTextField(19);
             factname.setFont(new Font("Arial", Font.PLAIN, 15));
             this.panel.add(factname);
 
             numeric = new JRadioButton("Numeric");
-            numeric.setFont(new Font("Arial", Font.PLAIN, 17));
+            numeric.setFont(new Font("Arial", Font.PLAIN, 16));
             numeric.setSelected(false);
             this.panel.add(numeric);
             numeric.addActionListener(this);
 
             str = new JRadioButton("String");
-            str.setFont(new Font("Arial", Font.PLAIN, 17));
+            str.setFont(new Font("Arial", Font.PLAIN, 16));
             str.setSelected(false);
             this.panel.add(str);
             str.addActionListener(this);
@@ -152,53 +156,32 @@ public class FactVariables extends JFrame implements ActionListener {
             sum = new JCheckBox("Sum");
             sum.setFont(new Font("Arial", Font.PLAIN, 15));
             this.panel.add(sum);
-//        sum.setSize(100, 20); 
-//        sum.setLocation(100,460);
             sum.addActionListener(this);
-//        c.add(sum);
 
             count = new JCheckBox("Count");
             count.setFont(new Font("Arial", Font.PLAIN, 15));
             this.panel.add(count);
-//        count.setSize(100, 20); 
-//        count.setLocation(100,490);
             count.addActionListener(this);
-//        c.add(count);
 
             avg = new JCheckBox("Average");
             avg.setFont(new Font("Arial", Font.PLAIN, 15));
             this.panel.add(avg);
-//        avg.setSize(100, 20); 
-//        avg.setLocation(100,520);
             avg.addActionListener(this);
-//        c.add(avg);
 
             mean = new JCheckBox("Mean");
             mean.setFont(new Font("Arial", Font.PLAIN, 15));
             this.panel.add(mean);
-//        mean.setSize(100, 20); 
-//        mean.setLocation(100,550);
             mean.addActionListener(this);
-//        c.add(mean);
 
             median = new JCheckBox("Median");
             median.setFont(new Font("Arial", Font.PLAIN, 15));
             this.panel.add(median);
-//        median.setSize(100, 20); 
-//        median.setLocation(100,580);
             median.addActionListener(this);
-//        c.add(median);
 
             mode = new JCheckBox("Mode");
             mode.setFont(new Font("Arial", Font.PLAIN, 15));
             this.panel.add(mode);
-//        mode.setSize(100, 20); 
-//        mode.setLocation(100,610); 
             mode.addActionListener(this);
-//        c.add(mode);
-
-
-            sc.insertFactService(globalSchema, name, type, fnList);
 
             this.panel.revalidate();
             validate();
@@ -223,7 +206,6 @@ public class FactVariables extends JFrame implements ActionListener {
             }
             if (avg.isSelected()) {
                 fns.add(AggregateFunc.AVG);
-                System.out.println("avg is selectedd");
             }
             if (mean.isSelected()) {
                 fns.add(AggregateFunc.MEAN);
@@ -235,13 +217,17 @@ public class FactVariables extends JFrame implements ActionListener {
                 fns.add(AggregateFunc.MODE);
             }
 
+            fnList = new ArrayList<AggregateFunc>(fns);
+
         }
         if (evt.getSource() == proceed) {
 
             sc.insertFactService(globalSchema, name, type, fnList);
+            System.out.println("insert facts from proceed");
             String ans = "";
             try {
                 ans = sc.writeSchemaService(globalSchema);
+                JOptionPane.showMessageDialog(this, ans);
             } catch (JAXBException ex) {
 //                ans= false;
                 Logger.getLogger(FactVariables.class.getName()).log(Level.SEVERE, null, ex);
@@ -250,13 +236,9 @@ public class FactVariables extends JFrame implements ActionListener {
                 Logger.getLogger(FactVariables.class.getName()).log(Level.SEVERE, null, ex);
             }
             System.out.println(ans);
-//        else
-//            System.out.println("Unknown error occured while schema creation");
 
+            //this.setVisible(false);
 
-            this.setVisible(false);
-            AddFile file = new AddFile(globalSchema);
-            file.setVisible(true);
         }
     }
 

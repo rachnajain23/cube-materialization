@@ -1,4 +1,4 @@
-package UI;
+package UI.LoadData;
 
 import Pojo.Schema.Attribute;
 import Pojo.Schema.Dimension;
@@ -26,13 +26,15 @@ public class AddFile extends JFrame implements ActionListener {
     String filepath;
     ArrayList<Fact> facts;
     DatabaseSetup dbsetup = new DatabaseSetup();
+    int typeOfLoad;
     // Components of the Form
     private Container c;
     private JLabel title;
 
-    public AddFile(StarSchema s) {
+    public AddFile(StarSchema s, int type) {
 
         globalSchema = s;
+        typeOfLoad = type;
         sname = globalSchema.getName();
         dim = new ArrayList<Dimension>();
         dim = globalSchema.getDimension();
@@ -54,7 +56,7 @@ public class AddFile extends JFrame implements ActionListener {
         title.setLocation(170, 50);
         c.add(title);
 
-        // button to open open dialog 
+        // button to open open dialog
         JButton button2 = new JButton("Open");
         button2.setFont(new Font("Arial", Font.PLAIN, 15));
         button2.setSize(100, 20);
@@ -80,7 +82,7 @@ public class AddFile extends JFrame implements ActionListener {
         String str2 = "";
         String fc = "";
         int y = 125;
-        str1 = "File name:" + s.getName() + "\n";
+        //str1 = "File name:" + s.getName() + "\n";
         System.out.println(str1);
         for (Dimension dimension : dim) {
             str = "Sheet name:" + dimension.getName() + "   " + "Attribute in sequence: ";
@@ -164,7 +166,7 @@ public class AddFile extends JFrame implements ActionListener {
 
         String com = evt.getActionCommand();
         if (com.equals("Open")) {
-            // create an object of JFileChooser class 
+            // create an object of JFileChooser class
             JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
             j.setFileSelectionMode(JFileChooser.FILES_ONLY);
             j.addChoosableFileFilter(new FileNameExtensionFilter("Excel File", "xlsx", "xls"));
@@ -177,7 +179,7 @@ public class AddFile extends JFrame implements ActionListener {
                 filepath = j.getSelectedFile().getAbsolutePath();
                 System.out.println(filepath);
             }
-            // if the user cancelled the operation 
+            // if the user cancelled the operation
             else
                 l.setText("The user cancelled the operation");
         }
@@ -185,8 +187,15 @@ public class AddFile extends JFrame implements ActionListener {
             System.exit(0);
         }
         if (com.equals("Upload")) {
-            DatabaseSetup setup = new DatabaseSetup();
-            setup.control(globalSchema, filepath);
+
+            if (typeOfLoad == 1){
+                DatabaseSetup databaseSetup = new DatabaseSetup();
+       //         databaseSetup.createNewDB(globalSchema, filepath);
+            }
+            else{
+                DatabaseSetup databaseSetup = new DatabaseSetup();
+       //         databaseSetup.updateDBTables(globalSchema, filepath);
+            }
             //call the datacreation function
             l.setText("Successfully uploaded file.");
         }
@@ -208,10 +217,10 @@ public class AddFile extends JFrame implements ActionListener {
     }
 }
 
-//class AddFile { 
-//  
-//    public static void main(String[] args) throws Exception 
-//    { 
-//        A my = new A(); 
-//    } 
+//class AddFile {
+//
+//    public static void main(String[] args) throws Exception
+//    {
+//        A my = new A();
+//    }
 //}
