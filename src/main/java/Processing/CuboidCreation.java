@@ -3,10 +3,6 @@ package Processing;
 import Pojo.Enums.AggregateFunc;
 import Pojo.Schema.*;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -129,7 +125,7 @@ public class CuboidCreation {
 
     // This takes queries generated and creates cuboids in DB except apex cuboid
     boolean createCuboids(ArrayList<String> queries, String schemaName) throws SQLException {
-        Connection con = JdbcConnection.getConnection(schemaName);
+        Connection con = DBConnection.getConnection(schemaName);
         Statement stmt;
         try {
             if(con != null)

@@ -128,9 +128,9 @@ public class SchemaCreation {
             ReadWriteXmlFile writeXmlFile= new ReadWriteXmlFile();
             s= writeXmlFile.createSchemaIfNotExist(starSchema.getName())+ " ";
             if(writeXmlFile.writeStarSchema(starSchema))
-                return s+ "Schema created successfully";
+                return "Schema created successfully";
             else
-                return s+ "Error occurred in schema creation";
+                return "Error occurred in schema creation";
         }
     }
 

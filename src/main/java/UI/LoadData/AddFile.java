@@ -190,11 +190,11 @@ public class AddFile extends JFrame implements ActionListener {
 
             if (typeOfLoad == 1){
                 DatabaseSetup databaseSetup = new DatabaseSetup();
-       //         databaseSetup.createNewDB(globalSchema, filepath);
+                databaseSetup.addData(globalSchema, filepath);
             }
             else{
                 DatabaseSetup databaseSetup = new DatabaseSetup();
-       //         databaseSetup.updateDBTables(globalSchema, filepath);
+                databaseSetup.appendData(globalSchema, filepath);
             }
             //call the datacreation function
             l.setText("Successfully uploaded file.");

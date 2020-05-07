@@ -2,8 +2,9 @@ package Processing;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
-public class JdbcConnection {
+public class DBConnection {
 
 
     /*
@@ -19,6 +20,7 @@ public class JdbcConnection {
     public static Connection getConnection(String name)
     {
         DB_URL+=name;
+        System.out.println(DB_URL);
         Connection conn = null;
 
         try {
@@ -31,5 +33,27 @@ public class JdbcConnection {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static Connection getConnwithoutDB() {
+        Connection conn;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("Connecting to a selected database...");
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            return conn;
+        } catch(Exception e) {
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public static void endConnection(Connection connection) {
+        try{
+            if(connection!=null)
+                connection.close();
+        }catch(SQLException se){
+            se.printStackTrace();
+        }
     }
 }

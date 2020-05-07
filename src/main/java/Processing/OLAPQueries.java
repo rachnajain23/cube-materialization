@@ -20,7 +20,7 @@ public class OLAPQueries {
     public OLAPQueries(CuboidSpecList cuboidSpecList, String schemaName) {
         this.schemaName = schemaName;
         this.cuboidSpecList = cuboidSpecList;
-        connection=JdbcConnection.getConnection(schemaName);
+        connection= DBConnection.getConnection(schemaName);
         starSchema= (new ReadWriteXmlFile()).readStarSchema(schemaName);
     }
 

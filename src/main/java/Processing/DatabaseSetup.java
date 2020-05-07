@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseSetup {
+
     // JDBC driver name and database URL
     private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String DB_URL = "jdbc:mysql://localhost/";
@@ -25,15 +26,56 @@ public class DatabaseSetup {
     //variables
     Statement statement= null;
     Connection connection= null;
-    public void control(StarSchema starSchema, String filePath){
+
+    public void appendData(StarSchema starSchema, String filepath) {
+        try {
+            connection = DBConnection.getConnection(starSchema.getName());
+            statement = connection.createStatement();
+            System.out.println(starSchema);
+            System.out.println(filepath);
+            for (Dimension d : starSchema.getDimension())
+                populateTables(filepath, d.getName());
+            statement.executeUpdate("DROP TABLE base");
+            createBaseCuboid(starSchema);
+            DBConnection.endConnection(connection);
+        } catch (IOException io) {
+            io.printStackTrace();
+        } catch (SQLException sq) {
+            sq.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addData(StarSchema starSchema, String filepath) {
+        try {
+            connection = DBConnection.getConnwithoutDB();
+            statement = connection.createStatement();
+            createDatabase(starSchema);
+            insertIntoDB(starSchema, filepath);
+            createBaseCuboid(starSchema);
+            DBConnection.endConnection(connection);
+        } catch (SQLException sq) {
+            sq.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /* NOT in use anymore */
+    public void control(StarSchema starSchema, String filePath) throws SQLException {
         DatabaseSetup dbSetup = new DatabaseSetup();
-        dbSetup.establishConnection();
+        //dbSetup.establishConnection();
+        connection = DBConnection.getConnection(starSchema.getName());
+        statement = connection.createStatement();
         dbSetup.createDatabase(starSchema);
         dbSetup.insertIntoDB(starSchema,filePath);
         dbSetup.createBaseCuboid(starSchema);
-        dbSetup.endConnection();
+        //dbSetup.endConnection();
+        DBConnection.endConnection(connection);
     }
-
+    /* NOT in use anymore */
     public void establishConnection(){
         try{
             //STEP 2: Register JDBC driver
@@ -53,8 +95,7 @@ public class DatabaseSetup {
             e.printStackTrace();
         }
     }
-
-
+    /* NOT in use anymore */
     public void endConnection(){
         try{
             if(statement!=null)
@@ -70,8 +111,7 @@ public class DatabaseSetup {
         }
     }
 
-
-    public void createDatabase(StarSchema starSchema){
+    private void createDatabase(StarSchema starSchema){
         try{
             String sql= "CREATE DATABASE "+ starSchema.getName()+ ";";
                  System.out.println(sql);//----------------------------------
@@ -84,8 +124,7 @@ public class DatabaseSetup {
         }
     }
 
-
-    public void insertIntoDB(StarSchema starSchema,String filePath){
+    private void insertIntoDB(StarSchema starSchema,String filePath){
         try{
             String sqlFacts= "CREATE TABLE facts(";
             for(Dimension dimension: starSchema.getDimension()){
@@ -114,17 +153,17 @@ public class DatabaseSetup {
         }
     }
 
-
-    public void populateTables(String filepath,String tableName) throws IOException {
+    private void populateTables(String filepath,String tableName) throws IOException {
         XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(filepath));
         XSSFSheet sheet = workbook.getSheet(tableName);
         int r = sheet.getPhysicalNumberOfRows();
         int c = sheet.getRow(0).getPhysicalNumberOfCells();
 
+        System.out.println(r + " " + c);
+
         for (int i = 1; i < r; ++i) {
             Cell cell = sheet.getRow(i).getCell(0);
             String sql = "INSERT INTO " + tableName + " VALUES(";
-//            sql+="'"+ cell.get
             switch (cell.getCellType()) {
                 case Cell.CELL_TYPE_NUMERIC:
                     double temp=cell.getNumericCellValue();
@@ -160,13 +199,16 @@ public class DatabaseSetup {
             try {
                 statement.executeUpdate(sql);
             } catch (SQLException e) {
+                System.out.println("breaking here?");
+                e.printStackTrace();
+            } catch (Exception e) {
+                System.out.println("or here?");
                 e.printStackTrace();
             }
         }
     }
 
-
-    public void createBaseCuboid(StarSchema starSchema){
+    private void createBaseCuboid(StarSchema starSchema){
         String sqlAttributes="";
         String sql="";
         int flag=0;
@@ -192,13 +234,13 @@ public class DatabaseSetup {
         }
     }
 
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         DatabaseSetup databaseSetup = new DatabaseSetup();
-        StarSchema starSchema= databaseSetup.TESTING_GenerateSampleSchema();
-        databaseSetup.control(starSchema, "/home/gauri/Desktop/IIITB/DM/Project/cubematerialization/store.xlsx");
-    }
+//        databaseSetup.createNewDB("");
 
+        //StarSchema starSchema= databaseSetup.TESTING_GenerateSampleSchema();
+        //databaseSetup.control(starSchema, "/home/gauri/Desktop/IIITB/DM/Project/cubematerialization/store.xlsx");
+    }
 
     public StarSchema TESTING_GenerateSampleSchema(){
 
