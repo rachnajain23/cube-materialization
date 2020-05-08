@@ -68,58 +68,64 @@ public class CuboidCreation {
         return queries;
     }
 
-    ArrayList<ArrayList<String>> generateQueryFromAttr(HashMap<Attribute, String> map, StarSchema schema) {
-        ArrayList<ArrayList<String>> queries = new ArrayList<ArrayList<String>>();
-        queries.add(new ArrayList<String>());
-        queries.add(new ArrayList<String>());
+    ArrayList<String> generateQueryFromAttr(HashMap<Attribute, String> map,
+                                                       StarSchema schema , ArrayList<String> tables) {
+        ArrayList<String> queries = new ArrayList<String>();
         int size = map.size();
         int two_n =(int)Math.pow(2, size);
-        StringBuilder cuboidName = new StringBuilder();
-        StringBuilder selectCols = new StringBuilder();
-        String query = new String();
+        StringBuilder cuboidName;
+        StringBuilder selectCols;
+        StringBuilder factCols = new StringBuilder();
+        String query;
         String apexName = new String();
         ArrayList<Attribute> attr_list = new ArrayList<Attribute>(map.keySet());
-        for (int i = 1 ; i < two_n; i++) {
-            cuboidName = new StringBuilder("c_");
-            selectCols = new StringBuilder();
-            query = new String();
-            HashMap<String, ArrayList<Integer>> dimensionMap = new HashMap<String, ArrayList<Integer>>();
-            for (int j = 0; j < size; j++) {
-                if (((i >> j) & 1) == 1) {
-                    Attribute a = attr_list.get(j);
-                    System.out.println("+++" + a);
-                    if (dimensionMap.containsKey(map.get(a))) {
-                        ArrayList<Integer> list = dimensionMap.get(map.get(a));
-                        list.add(a.getCode());
-                    } else {
-                        dimensionMap.put(map.get(a), new ArrayList<Integer>(a.getCode()));
-                    }
-                    selectCols.append(map.get(a) + "_" + a.getName() + ",");
-                }
-            }
-            for (Fact f : schema.getFact()){
-                ArrayList<AggregateFunc> agf_list = f.getAggregateFuncs();
-                for (AggregateFunc fn : agf_list)
-                    selectCols.append(fn.toString() + "(" + f.getName() + ") as " + fn.toString() + "_" + f.getName() +" ,");
-            }
-            cuboidName.deleteCharAt(cuboidName.length() - 1);
-            selectCols.deleteCharAt(selectCols.length() - 1);
-            if (i == two_n-1)
-                apexName = cuboidName.toString() + "_apex";
-                query = "CREATE TABLE " +  " SELECT " +
-                    selectCols + " FROM base group by " + selectCols;
-            queries.get(0).add(query); // query list
-            queries.get(1).add(cuboidName.toString()); // cuboid Name list
-        }
-        query = "CREATE TABLE " + apexName + "SELECT ";
         for (Fact f : schema.getFact()){
             ArrayList<AggregateFunc> agf_list = f.getAggregateFuncs();
             for (AggregateFunc fn : agf_list)
-                query += fn.toString() + "(" + f.getName() + ") as " + fn.toString() + "_" + f.getName() +" ,";
+                factCols.append(fn.toString() + "(" + f.getName() + ") as " + fn.toString() + "_" + f.getName() +" ,");
         }
-        query = query.substring(0, query.length() - 1);
-        query += " FROM base";
-        queries.get(0).add(query);
+        factCols.deleteCharAt(factCols.length()-1);
+        for (int i = 1 ; i < two_n; i++) {
+            cuboidName = new StringBuilder("c_");
+            selectCols = new StringBuilder();
+            ArrayList<Integer> l = new ArrayList<>();
+            for (int j = 0; j < size; j++) {
+                if (((i >> j) & 1) == 1) {
+                    Attribute a = attr_list.get(j);
+                    l.add(a.getCode());
+                    selectCols.append(map.get(a) + "_" + a.getName() + ",");
+                }
+            }
+            for (Integer k : l)
+                cuboidName.append(k + "_");
+            cuboidName.deleteCharAt(cuboidName.length() - 1);
+            selectCols.deleteCharAt(selectCols.length()-1);
+            if (i == two_n-1) {
+                apexName = cuboidName.toString();
+            }
+                query = "CREATE TABLE " + cuboidName +  " SELECT " +
+                    selectCols + ", " + factCols + " FROM base group by " + selectCols;
+            if(!tables.contains(cuboidName.toString())){
+                queries.add(query); // query list
+            }
+        }
+
+
+        query = "CREATE TABLE " + apexName + "_apex" + " SELECT ";
+        factCols = new StringBuilder();
+        for (Fact f : schema.getFact()){
+            ArrayList<AggregateFunc> agf_list = f.getAggregateFuncs();
+            for (AggregateFunc fn : agf_list)
+                factCols.append(fn.toString() + "(" + fn.toString() + "_" + f.getName() + ") as "
+                        + fn.toString() + "_" + f.getName() +" ,");
+        }
+        factCols.deleteCharAt(factCols.length()-1);
+        query += factCols.toString();
+        query += " FROM " + apexName;
+        System.out.println(query);
+        if(!tables.contains(apexName + "_apex")){
+            queries.add(query); // query list
+        }
         return queries;
     }
 

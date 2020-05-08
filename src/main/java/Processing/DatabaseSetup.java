@@ -31,8 +31,6 @@ public class DatabaseSetup {
         try {
             connection = DBConnection.getConnection(starSchema.getName());
             statement = connection.createStatement();
-            System.out.println(starSchema);
-            System.out.println(filepath);
             for (Dimension d : starSchema.getDimension())
                 populateTables(filepath, d.getName());
             statement.executeUpdate("DROP TABLE base");

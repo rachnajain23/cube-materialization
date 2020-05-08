@@ -24,11 +24,11 @@ public class Attribute {
     public Integer getCode() {
         return code;
     }
-
     public void setCode(Integer code) {
         this.code = code;
     }
 
+    @XmlAttribute
     public String getName() {
         return name;
     }
