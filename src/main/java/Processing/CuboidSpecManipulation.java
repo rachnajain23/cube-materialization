@@ -14,10 +14,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class CuboidSpecManipulation {
     StarSchema schema;
@@ -33,8 +30,8 @@ public class CuboidSpecManipulation {
 
     public CuboidSpecManipulation(){}
 
-    public HashMap<Attribute, String> getAttributes() {
-        HashMap<Attribute, String> attributes = new HashMap<Attribute, String>();
+    public LinkedHashMap<Attribute, String> getAttributes() {
+        LinkedHashMap<Attribute, String> attributes = new LinkedHashMap<Attribute, String>();
         for (Dimension d : schema.getDimension()) {
             String dimName = d.getName();
             for (Attribute a : d.getAttributes())
