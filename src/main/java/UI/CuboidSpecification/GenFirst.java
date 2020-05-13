@@ -1,5 +1,9 @@
-package UI.OLAPQueries;
+package UI.CuboidSpecification;
 
+import Pojo.Schema.Attribute;
+import Pojo.Schema.StarSchema;
+import Processing.CuboidSpecManipulation;
+import Processing.ReadWriteXmlFile;
 import Processing.SchemaCreation;
 
 import javax.swing.*;
@@ -7,15 +11,18 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Vector;
 
-public class QueryFirst extends JFrame implements ActionListener {
+public class GenFirst extends JFrame implements ActionListener {
     JFrame f;
     JPanel textPanel = new JPanel();
     JPanel container = new JPanel();
     JButton b;
     JComboBox cb = new JComboBox();
 
-    public QueryFirst() throws IOException {
+    public GenFirst() throws IOException {
         f = new JFrame("Data Cube Management");
         addToTextPanel();
 
@@ -33,10 +40,10 @@ public class QueryFirst extends JFrame implements ActionListener {
     }
 
     public void addToTextPanel() throws IOException {
-        JLabel title = new JLabel("OLAP QUERIES");
+        JLabel title = new JLabel("Generation of Lattice of Cuboid");
         title.setFont(new Font("Arial", Font.PLAIN, 25));
         title.setSize(400,30);
-        title.setLocation(350,20);
+        title.setLocation(240,20);
 
         JLabel t = new JLabel("Select the Schema Name");
         t.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -66,14 +73,16 @@ public class QueryFirst extends JFrame implements ActionListener {
             System.out.println(data);
 
             this.setVisible(false);
-            QueryPage queryPage = new QueryPage(data);
-            queryPage.setVisible(true);
+            GenSecond genSecond = new GenSecond(data);
+            genSecond.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            genSecond.setBounds(300,90,900, 600);
+            genSecond.setVisible(true);
         }
 
     }
 
     public static void main(String [] args) throws IOException {
-        QueryFirst qf = new QueryFirst();
-        qf.setVisible(true);
+         GenFirst genFirstf = new GenFirst();
+        genFirstf.setVisible(true);
     }
 }

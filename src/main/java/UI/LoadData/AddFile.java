@@ -5,6 +5,7 @@ import Pojo.Schema.Dimension;
 import Pojo.Schema.Fact;
 import Pojo.Schema.StarSchema;
 import Processing.DatabaseSetup;
+import UI.SchemaCreation.FirstPage;
 import UI.SchemaCreation.NewCube;
 
 import javax.swing.*;
@@ -136,26 +137,33 @@ public class AddFile extends JFrame implements ActionListener {
         exit.addActionListener(this);
         c.add(exit);
 
+        JButton home = new JButton("Go to Homepage");
+        home.setFont(new Font("Arial", Font.PLAIN, 15));
+        home.setSize(200, 20);
+        home.setLocation(600, 500);
+        home.addActionListener(this);
+        c.add(home);
+
         JButton manipulate = new JButton("Generate Lattice of cuboid?");
         manipulate.setFont(new Font("Arial", Font.PLAIN, 15));
         manipulate.setSize(250, 20);
         manipulate.setLocation(285, 500);
         manipulate.addActionListener(this);
-        c.add(manipulate);
+       // c.add(manipulate);
 
         JButton create = new JButton("Create other star schema?");
         create.setFont(new Font("Arial", Font.PLAIN, 15));
         create.setSize(250, 20);
         create.setLocation(10, 500);
         create.addActionListener(this);
-        c.add(create);
+       // c.add(create);
 
         JButton queries = new JButton("Run OLAP Queries");
         queries.setFont(new Font("Arial", Font.PLAIN, 15));
         queries.setSize(250, 20);
         queries.setLocation(565, 500);
         queries.addActionListener(this);
-        c.add(queries);
+       // c.add(queries);
 
         //this.setVisible(true);
 
@@ -165,6 +173,12 @@ public class AddFile extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent evt) {
 
         String com = evt.getActionCommand();
+        if (com.equals("Go to Homepage")){
+            this.setVisible(false);
+            FirstPage f = new FirstPage();
+            f.setVisible(true);
+
+        }
         if (com.equals("Open")) {
             // create an object of JFileChooser class
             JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());

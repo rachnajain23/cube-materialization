@@ -228,6 +228,9 @@ public class FactVariables extends JFrame implements ActionListener {
             try {
                 ans = sc.writeSchemaService(globalSchema);
                 JOptionPane.showMessageDialog(this, ans);
+                this.setVisible(false);
+                FirstPage f = new FirstPage();
+                f.setVisible(true);
             } catch (JAXBException ex) {
 //                ans= false;
                 Logger.getLogger(FactVariables.class.getName()).log(Level.SEVERE, null, ex);

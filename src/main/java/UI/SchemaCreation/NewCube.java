@@ -140,6 +140,7 @@ public class NewCube extends JFrame implements ActionListener {
                 number_Dimension = Integer.parseInt(tdno.getText());
             } else {
                 JOptionPane.showMessageDialog(this, "Schema already exists with the same file name");
+
             }
         }
 

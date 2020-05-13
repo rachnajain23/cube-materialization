@@ -1,6 +1,6 @@
 package UI.SchemaCreation;
 
-import UI.LoadData.AddFile;
+import UI.CuboidSpecification.GenFirst;
 import UI.LoadData.addFileFirst;
 import UI.OLAPQueries.QueryFirst;
 
@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-class FirstPage extends JFrame implements ActionListener {
+public class FirstPage extends JFrame implements ActionListener {
 
     // Components of the Form 
     private Container c;
@@ -84,9 +84,6 @@ class FirstPage extends JFrame implements ActionListener {
             this.setVisible(false);
             NewCube obj = new NewCube();
             obj.setVisible(true);
-//               obj.pack();
-//               repaint();
-
 
         }
         if (e.getSource() == addFile){
@@ -98,13 +95,17 @@ class FirstPage extends JFrame implements ActionListener {
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
-
-//            AddFile file = new AddFile();
-//            file.setVisible(true);
         }
         if (e.getSource() == manipulate) {
             System.out.println("inside manipulate");
-
+            this.setVisible(false);
+            try {
+                GenFirst genFirst = new GenFirst();
+                genFirst.setBounds(300,90,900, 600);
+                genFirst.setVisible(true);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         }
         if (e.getSource() == queries) {
             try {
