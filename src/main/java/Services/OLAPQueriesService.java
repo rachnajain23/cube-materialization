@@ -12,8 +12,8 @@ public class OLAPQueriesService {
 
     private OLAPQueries olapQueries;
 
-    public OLAPQueriesService(CuboidSpecList cuboidSpecList, String schemaName){
-        olapQueries = new Processing.OLAPQueries(cuboidSpecList, schemaName);
+    public OLAPQueriesService(String schemaName){
+        olapQueries = new Processing.OLAPQueries(schemaName);
     }
 
     public String getSampleQueryService(OLAPOperation olapOperation){

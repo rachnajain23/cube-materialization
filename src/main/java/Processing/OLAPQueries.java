@@ -17,9 +17,9 @@ public class OLAPQueries {
     private StarSchema starSchema;
     private Comparator<Attribute> attributeComparator= Comparator.comparing(Attribute::getCode);
 
-    public OLAPQueries(CuboidSpecList cuboidSpecList, String schemaName) {
+    public OLAPQueries(String schemaName) {
         this.schemaName = schemaName;
-        this.cuboidSpecList = cuboidSpecList;
+        this.cuboidSpecList = (new ReadWriteXmlFile().readSpec(schemaName));
         connection= DBConnection.getConnection(schemaName);
         starSchema= (new ReadWriteXmlFile()).readStarSchema(schemaName);
     }
@@ -62,7 +62,7 @@ public class OLAPQueries {
         int cNo = metaData.getColumnCount();
 //        System.out.println(cNo);
         String[] row = new String[cNo];
-        List<String[]> result = new ArrayList<>();
+        List<String[]> result = new ArrayList<String[]>();
 
         //to add column names as the first row.
         for (int i = 0; i < cNo; ++i)
@@ -180,8 +180,8 @@ public class OLAPQueries {
         StarSchema starSchema = (new ReadWriteXmlFile()).readStarSchema("store");
         CuboidSpecManipulation obj = new CuboidSpecManipulation("store");
         CuboidSpecList cuboidSpecList = obj.showAvailableSpec("store");
-        OLAPQueries qp = new OLAPQueries(cuboidSpecList, "store");
-        HashMap<Attribute, String> map = new HashMap<>();
+        OLAPQueries qp = new OLAPQueries("store");
+        HashMap<Attribute, String> map = new HashMap<Attribute, String>();
         map.put(starSchema.getDimension().get(0).getAttributes().get(0), "customer");
 //        map.put(starSchema.getDimension().get(0).getAttributes().get(1), "customer");
         map.put(starSchema.getDimension().get(1).getAttributes().get(1), "item");
