@@ -62,7 +62,7 @@ public class Driver {
         StarSchema starSchema = (new ReadWriteXmlFile()).readStarSchema("store");
         CuboidSpecManipulation obj = new CuboidSpecManipulation("store");
         CuboidSpecList cuboidSpecList = obj.showAvailableSpec("store");
-        OLAPQueries qp = new OLAPQueries(cuboidSpecList, "store");
+        OLAPQueries qp = new OLAPQueries("store");
         HashMap<Attribute, String> map = new HashMap<>();
         map.put(starSchema.getDimension().get(0).getAttributes().get(0), "customer");
 //        map.put(starSchema.getDimension().get(0).getAttributes().get(1), "name");
@@ -79,7 +79,7 @@ public class Driver {
     public static void main(String[] args) throws JAXBException, IOException {
         CuboidSpecManipulation cc = new CuboidSpecManipulation("test");
         CuboidCreation creation = new CuboidCreation();
-        CuboidSpecList c = cc.readSpec("test");
+//        CuboidSpecList c = cc.readSpec("test");
 //        System.out.println(c);
         HashMap<Attribute, String> a = cc.getAttributes();
         HashMap<Attribute, String> test = new HashMap<Attribute, String>();

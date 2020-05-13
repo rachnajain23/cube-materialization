@@ -152,8 +152,11 @@ public class DatabaseSetup {
     }
 
     private void populateTables(String filepath,String tableName) throws IOException {
+        System.out.println(filepath);
         XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(filepath));
+        System.out.println(workbook.toString());
         XSSFSheet sheet = workbook.getSheet(tableName);
+        System.out.println(sheet.toString());
         int r = sheet.getPhysicalNumberOfRows();
         int c = sheet.getRow(0).getPhysicalNumberOfCells();
 
