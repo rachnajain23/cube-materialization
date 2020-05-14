@@ -9,16 +9,16 @@ public class DBConnection {
 
     /*
     TODO Put these 4 fields in a config file and fetch from there
-    TODO Also needs to replace DB name with schema name when a user selects some schema to manipulate
     * */
     static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     static  String DB_URL = "jdbc:mysql://localhost/";
     static final String USER = "root";
-    static final String PASS = "root";
+    static final String PASS = "1234";
 
 
     public static Connection getConnection(String name)
     {
+        DB_URL = "jdbc:mysql://localhost/";
         DB_URL+=name;
         System.out.println(DB_URL);
         Connection conn = null;
@@ -36,6 +36,7 @@ public class DBConnection {
     }
 
     public static Connection getConnwithoutDB() {
+        DB_URL = "jdbc:mysql://localhost/";
         Connection conn;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");

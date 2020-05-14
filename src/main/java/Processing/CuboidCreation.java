@@ -70,7 +70,8 @@ public class CuboidCreation {
 
     ArrayList<String> generateQueryFromAttr(HashMap<Attribute, String> map,
                                                        StarSchema schema , ArrayList<String> tables) {
-        ArrayList<String> queries = new ArrayList<String>();
+        ArrayList<String> newTables = new ArrayList<>();
+        ArrayList<String> queries = new ArrayList<>();
         int size = map.size();
         int two_n =(int)Math.pow(2, size);
         StringBuilder cuboidName;
@@ -105,8 +106,10 @@ public class CuboidCreation {
             }
                 query = "CREATE TABLE " + cuboidName +  " SELECT " +
                     selectCols + ", " + factCols + " FROM base group by " + selectCols;
-            if(!tables.contains(cuboidName.toString())){
+                System.out.println(query);
+            if(tables!= null && !tables.contains(cuboidName.toString())){
                 queries.add(query); // query list
+                newTables.add(cuboidName.toString());
             }
         }
 
@@ -125,7 +128,10 @@ public class CuboidCreation {
         System.out.println(query);
         if(!tables.contains(apexName + "_apex")){
             queries.add(query); // query list
+            newTables.add(apexName + "_apex");
         }
+        ReadWriteXmlFile rw = new ReadWriteXmlFile();
+        rw.appendTables(newTables, schema.getName());
         return queries;
     }
 

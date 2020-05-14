@@ -60,14 +60,17 @@ public class CuboidSpecManipulation {
 
     public boolean writeSpec(HashMap<Attribute, String> attributes, String name) {
         boolean xml = writeSpecInXml(attributes, name);
-        boolean cuboids = generateCuboidsFromAttr(attributes, name);
+        boolean cuboids = generateCuboidsFromAttr(attributes);
         return xml && cuboids;
     }
 
-    public boolean generateCuboidsFromAttr(HashMap<Attribute, String> attributes, String name) {
+    public boolean generateCuboidsFromAttr(HashMap<Attribute, String> attributes) {
         try {
             CuboidCreation cr = new CuboidCreation();
+            ReadWriteXmlFile rw = new ReadWriteXmlFile();
+            globalSpec = rw.readSpec(schema.getName());
             ArrayList<String> queries = cr.generateQueryFromAttr(attributes, schema, globalSpec.getTables());
+            System.out.println(queries);
             boolean cuboids = cr.createCuboids(queries, schemaName);
             return cuboids;
         } catch (SQLException sq) {

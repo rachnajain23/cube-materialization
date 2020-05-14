@@ -9,6 +9,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.*;
+import java.util.ArrayList;
 
 public class ReadWriteXmlFile {
     /* Starschema read/write */
@@ -128,12 +129,38 @@ public class ReadWriteXmlFile {
     public void appendSpec(Spec s, String name) {
         try {
             CuboidSpecList cuboidSpecList = readSpec(name);
-            cuboidSpecList.addSpec(s);
-            writeCuboidSpec(cuboidSpecList, name);
+            if (cuboidSpecList != null)
+            {
+                cuboidSpecList.addSpec(s);
+                writeCuboidSpec(cuboidSpecList, name);
+            }
+            else {
+                cuboidSpecList = new CuboidSpecList();
+                cuboidSpecList.addSpec(s);
+                writeCuboidSpec(cuboidSpecList, name);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
+
+    public void appendTables(ArrayList<String> t, String schemaName) {
+        try {
+            CuboidSpecList cuboidSpecList = readSpec(schemaName);
+            if (cuboidSpecList != null)
+            {
+                cuboidSpecList.addTables(t);
+                writeCuboidSpec(cuboidSpecList, schemaName);
+            }
+            else {
+                cuboidSpecList = new CuboidSpecList();
+                cuboidSpecList.addTables(t);
+                writeCuboidSpec(cuboidSpecList, schemaName);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
