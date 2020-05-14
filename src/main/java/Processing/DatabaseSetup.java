@@ -15,14 +15,6 @@ import java.util.List;
 
 public class DatabaseSetup {
 
-    // JDBC driver name and database URL
-    private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String DB_URL = "jdbc:mysql://localhost/";
-
-    //  Database credentials
-    private static final String USER = "root";
-    static final String PASS = "root";
-
     //variables
     Statement statement= null;
     Connection connection= null;
@@ -59,54 +51,6 @@ public class DatabaseSetup {
             e.printStackTrace();
         }
 
-    }
-
-    /* NOT in use anymore */
-    public void control(StarSchema starSchema, String filePath) throws SQLException {
-        DatabaseSetup dbSetup = new DatabaseSetup();
-        //dbSetup.establishConnection();
-        connection = DBConnection.getConnection(starSchema.getName());
-        statement = connection.createStatement();
-        dbSetup.createDatabase(starSchema);
-        dbSetup.insertIntoDB(starSchema,filePath);
-        dbSetup.createBaseCuboid(starSchema);
-        //dbSetup.endConnection();
-        DBConnection.endConnection(connection);
-    }
-    /* NOT in use anymore */
-    public void establishConnection(){
-        try{
-            //STEP 2: Register JDBC driver
-            Class.forName("com.mysql.cj.jdbc.Driver");
-
-            //STEP 3: Open a connection
-            System.out.println("Connecting to database...");
-            connection = DriverManager.getConnection(DB_URL, USER, PASS);
-
-            //STEP 4: Execute a query
-            statement = connection.createStatement();
-        }catch(SQLException se){
-            //Handle errors for JDBC
-            se.printStackTrace();
-        }catch(Exception e){
-            //Handle errors for Class.forName
-            e.printStackTrace();
-        }
-    }
-    /* NOT in use anymore */
-    public void endConnection(){
-        try{
-            if(statement!=null)
-                statement.close();
-        }catch(SQLException se){
-            se.printStackTrace();
-        }// nothing we can do
-        try{
-            if(connection!=null)
-                connection.close();
-        }catch(SQLException se){
-            se.printStackTrace();
-        }
     }
 
     private void createDatabase(StarSchema starSchema){
