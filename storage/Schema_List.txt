@@ -1,2 +1,1 @@
-schema1
-store sample 
+sample store

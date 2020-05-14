@@ -13,7 +13,7 @@ public class DBConnection {
     static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     static  String DB_URL = "jdbc:mysql://localhost/";
     static final String USER = "root";
-    static final String PASS = "1234";
+    static final String PASS = "root";
 
 
     public static Connection getConnection(String name)

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<starSchema name="gauri">
+    <dimensionList>
+        <dimension name="dim1">
+            <attributes code="1" name="att1"/>
+            <attributes code="2" name="att2"/>
+        </dimension>
+        <dimension name="dim2">
+            <attributes code="3" name="att3"/>
+            <attributes code="4" name="att4"/>
+        </dimension>
+        <dimension name="dim3">
+            <attributes code="5" name="att5"/>
+            <attributes code="6" name="att6"/>
+        </dimension>
+    </dimensionList>
+    <factList>
+        <fact name="fact1">
+            <aggregateFuncList>
+                <aggregateFuncs>AVG</aggregateFuncs>
+                <aggregateFuncs>COUNT</aggregateFuncs>
+            </aggregateFuncList>
+            <type>NUMERIC</type>
+        </fact>
+        <fact name="fact2">
+            <aggregateFuncList>
+                <aggregateFuncs>AVG</aggregateFuncs>
+                <aggregateFuncs>COUNT</aggregateFuncs>
+            </aggregateFuncList>
+            <type>NUMERIC</type>
+        </fact>
+    </factList>
+</starSchema>

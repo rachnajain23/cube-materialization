@@ -89,7 +89,7 @@ public class OLAPQueries {
     public List<String[]> rollup(HashMap<Attribute, String> hashmap) {
         Map<Attribute, String> map = new TreeMap<Attribute, String>(attributeComparator);
         map.putAll(hashmap);
-        String tableName = "";
+        String tableName = "c_";
         String attributes="";
         String sql="";
         for (Map.Entry<Attribute, String> entry : map.entrySet()) {
@@ -132,7 +132,7 @@ public class OLAPQueries {
     public List<String[]> sliceOrDice(HashMap<Attribute, String> hashmap, String condition) {
         Map<Attribute, String> map = new TreeMap<Attribute, String>(attributeComparator);
         map.putAll(hashmap);
-        String tableName = "";
+        String tableName = "c_";
         String attributes="";
         String facts="";
         for (Map.Entry<Attribute, String> entry : map.entrySet()) {
@@ -177,7 +177,7 @@ public class OLAPQueries {
 
 
     public static void main(String[] args) {
-        StarSchema starSchema = (new ReadWriteXmlFile()).readStarSchema("store");
+  /*      StarSchema starSchema = (new ReadWriteXmlFile()).readStarSchema("store");
         CuboidSpecManipulation obj = new CuboidSpecManipulation("store");
         CuboidSpecList cuboidSpecList = obj.showAvailableSpec("store");
         OLAPQueries qp = new OLAPQueries("store");
@@ -191,6 +191,21 @@ public class OLAPQueries {
 //        obj.checkConfigExist(map, "store");
         qp.rollup(map);
         qp.sliceOrDice(map, "customer_customer_id>2");
+*/
+        StarSchema starSchema = (new ReadWriteXmlFile()).readStarSchema("sample");
+        CuboidSpecManipulation obj = new CuboidSpecManipulation("sample");
+        CuboidSpecList cuboidSpecList = obj.showAvailableSpec("sample");
+        OLAPQueries qp = new OLAPQueries("sample");
+        HashMap<Attribute, String> map = new HashMap<Attribute, String>();
+        map.put(starSchema.getDimension().get(0).getAttributes().get(0), "d1");
+        map.put(starSchema.getDimension().get(0).getAttributes().get(1), "d1");
+        map.put(starSchema.getDimension().get(1).getAttributes().get(0), "d2");
+        map.put(starSchema.getDimension().get(1).getAttributes().get(2), "d2");
+//        map.put(starSchema.getDimension().get(0).getAttributes().get(3), "customer");
+        System.out.println(map.toString());
+//        obj.checkConfigExist(map, "store");
+        qp.rollup(map);
+        qp.sliceOrDice(map, "d1_d1_id>2");
 
     }
 }

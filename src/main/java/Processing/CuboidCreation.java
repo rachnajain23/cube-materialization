@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class CuboidCreation {
@@ -97,6 +98,7 @@ public class CuboidCreation {
                     selectCols.append(map.get(a) + "_" + a.getName() + ",");
                 }
             }
+            Collections.sort(l);
             for (Integer k : l)
                 cuboidName.append(k + "_");
             cuboidName.deleteCharAt(cuboidName.length() - 1);

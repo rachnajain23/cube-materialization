@@ -20,6 +20,8 @@ public class CuboidSpecManipulation {
     StarSchema schema;
     CuboidSpecList globalSpec;
     String schemaName;
+    private Comparator<Attribute> attributeComparator= Comparator.comparing(Attribute::getCode);
+
 
     public CuboidSpecManipulation(String schemaName) {
         this.schemaName = schemaName;
@@ -97,13 +99,18 @@ public class CuboidSpecManipulation {
         HashMap<String, ArrayList<Integer>> map = new HashMap<String, ArrayList<Integer>>();
         String specName = new String();
         ArrayList<Integer> l = new ArrayList<>();
+//        Map<Attribute, String> sortedMap = new TreeMap<Attribute, String>(attributeComparator);
+//        sortedMap.putAll(attributes);
         for (Map.Entry<Attribute,String> entry : attributes.entrySet()) {
             l.add(entry.getKey().getCode());
         }
+        System.out.println(l.toString());
         Collections.sort(l);
+//        System.out.println(l.toString());
         for (int i = 0; i < l.size(); i++)
             specName += l.get(i) + "_";
         specName = specName.substring(0, specName.length() - 1);
+        System.out.println(specName);
         return specName;
     }
 
