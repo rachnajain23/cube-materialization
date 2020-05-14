@@ -19,25 +19,30 @@ public class DatabaseSetup {
     Statement statement= null;
     Connection connection= null;
 
-    public void appendData(StarSchema starSchema, String filepath) {
+    public boolean appendData(StarSchema starSchema, String filepath) {
         try {
             connection = DBConnection.getConnection(starSchema.getName());
             statement = connection.createStatement();
             for (Dimension d : starSchema.getDimension())
                 populateTables(filepath, d.getName());
+            populateTables(filepath, "facts");
             statement.executeUpdate("DROP TABLE base");
             createBaseCuboid(starSchema);
             DBConnection.endConnection(connection);
+            return true;
         } catch (IOException io) {
             io.printStackTrace();
+            return false;
         } catch (SQLException sq) {
             sq.printStackTrace();
+            return false;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
 
-    public void addData(StarSchema starSchema, String filepath) {
+    public boolean addData(StarSchema starSchema, String filepath) {
         try {
             connection = DBConnection.getConnwithoutDB();
             statement = connection.createStatement();
@@ -45,10 +50,13 @@ public class DatabaseSetup {
             insertIntoDB(starSchema, filepath);
             createBaseCuboid(starSchema);
             DBConnection.endConnection(connection);
+            return true;
         } catch (SQLException sq) {
             sq.printStackTrace();
+            return false;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
 
     }
@@ -75,7 +83,7 @@ public class DatabaseSetup {
                 String sql= "CREATE TABLE "+ dimension.getName() + "("+ /*dimension.getName()+"_id VARCHAR(20)," +*/ attributeList.get(0).getName() +" VARCHAR(100)";
                 for(int i=1; i< attributeList.size(); ++i)
                     sql = sql + "," + attributeList.get(i).getName() + " VARCHAR(100)";
-                sql+=", PRIMARY KEY("+dimension.getName() + "_id));";
+                sql+=", PRIMARY KEY("+ attributeList.get(0).getName() + "));";
                 System.out.println(sql);//-----------------------------------
                 statement.executeUpdate(sql);
                 populateTables(filePath,dimension.getName());
@@ -160,7 +168,7 @@ public class DatabaseSetup {
         for (Dimension dimension: starSchema.getDimension()){
             String name= dimension.getName();
             String primaryKey= dimension.getAttributes().get(0).getName();
-            sql+="JOIN "+name+" ON facts."+primaryKey+"="+name+"."+primaryKey+" ";
+            sql+="JOIN "+name+" ON facts."+name+"_id"+"="+name+"."+primaryKey+" ";
             for (Attribute attribute: dimension.getAttributes()){
                 if(flag++==0)
                     sqlAttributes += name+"."+attribute.getName()+" "+name+"_"+attribute.getName()+" ";
