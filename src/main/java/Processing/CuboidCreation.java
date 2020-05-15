@@ -108,7 +108,6 @@ public class CuboidCreation {
             }
                 query = "CREATE TABLE " + cuboidName +  " SELECT " +
                     selectCols + ", " + factCols + " FROM base group by " + selectCols;
-                System.out.println(query);
             if(tables!= null && !tables.contains(cuboidName.toString())){
                 queries.add(query); // query list
                 newTables.add(cuboidName.toString());

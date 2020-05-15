@@ -3,6 +3,8 @@ package Processing;
 import Pojo.Enums.AggregateFunc;
 import Pojo.Enums.Type;
 import Pojo.Schema.*;
+import Pojo.Specs.CuboidSpecList;
+import Pojo.Specs.Spec;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -11,7 +13,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 public class DatabaseSetup {
 
@@ -28,8 +33,9 @@ public class DatabaseSetup {
             populateTables(filepath, "facts");
             statement.executeUpdate("DROP TABLE base");
             createBaseCuboid(starSchema);
+            boolean reg = regenerateCuboids(starSchema);
             DBConnection.endConnection(connection);
-            return true;
+            return reg;
         } catch (IOException io) {
             io.printStackTrace();
             return false;
@@ -184,6 +190,40 @@ public class DatabaseSetup {
             statement.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    private boolean regenerateCuboids(StarSchema starSchema) {
+        try {
+            boolean ans = true;
+            ReadWriteXmlFile rw= new ReadWriteXmlFile();
+            CuboidSpecList specList = (rw.readSpec(starSchema.getName()));
+            for (String table : specList.getTables()) {
+                System.out.println("Drop table" + table);
+                statement.executeUpdate("DROP TABLE " + table );
+            }
+            specList.setTables(new ArrayList<>());
+            rw.writeCuboidSpec(specList, starSchema.getName());
+            for(Spec s : specList.getSpeclist()) {
+                List<Integer> codes = s.getAttribute().stream().map(o -> o.getCode()).collect(toList());
+                boolean cuboidGen;
+                HashMap<Attribute, String> map = new HashMap<>();
+                for(Dimension d: starSchema.getDimension()) {
+                    for (Attribute arr : d.getAttributes()) {
+                        if (codes.contains(arr.getCode())){
+                            map.put(arr, d.getName());
+                        }
+                    }
+                }
+                System.out.println(map);
+                CuboidSpecManipulation cc = new CuboidSpecManipulation(starSchema.getName());
+                cuboidGen = cc.generateCuboidsFromAttr(map);
+                ans = ans && cuboidGen;
+            }
+            return ans;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
