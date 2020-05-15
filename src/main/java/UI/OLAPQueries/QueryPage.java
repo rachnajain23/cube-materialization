@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class QueryPage extends JFrame implements ActionListener {
-    JPanel tablePanel = new ScrollableTable();
+    ScrollableTable tablePanel = new ScrollableTable();
     JPanel textPanel = new JPanel();
     JPanel container = new JPanel();
     JPanel buttonPanel = new JPanel();
@@ -45,6 +45,7 @@ public class QueryPage extends JFrame implements ActionListener {
         schemaName = name;
         ReadWriteXmlFile readWriteXmlFile= new ReadWriteXmlFile();
         globalSchema = readWriteXmlFile.readStarSchema(name);
+
 
         dim = new ArrayList<Pojo.Schema.Dimension>();
         dim = globalSchema.getDimension();
@@ -230,21 +231,24 @@ public class QueryPage extends JFrame implements ActionListener {
 
             String oo  = String.valueOf(cb.getItemAt(cb.getSelectedIndex()));
 
-            if (oo == "Roll ip" ){
+            if (oo == "Roll Up" ){
+                System.out.println("roll up");
                 res = olapQueriesService.rollupService(hmap);
+                try {
+                    tablePanel.populateTable(res);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
             }
 
             if (oo == "Slice" || oo == "Dice"){
-               // res = olapQueriesService.sliceOrDiceService(hmap,condition.getText());
-            }
-
-            ScrollableTable s = new ScrollableTable();
-            try {
-                System.out.println(";;;;;;;;");
-                System.out.println(res);
-                s.populateTable(res);
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+                System.out.println("Slice or dice");
+                res = olapQueriesService.sliceOrDiceService(hmap,condition.getText());
+                try {
+                    tablePanel.populateTable(res);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
             }
         }
 
