@@ -56,7 +56,7 @@ public class NewCube extends JFrame implements ActionListener {
 
         tname = new JTextField();
         tname.setFont(new Font("Arial", Font.PLAIN, 15));
-        tname.setSize(190, 25);
+        tname.setSize(190, 30);
         tname.setLocation(320, 100);
         c.add(tname);
 
@@ -68,7 +68,7 @@ public class NewCube extends JFrame implements ActionListener {
 
         tdno = new JTextField();
         tdno.setFont(new Font("Arial", Font.PLAIN, 15));
-        tdno.setSize(190, 25);
+        tdno.setSize(190, 30);
         tdno.setLocation(320, 150);
         c.add(tdno);
 
@@ -140,7 +140,12 @@ public class NewCube extends JFrame implements ActionListener {
                 number_Dimension = Integer.parseInt(tdno.getText());
             } else {
                 JOptionPane.showMessageDialog(this, "Schema already exists with the same file name");
-
+                String def = "";
+                tname.setText(def);
+                tdno.setText(def);
+                //tfno.setText(def);
+                res.setText(def);
+                tout.setText(def);
             }
         }
 

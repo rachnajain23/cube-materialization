@@ -11,6 +11,7 @@ import java.util.Vector;
 public class ScrollableTable extends JPanel {
 
     JTable table;
+    JScrollPane pane;
     //private final DefaultTableModel tableModel = new DefaultTableModel();
     public ScrollableTable() {
         initializeUI();
@@ -18,7 +19,7 @@ public class ScrollableTable extends JPanel {
 
     public void initializeUI() {
         setLayout(new BorderLayout());
-        setPreferredSize(new Dimension(900, 300));
+        setPreferredSize(new Dimension(1100, 300));
 
         table = new JTable(30, 50);
 
@@ -26,7 +27,7 @@ public class ScrollableTable extends JPanel {
         // horizontal scroll bar.
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        JScrollPane pane = new JScrollPane(table);
+        pane = new JScrollPane(table);
         add(pane);
 
 
@@ -34,10 +35,13 @@ public class ScrollableTable extends JPanel {
 
     public void populateTable(ResultSet res) throws SQLException {
         table = new JTable(buildTableModel(res));
+        pane = new JScrollPane(table);
+        add(pane);
     }
 
     public static DefaultTableModel buildTableModel(ResultSet rs)
             throws SQLException {
+
 
         ResultSetMetaData metaData = rs.getMetaData();
 

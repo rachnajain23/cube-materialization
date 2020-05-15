@@ -5,6 +5,7 @@ import Pojo.Schema.Dimension;
 import Pojo.Schema.Fact;
 import Pojo.Schema.StarSchema;
 import Processing.DatabaseSetup;
+import Services.LoadDataService;
 import UI.SchemaCreation.FirstPage;
 import UI.SchemaCreation.NewCube;
 
@@ -82,11 +83,12 @@ public class AddFile extends JFrame implements ActionListener {
         String str1 = "";
         String str2 = "";
         String fc = "";
-        int y = 125;
-        //str1 = "File name:" + s.getName() + "\n";
+        int y = 140;
+        str1 = "File name: " + s.getName() + "\n";
         System.out.println(str1);
+        int t = 1;
         for (Dimension dimension : dim) {
-            str = "Sheet name:" + dimension.getName() + "   " + "Attribute in sequence: ";
+            str = "Sheet" +t+ " name: " + dimension.getName() + "   " + " Columns in sequence : ";
             //System.out.println(str + "\n" + "Attribute in sequence: ");
             java.util.List<Attribute> attributeList = dimension.getAttributes();
             JLabel l2 = new JLabel(str);
@@ -95,10 +97,10 @@ public class AddFile extends JFrame implements ActionListener {
             l2.setLocation(20, y);
             c.add(l2);
             int b = y + 20;
-            int a = 200;
+            int a = 250;
             for (Attribute attribute : attributeList) {
 
-                str2 = attribute.getName() + ",";
+                str2 = attribute.getName() + "";
                 System.out.print(str2);
                 JLabel l3 = new JLabel(str2);
                 l3.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -108,20 +110,41 @@ public class AddFile extends JFrame implements ActionListener {
                 a = a + 100;
             }
             y = y + 50;
+            t++;
+            System.out.println(t);
         }
-        int q = y + 40;
+        int q = y + 10;
+        String factsnames = "";
         for (Fact fact : facts) {
-            int p = 20;
-            fc = "Fact name:" + fact.getName() + " Type:" + fact.getType() + " Aggregate Functions:" + fact.getAggregateFuncs();
-            System.out.println("\n" + fc);
-            JLabel l4 = new JLabel(fc);
-            l4.setFont(new Font("Arial", Font.PLAIN, 15));
-            l4.setSize(890, 20);
-            l4.setLocation(p, q);
-            c.add(l4);
-            q = q + 25;
+            factsnames = factsnames + fact.getName() + "     ";
+            System.out.println("--------------");
+            System.out.println(factsnames);
+//            int p = 20;
+//            fc = "Fact name:" + fact.getName() + " Type:" + fact.getType() + " Aggregate Functions:" + fact.getAggregateFuncs();
+//            System.out.println("\n" + fc);
+//            JLabel l4 = new JLabel(fc);
+//            l4.setFont(new Font("Arial", Font.PLAIN, 15));
+//            l4.setSize(890, 20);
+//            l4.setLocation(p, q);
+//            c.add(l4);
+//            q = q + 25;
 
         }
+        String strr = "Sheet" + t + " name: facts " + "  Columns in sequence: ";
+        JLabel newfactsnames = new JLabel(strr);
+        newfactsnames.setFont(new Font("Arial", Font.PLAIN, 15));
+        newfactsnames.setSize(890, 20);
+        newfactsnames.setLocation(20, q);
+        c.add(newfactsnames);
+
+        q = q+21;
+        String strr1 = factsnames;
+        JLabel ll = new JLabel(strr1);
+        ll.setFont(new Font("Arial", Font.PLAIN, 15));
+        ll.setSize(890, 20);
+        ll.setLocation(250, q);
+        c.add(ll);
+
 
         JLabel l1 = new JLabel(str1);
         l1.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -203,15 +226,30 @@ public class AddFile extends JFrame implements ActionListener {
         if (com.equals("Upload")) {
 
             if (typeOfLoad == 1){
-                DatabaseSetup databaseSetup = new DatabaseSetup();
-                databaseSetup.addData(globalSchema, filepath);
+                LoadDataService lds = new LoadDataService();
+                boolean ans = lds.addDataService(globalSchema, filepath);
+                if(ans) {
+                    JOptionPane.showMessageDialog(this, "Successfully created new database!");
+                    this.setVisible(false);
+                    FirstPage f = new FirstPage();
+                    f.setVisible(true);
+                }
+                else
+                    JOptionPane.showMessageDialog(this, "Error in creating new database");
             }
             else{
-                DatabaseSetup databaseSetup = new DatabaseSetup();
-                databaseSetup.appendData(globalSchema, filepath);
+                LoadDataService lds = new LoadDataService();
+                boolean ans = lds.appendDataService (globalSchema, filepath);
+                if(ans) {
+                    JOptionPane.showMessageDialog(this, "Successfully updated database!");
+                    this.setVisible(false);
+                    FirstPage f = new FirstPage();
+                    f.setVisible(true);
+                }
+                else
+                    JOptionPane.showMessageDialog(this, "Error in updating database");
             }
-            //call the datacreation function
-            l.setText("Successfully uploaded file.");
+            l.setText("");
         }
         if (com.equals("Create other star schema?")) {
             this.setVisible(false);

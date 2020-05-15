@@ -101,7 +101,7 @@ public class FirstPage extends JFrame implements ActionListener {
             this.setVisible(false);
             try {
                 GenFirst genFirst = new GenFirst();
-                genFirst.setBounds(300,90,900, 600);
+                genFirst.setBounds(300,90,900, 500);
                 genFirst.setVisible(true);
             } catch (IOException ioException) {
                 ioException.printStackTrace();

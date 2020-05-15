@@ -1,8 +1,6 @@
 package UI.LoadData;
 
-import Pojo.Schema.Attribute;
 import Pojo.Schema.StarSchema;
-import Processing.CuboidSpecManipulation;
 import Processing.ReadWriteXmlFile;
 import Processing.SchemaCreation;
 
@@ -11,7 +9,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.HashMap;
 
 public class addFileFirst extends JFrame implements ActionListener {
     JFrame f;
@@ -61,12 +58,12 @@ public class addFileFirst extends JFrame implements ActionListener {
         textPanel.add(cb);
 
         b = new JButton("Create New Database");
-        b.setBounds(150, 400, 250, 20);
+        b.setBounds(150, 400, 250, 30);
         textPanel.add(b);
         b.addActionListener(this);
 
         c = new JButton("Update Database");
-        c.setBounds(500, 400, 250, 20);
+        c.setBounds(500, 400, 250, 30);
         textPanel.add(c);
         c.addActionListener(this);
     }
@@ -78,8 +75,6 @@ public class addFileFirst extends JFrame implements ActionListener {
             ReadWriteXmlFile readWriteXmlFile= new ReadWriteXmlFile();
             StarSchema schema = readWriteXmlFile.readStarSchema(data);
 
-            //todo send the schema name and get star schema object
-            //pass to QueryPage the object
             int type = 1;
             this.setVisible(false);
             AddFile addFile = new AddFile(schema,type);
@@ -93,9 +88,6 @@ public class addFileFirst extends JFrame implements ActionListener {
             ReadWriteXmlFile readWriteXmlFile= new ReadWriteXmlFile();
             StarSchema schema = readWriteXmlFile.readStarSchema(data);
 
-            //todo send the schema name and get star schema object
-
-            //pass to QueryPage the object
             int type = 2;
             this.setVisible(false);
             AddFile addFile = new AddFile(schema,type);

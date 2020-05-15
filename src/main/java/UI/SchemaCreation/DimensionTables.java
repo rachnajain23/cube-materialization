@@ -76,13 +76,13 @@ public class DimensionTables
 
         tdname = new JTextField();
         tdname.setFont(new Font("Arial", Font.PLAIN, 15));
-        tdname.setSize(190, 25);
+        tdname.setSize(190, 30);
         tdname.setLocation(320, 150);
         c.add(tdname);
 
         fno = new JLabel("Number of Attributes");
         fno.setFont(new Font("Arial", Font.PLAIN, 15));
-        fno.setSize(290, 25);
+        fno.setSize(290, 30);
         fno.setLocation(100, 200);
         c.add(fno);
 
@@ -115,7 +115,7 @@ public class DimensionTables
                 y = 300;
             }
             jt[i] = new JTextField();
-            jt[i].setBounds(x, y, 100, 30);
+            jt[i].setBounds(x, y, 150, 30);
             add(jt[i]);
             repaint();
             y = y + 50;
@@ -135,8 +135,15 @@ public class DimensionTables
             enteredValue.setLocation(100, 250);
             c.add(enteredValue);
 
+            JLabel v = new JLabel("Please enter your primary key as the first attribute.");
+            v.setFont(new Font("Arial", Font.PLAIN, 17));
+            v.setSize(700, 20);
+            v.setLocation(100, 271);
+            c.add(v);
+
             number_attri = Integer.parseInt(tfno.getText());
             insert(number_attri);
+            sub.setEnabled(false);
 
         }
 

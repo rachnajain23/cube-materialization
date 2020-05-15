@@ -1,18 +1,15 @@
 package UI.CuboidSpecification;
 
-import UI.SchemaCreation.FirstPage;
 import Pojo.Schema.Attribute;
-import Pojo.Schema.StarSchema;
-import Processing.CuboidSpecManipulation;
+import Services.CuboidSpecService;
 import UI.SchemaCreation.FirstPage;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.*;
-
-import javax.swing.*;
 
 public class GenSecond extends JFrame implements ActionListener {
     private JList leftlist;
@@ -26,6 +23,7 @@ public class GenSecond extends JFrame implements ActionListener {
     String schemaName;
     JLabel customName;
     JTextField customSchemaName;
+    CuboidSpecService cs;
 
 
     public GenSecond(String s) {
@@ -35,8 +33,8 @@ public class GenSecond extends JFrame implements ActionListener {
 
         setLayout(new FlowLayout(FlowLayout.CENTER,80,50));
 
-         CuboidSpecManipulation cc = new CuboidSpecManipulation(schemaName);
-         LinkedHashMap<Attribute, String> attr = cc.getAttributes();
+        cs = new CuboidSpecService(schemaName);
+        LinkedHashMap<Attribute, String> attr = cs.getAttributesService();
 
          available = new DefaultListModel();
          selected = new DefaultListModel();
@@ -75,17 +73,17 @@ public class GenSecond extends JFrame implements ActionListener {
 
 
 
-        customName = new JLabel("   Enter the name of the config  ");
+        customName = new JLabel("Enter the name of the specification");
         add(customName);
 
 
-        JLabel blank = new JLabel("                   ");
+        JLabel blank = new JLabel("          ");
         add(blank);
 
         customSchemaName = new JTextField(18);
         add(customSchemaName);
 
-        createConfig = new JButton("Create Config");
+        createConfig = new JButton("Create specification");
         createConfig.addActionListener(this);
         add(createConfig);
 
@@ -133,13 +131,12 @@ public class GenSecond extends JFrame implements ActionListener {
                 System.out.println("Item = " + item);
             }
 
-            CuboidSpecManipulation x = new CuboidSpecManipulation(schemaName);
-            String message = x.checkConfigExist(newMap);
+            String message = cs.checkConfigExistService(newMap);
             if(message.equalsIgnoreCase("Ready to create spec")){
 
                 System.out.println(customSchemaName.getText());
                 System.out.println(newMap);
-                boolean ans = x.writeSpec(newMap,customSchemaName.getText());
+                boolean ans = cs.writeSpecService(newMap,customSchemaName.getText());
 
                 if(ans){
                     JOptionPane.showMessageDialog(this, "Successfully generated Lattice of Cuboid");

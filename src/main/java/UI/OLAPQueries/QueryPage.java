@@ -27,18 +27,18 @@ public class QueryPage extends JFrame implements ActionListener {
     StarSchema globalSchema = new StarSchema();
     OLAPQueriesService olapQueriesService;
     static JLabel l;
-    JTextField condition;
+    static JTextField condition;
     JCheckBox check;
     String schemaName;
     ArrayList<Pojo.Schema.Dimension> dim;
-    List<JCheckBox> cbarr = new ArrayList<JCheckBox>();
+    List<customObject> customObjectList = new ArrayList<customObject>();
     java.util.List<Attribute> attributeList;
     JButton clear;
     JButton execute;
     JButton exit;
     JButton home;
-    HashMap<Attribute,String> queryMap;
-    List<String[]> res;
+    ResultSet res;
+    static JLabel z;
 
     public QueryPage(String name){
 
@@ -53,15 +53,15 @@ public class QueryPage extends JFrame implements ActionListener {
         addToButtonPanel();
         showFrame();
 
-        //olapQueriesService = new OLAPQueriesService("schemaname")
+        olapQueriesService = new OLAPQueriesService(schemaName);
 
 
     }
 
     public void showFrame() {
         textPanel.setLayout(null);
-        textPanel.setPreferredSize(new Dimension(900, 350));
-        buttonPanel.setPreferredSize(new Dimension(900, 50));
+        textPanel.setPreferredSize(new Dimension(1100, 350));
+        buttonPanel.setPreferredSize(new Dimension(1100, 50));
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
         container.add(textPanel, BorderLayout.NORTH);
         container.add(tablePanel);
@@ -91,12 +91,21 @@ public class QueryPage extends JFrame implements ActionListener {
 
 
         l = new JLabel("Sample Query Here");
-        l.setBounds(10,80,800,25);
+        l.setBounds(10,80,1100,25);
         textPanel.add(l);
+
+        z = new JLabel(" ");
+        z.setBounds(10,240,400,20);
+        textPanel.add(z);
+
+        condition = new JTextField();
+        condition.setBounds(10,280,0,0);
+        textPanel.add(condition);
 
         int v = 130;
         int p = 130;
-        for (Pojo.Schema.Dimension dimension : dim){
+        customObject o;
+            for (Pojo.Schema.Dimension dimension : dim){
             JLabel l1 = new JLabel(dimension.getName());
             l1.setBounds(10,v,100,20);
             textPanel.add(l1);
@@ -107,13 +116,12 @@ public class QueryPage extends JFrame implements ActionListener {
             for (Attribute attribute : attributeList) {
                 System.out.println(attribute.getName());
                 check = new JCheckBox(attribute.getName());
-
                 check.setFont(new Font("Arial", Font.PLAIN, 15));
                 check.setBounds(x, p, 120, 20);
                 textPanel.add(check);
                 x = x + 120;
-                cbarr.add(check);
-                check.addActionListener(this);
+                o = new customObject(attribute,dimension.getName(),check);
+                customObjectList.add(o);
             }
             p = p+40;
 
@@ -121,125 +129,85 @@ public class QueryPage extends JFrame implements ActionListener {
         JLabel z = new JLabel("Write the condition for SLICE or DICE Query below: ");
         z.setSize(400, 20);
         z.setLocation(10, 240);
-        textPanel.add(z);
-
-        System.out.println("ppppp");
-        System.out.println(cbarr);
         condition = new JTextField();
         condition.setSize(600,30);
         condition.setLocation(10,280);
-        textPanel.add(condition);
+        if (cb.getItemAt(cb.getSelectedIndex()) == "Roll Up")
+        {
+              System.out.println("rollup selected");
+        }
+        else {
+            textPanel.add(z);
+            textPanel.add(condition);
+        }
 
 
 
-//        for (Map.Entry<Attribute, String> entry : map.entrySet()){
-//            JLabel l1 = new JLabel(entry.getValue());
-//            l1.setBounds(10,v,100,20);
-//            textPanel.add(l1);
-//            v = v + 40;
-//        }
-//        Set<String> keys = new HashSet<String>();
-//        for (Map.Entry<Attribute, String> entry : map.entrySet()) {
-//            if (Objects.equals("dim1", entry.getValue())) {
-//                keys.add((entry.getKey()).getName());
-//            }
-//        }
-//        System.out.println("aaaaaaaaa");
-//        System.out.println(keys);
-//
-//        Iterator<String> i = keys.iterator();
-//        int x = 200;
-//        while (i.hasNext()) {
-//
-//            // System.out.println(i.next());
-//            System.out.println("yes");
-//            check = new JCheckBox(i.next());
-//            check.setFont(new Font("Arial", Font.PLAIN, 15));
-//            check.setBounds(x, 100, 100, 20);
-//            textPanel.add(check);
-//            x = x + 120;
-//            check.addActionListener(this);
-//        }
-//
-//        Set<String> keys1 = new HashSet<String>();
-//        for (Map.Entry<Attribute, String> entry : map.entrySet()) {
-//            if (Objects.equals("dim2", entry.getValue())) {
-//                keys1.add((entry.getKey()).getName());
-//            }
-//        }
-//        System.out.println("aaaaaaaaa");
-//        System.out.println(keys1);
-//
-//        Iterator<String> i1 = keys1.iterator();
-//        int x1 = 200;
-//        while (i1.hasNext()) {
-//
-//            // System.out.println(i1.next());
-//            System.out.println("yes");
-//            check = new JCheckBox(i1.next());
-//            check.setFont(new Font("Arial", Font.PLAIN, 15));
-//            check.setBounds(x1, 140, 100, 20);
-//            textPanel.add(check);
-//            x1 = x1 + 120;
-//            check.addActionListener(this);
-//        }
+        execute = new JButton("Execute Query");
+        execute.setSize(150, 30);
+        execute.setLocation(830,280);
+        textPanel.add(execute);
+        execute.addActionListener(this);
     }
 
     // add stuff to button panel
     public void addToButtonPanel() {
         clear = new JButton("New Query");
-        clear.setSize(70, 20);
+        clear.setSize(70, 30);
         buttonPanel.add(clear);
         clear.addActionListener(this);
 
-        execute = new JButton("Execute Query");
-        execute.setSize(70, 20);
-        buttonPanel.add(execute);
-        execute.addActionListener(this);
-
         JLabel k = new JLabel("              ");
-        buttonPanel.add(k);
+       // buttonPanel.add(k);
 
         exit = new JButton("Exit");
-        exit.setSize(50, 20);
+        exit.setSize(50, 30);
         buttonPanel.add(exit);
         exit.addActionListener(this);
 
         home = new JButton("Go to Homepage");
-        home.setSize(100, 20);
+        home.setSize(100, 30);
         buttonPanel.add(home);
         home.addActionListener(this);
 
     }
 
-//    public HashMap<Attribute,String> getMap(ArrayList attr){
-//
-//        HashMap<Attribute,String> map = new HashMap<>();
-//        for (int counter = 0; counter < attr.size(); counter++) {
-//            System.out.println(attr.get(counter));
-//
-//        }
-//        return  map;
-//    }
     public void actionPerformed(ActionEvent e){
 
         if(e.getSource() == b){
             //todo for every dimension (label) create checkboxes of its attributes
             if(cb.getItemAt(cb.getSelectedIndex()) == "Roll Up"){
-                l.setText("hello roll up");
                 System.out.println("inside roll up option");
                 String sampleQuery = olapQueriesService.getSampleQueryService(OLAPOperation.ROLL_UP);
                 l.setText("Sample Query :" + sampleQuery);
+                z.setText("   ");
+                condition.setBounds(10,280,0,0);
+                textPanel.add(z);
+                textPanel.add(condition);
+                textPanel.revalidate();
+                textPanel.repaint();
             }
             if(cb.getItemAt(cb.getSelectedIndex()) == "Slice"){
-                l.setText("helloo slice ");
                 String sampleQuery = olapQueriesService.getSampleQueryService(OLAPOperation.SLICE);
                 l.setText("Sample Query :" + sampleQuery);
+                z.setText("Write the condition for SLICE or DICE Query below: ");
+                condition.setSize(600,30);
+                condition.setLocation(10,280);
+                textPanel.add(z);
+                textPanel.add(condition);
+                textPanel.revalidate();
+                textPanel.repaint();
             }
             if(cb.getItemAt(cb.getSelectedIndex()) == "Dice"){
-                l.setText("helloo dice ");
                 String sampleQuery = olapQueriesService.getSampleQueryService(OLAPOperation.DICE);
                 l.setText("Sample Query :" + sampleQuery);
+                z.setText("Write the condition for SLICE or DICE Query below: ");
+                condition.setSize(600,30);
+                condition.setLocation(10,280);
+                textPanel.add(z);
+                textPanel.add(condition);
+                textPanel.revalidate();
+                textPanel.repaint();
             }
 
         }
@@ -251,30 +219,30 @@ public class QueryPage extends JFrame implements ActionListener {
 
         if(e.getSource() == execute){
 
-            System.out.println("--------");
-            ArrayList<String> attrname = new ArrayList<>();
-            for (JCheckBox jCheckBox : cbarr)
-            {
-                if (jCheckBox.isSelected()) {
-                    attrname.add(jCheckBox.getText());
+            HashMap<Attribute,String> hmap= new HashMap<>();
+            for (customObject object : customObjectList){
+                if(object.getCheckbox().isSelected()){
+                    hmap.put(object.getAttribute(),object.getName());
                 }
-
             }
-            System.out.println(attrname);
+            System.out.println("pppppp");
+            System.out.println(hmap);
 
-            OLAPOperation o  = (OLAPOperation) cb.getItemAt(cb.getSelectedIndex());
+            String oo  = String.valueOf(cb.getItemAt(cb.getSelectedIndex()));
 
-            if (o == OLAPOperation.ROLL_UP){
-                res = olapQueriesService.rollupService(queryMap);
+            if (oo == "Roll ip" ){
+                res = olapQueriesService.rollupService(hmap);
             }
 
-            if (o == OLAPOperation.DICE || o == OLAPOperation.SLICE){
-                res = olapQueriesService.sliceOrDiceService(queryMap,condition.getText());
+            if (oo == "Slice" || oo == "Dice"){
+               // res = olapQueriesService.sliceOrDiceService(hmap,condition.getText());
             }
 
             ScrollableTable s = new ScrollableTable();
             try {
-                s.populateTable((ResultSet) res);
+                System.out.println(";;;;;;;;");
+                System.out.println(res);
+                s.populateTable(res);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -299,6 +267,27 @@ public class QueryPage extends JFrame implements ActionListener {
         }
     }
 
+}
+class customObject{
+    private Attribute attribute;
+    private String name;
+    private JCheckBox checkbox;
+
+    customObject(Attribute attribute, String name, JCheckBox checkbox){
+        this.attribute = attribute;
+        this.name = name;
+        this.checkbox = checkbox;
+    }
+    public Attribute getAttribute() {
+        return attribute;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public JCheckBox getCheckbox() {return  checkbox;
+    }
 }
 
 

@@ -1,10 +1,10 @@
 package Services;
 
-import Pojo.Schema.Attribute;
-import Pojo.Specs.CuboidSpecList;
 import Pojo.Enums.OLAPOperation;
+import Pojo.Schema.Attribute;
 import Processing.OLAPQueries;
 
+import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class OLAPQueriesService {
     }
 
     // Function is taking Hashmap<Attribute, String> of only those attributes on which rollup has to be done. Return type is List<String[]>
-    public List<String[]> rollupService(HashMap<Attribute, String> hashmap){
+    public ResultSet rollupService(HashMap<Attribute, String> hashmap){
         return olapQueries.rollup(hashmap);
     }
 
