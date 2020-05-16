@@ -7,7 +7,6 @@ import Pojo.Schema.StarSchema;
 import Processing.DatabaseSetup;
 import Services.LoadDataService;
 import UI.SchemaCreation.FirstPage;
-import UI.SchemaCreation.NewCube;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -16,6 +15,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 public class AddFile extends JFrame implements ActionListener {
 
@@ -84,6 +84,7 @@ public class AddFile extends JFrame implements ActionListener {
         String str2 = "";
         String fc = "";
         int y = 140;
+        List<String> firstAttrNameOfAllDim = new ArrayList<>();
         str1 = "File name: " + s.getName() + "\n";
         System.out.println(str1);
         int t = 1;
@@ -98,6 +99,7 @@ public class AddFile extends JFrame implements ActionListener {
             c.add(l2);
             int b = y + 20;
             int a = 250;
+            int g = 1;
             for (Attribute attribute : attributeList) {
 
                 str2 = attribute.getName() + "";
@@ -108,6 +110,10 @@ public class AddFile extends JFrame implements ActionListener {
                 l3.setLocation(a, b);
                 c.add(l3);
                 a = a + 100;
+                if(g == 1){
+                    firstAttrNameOfAllDim.add(attribute.getName());
+                }
+                g++;
             }
             y = y + 50;
             t++;
@@ -119,19 +125,13 @@ public class AddFile extends JFrame implements ActionListener {
             factsnames = factsnames + fact.getName() + "     ";
             System.out.println("--------------");
             System.out.println(factsnames);
-//            int p = 20;
-//            fc = "Fact name:" + fact.getName() + " Type:" + fact.getType() + " Aggregate Functions:" + fact.getAggregateFuncs();
-//            System.out.println("\n" + fc);
-//            JLabel l4 = new JLabel(fc);
-//            l4.setFont(new Font("Arial", Font.PLAIN, 15));
-//            l4.setSize(890, 20);
-//            l4.setLocation(p, q);
-//            c.add(l4);
-//            q = q + 25;
-
+        }
+        String rr="";
+        for(int z=0;z<firstAttrNameOfAllDim.size();z++){
+                rr = rr + "    " + firstAttrNameOfAllDim.get(z);
         }
         String strr = "Sheet" + t + " name: facts " + "  Columns in sequence: ";
-        JLabel newfactsnames = new JLabel(strr);
+        JLabel newfactsnames = new JLabel( strr);
         newfactsnames.setFont(new Font("Arial", Font.PLAIN, 15));
         newfactsnames.setSize(890, 20);
         newfactsnames.setLocation(20, q);
@@ -139,10 +139,10 @@ public class AddFile extends JFrame implements ActionListener {
 
         q = q+21;
         String strr1 = factsnames;
-        JLabel ll = new JLabel(strr1);
+        JLabel ll = new JLabel(rr + "    " + strr1);
         ll.setFont(new Font("Arial", Font.PLAIN, 15));
         ll.setSize(890, 20);
-        ll.setLocation(250, q);
+        ll.setLocation(231, q);
         c.add(ll);
 
 
@@ -167,26 +167,7 @@ public class AddFile extends JFrame implements ActionListener {
         home.addActionListener(this);
         c.add(home);
 
-        JButton manipulate = new JButton("Generate Lattice of cuboid?");
-        manipulate.setFont(new Font("Arial", Font.PLAIN, 15));
-        manipulate.setSize(250, 20);
-        manipulate.setLocation(285, 500);
-        manipulate.addActionListener(this);
-       // c.add(manipulate);
 
-        JButton create = new JButton("Create other star schema?");
-        create.setFont(new Font("Arial", Font.PLAIN, 15));
-        create.setSize(250, 20);
-        create.setLocation(10, 500);
-        create.addActionListener(this);
-       // c.add(create);
-
-        JButton queries = new JButton("Run OLAP Queries");
-        queries.setFont(new Font("Arial", Font.PLAIN, 15));
-        queries.setSize(250, 20);
-        queries.setLocation(565, 500);
-        queries.addActionListener(this);
-       // c.add(queries);
 
         //this.setVisible(true);
 
@@ -251,21 +232,7 @@ public class AddFile extends JFrame implements ActionListener {
             }
             l.setText("");
         }
-        if (com.equals("Create other star schema?")) {
-            this.setVisible(false);
-            //System.out.println("inside button manipulate");
-            NewCube obj = new NewCube();
-            obj.setVisible(true);
-        }
-        if (com.equals("Generate Lattice of cuboid?")) {
-            //this.setVisible(false);
-            System.out.println("inside button latticeofcuboid");
 
-        }
-        if (com.equals("Run OLAP Queries")) {
-            //this.setVisible(false);
-            System.out.println("inside button olap queries");
-        }
     }
 }
 

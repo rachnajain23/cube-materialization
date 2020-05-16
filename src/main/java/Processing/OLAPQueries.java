@@ -143,8 +143,8 @@ public class OLAPQueries {
         }
         try {
             ResultSet resultSet = executeQuery(sql, schemaName);
+            return  resultSet;
             //return getResult(resultSet);
-            return resultSet;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -152,9 +152,9 @@ public class OLAPQueries {
     }
 
 
-    // Fuction is taking Hashmap<Attribute, String> of only those attributes on which slice/dice has to be done. Return type is List<String[]>
+    // Function is taking Hashmap<Attribute, String> of only those attributes on which slice/dice has to be done. Return type is List<String[]>
     //attribute inside the condition has to be written as dimensionName_attributeName.
-    public List<String[]> sliceOrDice(HashMap<Attribute, String> hashmap, String condition) {
+    public ResultSet sliceOrDice(HashMap<Attribute, String> hashmap, String condition) {
         Map<Attribute, String> map = new TreeMap<Attribute, String>(attributeComparator);
         map.putAll(hashmap);
         String tableName = "c_";
@@ -192,7 +192,8 @@ public class OLAPQueries {
         }
         try {
             ResultSet resultSet = executeQuery(sql,schemaName);
-            return getResult(resultSet);
+            //return getResult(resultSet);
+            return resultSet;
         } catch (SQLException e) {
             e.printStackTrace();
         }

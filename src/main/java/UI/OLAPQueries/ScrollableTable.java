@@ -12,7 +12,9 @@ public class ScrollableTable extends JPanel {
 
     JTable table;
     JScrollPane pane;
-    //private final DefaultTableModel tableModel = new DefaultTableModel();
+    Vector<String> columnNames;
+
+
     public ScrollableTable() {
         initializeUI();
     }
@@ -23,24 +25,14 @@ public class ScrollableTable extends JPanel {
 
         table = new JTable(30, 50);
 
-        // Turn off JTable's auto resize so that JScrollPane will show a
-        // horizontal scroll bar.
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
         pane = new JScrollPane(table);
         add(pane);
-
-
     }
 
-    public void populateTable(ResultSet res) throws SQLException {
-        table = new JTable(buildTableModel(res));
-        pane = new JScrollPane(table);
-        add(pane);
-    }
-
-    public static DefaultTableModel buildTableModel(ResultSet rs)
-            throws SQLException {
+    public void populateTable(ResultSet rs) throws SQLException {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
 
 
         ResultSetMetaData metaData = rs.getMetaData();
@@ -62,7 +54,12 @@ public class ScrollableTable extends JPanel {
             data.add(vector);
         }
 
-        return new DefaultTableModel(data, columnNames);
+
+        model.setDataVector(data, columnNames);
+        for (int column = 0; column < table.getColumnCount(); column++){
+            table.getColumnModel().getColumn(column).setPreferredWidth(150);
+        }
 
     }
+
 }

@@ -6,7 +6,6 @@ import Processing.OLAPQueries;
 
 import java.sql.ResultSet;
 import java.util.HashMap;
-import java.util.List;
 
 public class OLAPQueriesService {
 
@@ -28,7 +27,7 @@ public class OLAPQueriesService {
 
     /*Function is taking Hashmap<Attribute, String> of only those attributes on which slice/dice has to be done. Return type is List<String[]>
     attribute inside the condition has to be written as dimensionName_attributeName.*/
-    public List<String[]> sliceOrDiceService(HashMap<Attribute, String> hashmap, String condition){
+    public ResultSet sliceOrDiceService(HashMap<Attribute, String> hashmap, String condition){
         return olapQueries.sliceOrDice(hashmap,condition);
     }
 
