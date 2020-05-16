@@ -233,6 +233,7 @@ public class QueryPage extends JFrame implements ActionListener {
 
             if (oo == "Roll Up" ){
                 System.out.println("roll up");
+                System.out.println(hmap.isEmpty());
                 res = olapQueriesService.rollupService(hmap);
                 try {
                     tablePanel.populateTable(res);

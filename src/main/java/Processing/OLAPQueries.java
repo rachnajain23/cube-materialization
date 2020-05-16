@@ -108,7 +108,7 @@ public class OLAPQueries {
 
     // Fuction is taking Hashmap<Attribute, String> of only those attributes on which rollup has to be done. Return type is List<String[]>
     public ResultSet rollup(HashMap<Attribute, String> hashmap) {
-        if(hashmap==null){
+        if(hashmap.isEmpty()){
             return calculateApex();
         }
         Map<Attribute, String> map = new TreeMap<Attribute, String>(attributeComparator);
