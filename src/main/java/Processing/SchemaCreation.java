@@ -15,6 +15,8 @@ public class SchemaCreation {
     public boolean doesSchemaExist(String name) throws IOException {
         name=generateName(name);
         String arr[]= getSchemaList();
+        if(arr==null)
+            return false;
         for(String s: arr)
             if(s.equals(name))
                 return true;

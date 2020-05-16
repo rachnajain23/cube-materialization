@@ -56,6 +56,7 @@ public class OLAPQueries {
         return statement.executeQuery(query);
     }
 
+
     public List<String[]> getResult(ResultSet resultset) throws SQLException {
         System.out.println("generating result");
         ResultSetMetaData metaData = resultset.getMetaData();
@@ -85,8 +86,31 @@ public class OLAPQueries {
     }
 
 
+
+    public ResultSet calculateApex(){
+        String sql="SELECT";
+        for( Fact fact: starSchema.getFact()){
+            for(AggregateFunc aggregateFunc: fact.getAggregateFuncs()){
+                sql+= " "+aggregateFunc.toString()+"("+ fact.getName()+"),";
+            }
+        }
+        sql= sql.substring(0, sql.length()-1);
+        sql+=" FROM base;";
+        try {
+//            ResultSet resultSet = executeQuery(sql, schemaName);
+//            getResult(resultSet);
+            return executeQuery(sql, schemaName);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     // Fuction is taking Hashmap<Attribute, String> of only those attributes on which rollup has to be done. Return type is List<String[]>
     public ResultSet rollup(HashMap<Attribute, String> hashmap) {
+        if(hashmap==null){
+            return calculateApex();
+        }
         Map<Attribute, String> map = new TreeMap<Attribute, String>(attributeComparator);
         map.putAll(hashmap);
         String tableName = "c_";
@@ -207,6 +231,7 @@ public class OLAPQueries {
 //        obj.checkConfigExist(map, "store");
         qp.rollup(map);
         qp.sliceOrDice(map, "d1_d1_id>2");
+        qp.rollup(null);
 
     }
 }
